@@ -33,14 +33,14 @@ public class ImageService {
         );
     }
 
-    public ImageModel getImage(long imageId) {
+    public ImageModel findById(long imageId) {
         return repository.findById(imageId)
                 .orElseThrow(() -> new EntityNotFoundException("Image with id " + imageId + " not found"));
     }
 
 
     public ImageDTO getImageDTO(long imageId) {
-        return getDTO(getImage(imageId));
+        return getDTO(findById(imageId));
     }
 
 

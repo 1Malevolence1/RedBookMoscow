@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,7 +32,7 @@ public class RequestEntryDTO {
     private String sourcesOfInformation;
     private String authors;
 
-    private ImageDTO image;
+    private List<ImageDTO> data;
     private String view;// image dto in json format
 
 }

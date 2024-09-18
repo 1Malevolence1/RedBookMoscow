@@ -11,5 +11,5 @@ public class ResponseEntryDTOFourFields {
     private Long id;
     private String name;
     private String latinName;
-    private long data;
+    private String data;
 }

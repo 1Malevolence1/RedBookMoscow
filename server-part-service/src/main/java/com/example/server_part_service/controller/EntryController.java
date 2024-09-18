@@ -21,7 +21,6 @@ public class EntryController {
     @Autowired
     private EntryService service;
 
-
     @GetMapping("/all")
     public ResponseEntity<List<ResponseEntryDTOFourFields>> getListEntryForMainPage(){
         return ResponseEntity.ok().body(service.findAllPreview());
@@ -34,22 +33,27 @@ public class EntryController {
 
     @GetMapping("/{entryId:\\d+}")
     public ResponseEntity<ResponseEntryDTO> get(@PathVariable(name = "entryId") Long entryId) {
-        return new ResponseEntity<>(service.getDtoById(entryId), HttpStatus.valueOf(200));
+        return new ResponseEntity<>(service.getDtoById(entryId), HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<ResponseEntryDTO> post(@RequestBody RequestEntryDTO dto) {
-        log.info("СМОТРИ СЮДА ->>>>>>>>>>>>>>>>>{}", dto);
-        ResponseEntryDTO responseEntryDTO = service.converterModelToResponseDto(service.saveModel(service.converterDtoToModel(dto)));
-        return new ResponseEntity<>(responseEntryDTO, HttpStatus.valueOf(201));
+        try {
+            log.info("СМОТРИ СЮДА ->>>>>>>>>>>>>>>>>{}", dto);
+            ResponseEntryDTO responseEntryDTO = service.converterModelToResponseDto(service.saveModel(service.converterDtoToModel(dto)));
+            return new ResponseEntity<>(responseEntryDTO, HttpStatus.OK);
+        } catch (Exception e) {
+            log.info("\n--------------\nerror in post entry!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+        }
+        return ResponseEntity.ok(null);
     }
     @PutMapping
     public ResponseEntity<ResponseEntryDTO> put( RequestEntryDTO dto) {
         ResponseEntryDTO responseEntryDTO = service.converterModelToResponseDto(service.updateModel(service.converterDtoToModel(dto)));
-        return new ResponseEntity<>(responseEntryDTO, HttpStatus.valueOf(202));
+        return new ResponseEntity<>(responseEntryDTO, HttpStatus.valueOf(200));
     }
     @DeleteMapping()
     public ResponseEntity<Void> delete() {
        service.deleteAll();
-        return new ResponseEntity<>(HttpStatus.valueOf(204));
+        return ResponseEntity.ok().build();
     }
 }

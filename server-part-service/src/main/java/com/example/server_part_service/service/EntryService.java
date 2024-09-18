@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +25,8 @@ public class EntryService {
     private EntryRepository entryRepository;
     @Autowired
     private ViewService viewService;
+    @Autowired
+    private ImageService imageService;
 
     public EntryModel getModelById(long entryId) {
         return entryRepository.findById(entryId)
@@ -121,7 +124,7 @@ public class EntryService {
                     dto.setId((Long) row[0]);
                     dto.setName((String) row[1]);
                     dto.setLatinName((String) row[2]);
-                    dto.setData((Long) row[3]); // Преобразование data, предполагается, что это long
+                    dto.setData(getImageDataInBase64(imageService.findById((Long) row[3]))); // Преобразование data, предполагается, что это long
                     return dto;
                 })
                 .collect(Collectors.toList());
