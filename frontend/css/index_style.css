@@ -9,46 +9,35 @@ header {
     background-color: #004d00;
     color: #fff;
     padding: 1rem;
+    font-size: 1.5rem;
     text-align: center;
-}
-
-header h1 {
-    margin: 0;
 }
 
 .highlight {
     color: rgb(255, 255, 255);
-    transition: color 1s ease-in-out; 
+    transition: color 1s ease-in-out;
 }
 
 .highlight:hover {
     color: rgb(173, 0, 0); 
 }
 
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 1rem;
-}
-
-nav ul li a {
+#about {
     color: #fff;
     text-decoration: none;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
-nav ul li a:hover {
-    text-decoration: underline;
+#about:hover {
+    text-decoration: none;
 }
 
 main {
     padding: 2rem;
 }
 
-.search-filter {
+#menu {
     background-color: #e0e0e0;
     padding: 1rem;
     display: flex;
