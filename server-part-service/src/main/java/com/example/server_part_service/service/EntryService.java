@@ -92,10 +92,10 @@ public class EntryService {
                 dto.getChangesInStatusOfSpecies(),
                 dto.getNeededConservationActions(),
                 dto.getSourcesOfInformation(),
-                dto.getAuthors(),null
+                dto.getAuthors(), ImageService.convertDTOToImageModel(dto.getImage())
         );
     }
- //  ImageService.convertDTOToImageModel(dto.getImageDTO())
+
     public static String getImageDataInBase64(ImageModel image) {    // Конвертация массива байтов в строку Base64
         return "data:" + image.getContentType() + ";base64," + java.util.Base64.getEncoder().encodeToString(image.getData());}
 

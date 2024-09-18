@@ -15,5 +15,5 @@ public class ImageDTO {
     private String originalFileName;
     private int size;
     private String contentType;
-    private byte[] bytes;
+    private byte[] data;
 }
