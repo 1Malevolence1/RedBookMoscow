@@ -20,5 +20,8 @@ CREATE TABLE animal_obj (
 );
 
 
+    SELECT e.id, e.name, e.latin_name, e.image_id FROM entry_model e
+
+
 
 

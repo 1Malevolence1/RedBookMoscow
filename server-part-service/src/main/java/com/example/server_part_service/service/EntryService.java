@@ -2,6 +2,7 @@ package com.example.server_part_service.service;
 
 import com.example.server_part_service.dto.entry.RequestEntryDTO;
 import com.example.server_part_service.dto.entry.ResponseEntryDTO;
+import com.example.server_part_service.dto.entry.ResponseEntryDTOFourFields;
 import com.example.server_part_service.exception.EntityNotFoundException;
 import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.model.ImageModel;
@@ -108,4 +109,9 @@ public class EntryService {
         return "data:" + image.getContentType() + ";base64," + java.util.Base64.getEncoder().encodeToString(image.getData());}
 
 
+    public List<ResponseEntryDTOFourFields> findAllPreview() {
+
+        List<Object[]> fourFields1 = entryRepository.findFourFields();
+        return null;
+    }
 }
