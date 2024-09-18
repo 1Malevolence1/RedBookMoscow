@@ -94,6 +94,7 @@ def _split_ru_en_string(text):
     if match:
         return text[: match.start()], text[match.start(): ]
 
+
 def _get_valid_name_key(name_key,line_text):
     
     translations = {
@@ -110,7 +111,8 @@ def _get_valid_name_key(name_key,line_text):
         "Изменение состояния вида": "Changes in the status of the species",
         "Необходимые мероприятия по сохранению вида": "Needed conservation actions",
         "Источники информации": "Sources of Information",
-        "Автор": "Authors"
+        "Автор": "Authors",
+        "Авторы": "Authors"
     }
     if ':' in name_key:
         name_key = name_key[: name_key.find(':')]
