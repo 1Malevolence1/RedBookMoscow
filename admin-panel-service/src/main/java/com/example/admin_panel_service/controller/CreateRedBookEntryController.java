@@ -26,7 +26,7 @@ public class CreateRedBookEntryController {
     //@TODO обновить под под нужный
     @GetMapping()
     public String getPageCreateRedBookEntry(){
-        return "...";
+        return "admin_add";
     }
 
     //@TODO обновить под под нужный

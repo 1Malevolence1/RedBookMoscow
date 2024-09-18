@@ -2,6 +2,7 @@ package com.example.admin_panel_service.controller;
 
 
 import com.example.admin_panel_service.dto.ResponseDtoRedBookEntry;
+import com.example.admin_panel_service.dto.mainpage.ResponseMainPageDtoEntry;
 import com.example.admin_panel_service.service.ChapterAdminPanelService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,10 +26,10 @@ public class ChapterAdminPanelController {
     @GetMapping()
     public String getMainPage(Model model){
 
-        List<ResponseDtoRedBookEntry> responseRedBookEntryList = redBookEntryRetrievalService.findAll();
+        List<ResponseMainPageDtoEntry> responseRedBookEntryList = redBookEntryRetrievalService.findAll();
 
         model.addAttribute("list", responseRedBookEntryList);
-        return "";
+        return "admin_index";
     }
 
 
