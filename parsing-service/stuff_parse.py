@@ -56,3 +56,88 @@ def extract_text_from_columns(pdf_path):
 
 def create_txt_files() -> None:
     pass
+
+
+
+
+###############
+def _get_name_key(line_text, format_per_line):
+    name_key = line_text[line_text.find('\x1f') + 1: line_text.find('.')] \
+                                                            .strip() \
+                                                            .replace("-", '') \
+                                                            .replace('\n', ' ') \
+                                                            .replace('\t', ' ')
+    bold_check = any(["Bold" in str(format) for format in format_per_line]) 
+    italic_check = not any(["Italic" in str(format) for format in format_per_line])
+    upper_check = any([name.isupper() for name in name_key.split()])
+    if upper_check and bold_check:
+        name_key = _get_valid_name_key(name_key, line_text)
+        name_key = name_key.strip()
+        if name_key != "Автор" and name_key != 'Авторы':
+            name_key = name_key.replace('Отряд', "| Отряд").replace("Семейство", "| Семейство")
+            name_key = name_key.split('|')
+            try:
+                name, latin_name = _split_ru_en_string(name_key[0].strip())
+                division = name_key[1]
+                family = name_key[2]
+                return '\n'.join([name.strip(), latin_name.strip(), division.strip(), family.strip()])
+            except Exception as e:
+                return name_key.strip(), 'exception'
+            
+        else:
+            return name_key.strip()
+    else:
+        if bold_check and italic_check:
+            name_key = _get_valid_name_key(name_key, line_text)
+            return name_key.strip()
+    return None
+
+
+def _split_ru_en_string(text):
+    match = re.search(r'[A-Za-z]', text)
+    if match:
+        return text[: match.start()], text[match.start(): ]
+
+
+def _get_valid_name_key(name_key,line_text):
+    
+    translations = {
+        "Имя": "Name",
+        "Латинское имя": "Latin Name",
+        "Отряд": "Division",
+        "Семейство": "Family",
+        "Статус": "Status",
+        "Распространение": "Distribution",
+        "Численность": "Inhabitat",
+        "Особенности обитания": "Habitat Features",
+        "Лимитирующие факторы": "Mitigating factors",
+        "Принятые меры охраны": "Protection measures taken",
+        "Изменение состояния вида": "Changes in the status of the species",
+        "Необходимые мероприятия по сохранению вида": "Needed conservation actions",
+        "Источники информации": "Sources of Information",
+        "Автор": "Authors",
+        "Авторы": "Authors"
+    }
+    if ':' in name_key:
+        name_key = name_key[: name_key.find(':')]
+    return name_key
+
+
+def _text_extraction(element) -> None:
+    line_text = element.get_text()
+    line_formats = []
+
+    for text_line in element:
+        if isinstance(text_line, LTTextContainer):
+            # Итеративно обходим каждый символ в строке текста
+            for character in text_line:
+                if isinstance(character, LTChar):
+                    # Добавляем к символу название шрифта
+                    line_formats.append(character.fontname)
+                    # Добавляем к символу размер шрифта
+                    line_formats.append(character.size)
+
+    # Формат может на будущее пригодиться
+    format_per_line = list(set(line_formats))    
+    return (line_text, format_per_line)
+#############################
