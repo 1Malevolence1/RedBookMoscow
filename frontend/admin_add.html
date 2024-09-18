@@ -20,47 +20,80 @@
     <main>
         <form action="#" method="post" class="add-article-form" enctype="multipart/form-data">
             <div class="form-wrapper">
+
                 <div class="form-content">
                     <!-- ввод данных -->
                     <div class="input-group">
-                        <label for="title">Заголовок:</label>
-                        <input type="text" id="title" name="title" required>
+                        <label for="name">Название:</label>
+                        <input type="text" id="name" name="name" required>
                     </div>
                     <div class="input-group">
-                        <label for="author">Автор:</label>
-                        <input type="text" id="author" name="author" required>
+                        <label for="latinName">Латинское название:</label>
+                        <input type="text" id="latinName" name="latinName" required>
                     </div>
                     <div class="input-group">
-                        <label for="date">Дата публикации:</label>
-                        <input type="date" id="date" name="date" required>
+                        <label for="division">Отряд:</label>
+                        <input type="text" id="division" name="division" required>
                     </div>
                     <div class="input-group">
-                        <label for="category">Категория:</label>
-                        <select id="category" name="category" required>
-                            <option value="animals">Животные</option>
-                            <option value="plants">Растения</option>
-                            <option value="insects">Насекомые</option>
+                        <label for="family">Семейство:</label>
+                        <input type="text" id="family" name="family" required>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label for="content">Содержание:</label>
-                        <textarea id="content" name="content" rows="5" required></textarea>
+                        <label for="status">Статус:</label>
+                        <input type="text" id="status" name="status" rows="5" required></input>
                     </div>
                     <div class="input-group">
-                        <label for="tags">Теги:</label>
-                        <input type="text" id="tags" name="tags" required>
+                        <label for="distribution">Распространение:</label>
+                        <input type="text" id="distribution" name="distribution" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="inhabitat">Численность:</label>
+                        <input type="text" id="inhabitat" name="inhabitat" required>
                     </div>
                 </div>
+                <div class="form-content">
+                    <div class="input-group">
+                        <label for="habitatFeatures">Особенности обитания:</label>
+                        <input type="text" id="habitatFeatures" name="habitatFeatures" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="mitigatingFactors">Лимитирующие факторы:</label>
+                        <input type="text" id="mitigatingFactors" name="mitigatingFactors" required>
+                    </div>
+                    <div>
+                        <label for="protectionMeasuresTaken">Принятые меры охраны:</label>
+                        <input type="text" id="protectionMeasuresTaken" name="protectionMeasuresTaken" required>
+                    </div>
 
+                    <div class="input-group">
+                        <label for="changesInTheStatusOfTheSpecies">Изменение состояния вида:</label>
+                        <input type="text" id="changesInTheStatusOfTheSpecies" name="changesInTheStatusOfTheSpecies" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="neededConservationActions">Необходимые мероприятия по сохранению вида:</label>
+                        <input type="text" id="neededConservationActions" name="neededConservationActions" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="sourcesOfInformation">Источники информации:</label>
+                        <input type="text" id="sourcesOfInformation" name="sourcesOfInformation" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="authors">Авторы:</label>
+                        <input type="text" id="authors" name="authors" required>
+                    </div>
+                </div>
                 <!-- добавление картинки -->
                 <div class="image-upload">
                     <label for="image">Изображение:</label>
                     <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)" required>
                     <div id="image-preview" class="image-preview"></div>
                 </div>
+                
             </div>
 
-            <button type="submit" class="submit-button">Опубликовать</button>
+            <button type="submit" class="submit-button">Добавить</button>
         </form>
     </main>
     

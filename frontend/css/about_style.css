@@ -99,7 +99,12 @@ main {
 
 
 
-
+footer p {
+    transition: transform 3s ease-in-out;
+}
+footer p:hover {
+    transform: rotate(360deg);
+}
 
 
 footer {
