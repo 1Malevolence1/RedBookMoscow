@@ -1,6 +1,7 @@
 package com.example.server_part_service.model;
 
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnimalObj {
+    @NotNull
     private String name;
+    @NotNull
     private String latinName;
     private String division;
     private String Family;
