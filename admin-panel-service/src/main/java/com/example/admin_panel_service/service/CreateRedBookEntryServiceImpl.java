@@ -20,7 +20,7 @@ public class CreateRedBookEntryServiceImpl implements
     private final RestClient restClientDataBase;
 
     @Override
-    public void save(RequestMainPageDtoEntry entry) {
+    public void save(RequestDtoRedBookEntry entry) {
             restClientDataBase.post().uri(PathUriController.POST_RED_BOOL_ENTRY_DATA_BASE).contentType(MediaType.APPLICATION_JSON).body(entry).retrieve();
     }
 }

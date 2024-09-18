@@ -37,11 +37,11 @@ public class CreateRedBookEntryController {
     }
 
     @PostMapping()
-    public String createNewRedBookEntry(@RequestParam("file") MultipartFile image, RequestMainPageDtoEntry responseMainPageDtoEntry
+    public String createNewRedBookEntry(@RequestParam("file") MultipartFile image, RequestDtoRedBookEntry responseMainPageDtoEntry
                                         ) throws IOException {
 
       {
-            // Конвертируем MultipartFile в RequestDtoImage
+            log.info("->>>>>>>>>>>>>>>> {}", responseMainPageDtoEntry);
             RequestDtoImage requestDtoImage = ConvertImage.toImageEntity(image);
             responseMainPageDtoEntry.setImage(requestDtoImage);
             log.info("{}", requestDtoImage);

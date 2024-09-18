@@ -1,11 +1,9 @@
 package com.example.admin_panel_service.controller;
 
 
-import com.example.admin_panel_service.dto.ResponseDtoRedBookEntry;
 import com.example.admin_panel_service.dto.mainpage.ResponseMainPageDtoEntry;
 import com.example.admin_panel_service.dto.view.ResponseDtoView;
 import com.example.admin_panel_service.service.ChapterAdminPanelService;
-import com.example.admin_panel_service.service.view.ViewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -33,6 +31,7 @@ public class ChapterAdminPanelController {
         List<ResponseMainPageDtoEntry> responseRedBookEntryList = redBookEntryRetrievalService.findAll();
         List<ResponseDtoView> responseDtoViews = redBookEntryRetrievalService.getAllView();
         log.info("{}", responseRedBookEntryList);
+        log.info("{}", responseDtoViews);
         model.addAttribute("list", responseRedBookEntryList);
         model.addAttribute("views", responseDtoViews);
         return "admin_index";

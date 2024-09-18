@@ -4,10 +4,12 @@ import com.example.server_part_service.dto.ImageDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class RequestEntryDTO {
     private Long id;
     private String name;

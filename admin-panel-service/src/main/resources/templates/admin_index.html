@@ -1,10 +1,184 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Красная книга</title>
-    <link rel="stylesheet" href="css/style.css">
+    <style>
+
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #004d00;
+    color: #fff;
+    padding: 1rem;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.highlight {
+    color: rgb(255, 255, 255);
+    transition: color 1s ease-in-out;
+}
+
+.highlight:hover {
+    color: rgb(173, 0, 0);
+}
+
+#about {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+#about:hover {
+    text-decoration: none;
+}
+
+main {
+    padding: 2rem;
+}
+
+#menu {
+    background-color: #e0e0e0;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.search-form {
+    display: flex;
+    gap: 0.5rem;
+    flex-grow: 1;
+    max-width: 400px;
+}
+
+.search-input {
+    flex-grow: 1;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.search-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #004d00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.search-button:hover {
+    background-color: #003300;
+}
+
+.filter-options {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-options label {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+
+.filter-options select {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.add-button {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    background-color: #004d00;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.a-inbtn {
+    text-decoration: none;
+    color: white;
+}
+
+.add-button:hover {
+    background-color: #003300;
+}
+
+.animals-img {
+    width: 200px;
+    height: 200px;
+}
+
+.article-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: left;
+    /*max-width: 2000px;*/
+}
+
+article {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    flex: 1 1 calc(25% - 1rem);
+    min-width: 300px;
+    max-width: 340px;
+    text-align: center;
+    transition: background 1s ease;
+}
+
+article:hover {
+    background: rgb(0, 255, 149);
+}
+
+article h2 a {
+    color: #004d00;
+    text-decoration: none;
+}
+
+article h2 a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+footer {
+    background-color: #004d00;
+    color: #fff;
+    text-align: center;
+    padding: 1rem;
+    /*position: fixed;*/
+    bottom: 0;
+    /*width: 100%;*/
+}
+
+
+    </style>
 </head>
 <body>
 <header>
@@ -12,16 +186,9 @@
         <span class="highlight">Красная</span>
         книга
     </h1>
-
-    <nav>
-        <ul>
-            <li><a href="#">О нас</a></li>
-            <li><a href="#">Контакты</a></li>
-        </ul>
-    </nav>
 </header>
 
-<section class="search-filter">
+<section id="menu">
     <form action="#" method="get" class="search-form">
         <input type="text" placeholder="Поиск по статьям..." name="search" class="search-input">
         <button type="submit" class="search-button">Найти</button>
@@ -36,31 +203,28 @@
             <option value="insects">Насекомые</option>
         </select>
 
-        <!-- Измененная ссылка для кнопки "Добавить запись" -->
-        <a href="#" th:href="@{/api/admin/entry/create}" class="a-inbtn">
-            <button class="add-button">Добавить запись</button>
-        </a>
+        <a href="/api/admin/entry/create" class="a-inbtn"><button class="add-button">Добавить запись</button></a>
     </div>
 
 </section>
 
 <main>
     <section class="article-list">
-        <!-- Используем th:each для перебора списка записей -->
-        <article th:each="entry : ${list}">
-            <img th:src="${entry.data}" alt="${entry.name}" class="animals-img">
-            <h2><a th:href="@{/api/red-book-entries/{id}(id=${entry.id})}" th:text="${entry.name}"></a></h2> <!-- Замените на правильный путь -->
-            <p th:text="${entry.status}">Краткое описание состояния записи.</p> <!-- Добавьте описание состояния -->
+        <article  th:each="animal: ${list}">
+            <img class="animals-img" th:src="${animal.data}">
+            <h2><a href="admin_article.html" th:text="${animal.name}"></a></h2>
+            <p th:text="${animal.latinName}"></p>
         </article>
 
-        <!-- Если нет записей -->
-        <p th:if="${#lists.isEmpty(list)}">Нет записей для отображения.</p>
     </section>
+
+
+
 </main>
 
-<footer>
-    <p>&copy; 2024 Красная книга. Все права защищены.</p>
-</footer>
 
+<footer>
+    <p>&copy; 2024 Красная книга. Все права защищены. <a id="about" href="about.html">О нас.</a></p>
+</footer>
 </body>
 </html>

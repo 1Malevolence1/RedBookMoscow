@@ -183,7 +183,7 @@ footer {
     </h1>
 </header>
 <section id="menu">
-    <a class="a-inbtn" href="admin_index.html"><button class="back-button">Назад</button></a>
+    <a class="a-inbtn" href="/api/admin/main"><button class="back-button">Назад</button></a>
 </section>
 
 <main>
@@ -218,8 +218,8 @@ footer {
                     <input type="text" id="distribution" name="distribution" required>
                 </div>
                 <div class="input-group">
-                    <label for="inhabitat">Численность:</label>
-                    <input type="text" id="inhabitat" name="inhabitat" required>
+                    <label for="inHabitat">Численность:</label>
+                    <input type="text" id="inHabitat" name="inHabitat" required>
                 </div>
             </div>
             <div class="form-content">
@@ -237,8 +237,8 @@ footer {
                 </div>
 
                 <div class="input-group">
-                    <label for="changesInTheStatusOfTheSpecies">Изменение состояния вида:</label>
-                    <input type="text" id="changesInTheStatusOfTheSpecies" name="changesInTheStatusOfTheSpecies" required>
+                    <label for="changesInStatusOfSpecies">Изменение состояния вида:</label>
+                    <input type="text" id="changesInStatusOfSpecies" name="changesInStatusOfSpecies" required>
                 </div>
                 <div class="input-group">
                     <label for="neededConservationActions">Необходимые мероприятия по сохранению вида:</label>
@@ -255,9 +255,16 @@ footer {
             </div>
             <!-- добавление картинки -->
             <div class="image-upload">
-                <label for="image">Изображение:</label>
-                <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)" required>
+                <label for="file">Изображение:</label>
+                <input type="file" id="file" name="file" accept="image/*" onchange="previewImage(event)" required>
                 <div id="image-preview" class="image-preview"></div>
+            </div>
+
+            <div class="input-group">
+                <label for="views">Вид:</label>
+                <select id="views"  th:each="view: ${views}">
+                    <option value="view.id" th:text="${view.title}">1вариант</option>
+                </select>
             </div>
 
         </div>
@@ -271,6 +278,26 @@ footer {
     <p>&copy; 2024 Красная книга. Все права защищены. <a id="about" href="about.html">О нас.</a></p>
 </footer>
 
-<script src="js/script.js"></script>
+<script>
+
+    function previewImage(event) {
+        const input = event.target;
+        const preview = document.getElementById('image-preview');
+        preview.innerHTML = ''; // Очистить предыдущие превью
+
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.maxWidth = '100%';
+                img.style.maxHeight = '100%';
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+</script>
 </body>
 </html>
