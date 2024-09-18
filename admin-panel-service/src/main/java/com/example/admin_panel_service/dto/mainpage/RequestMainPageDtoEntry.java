@@ -11,7 +11,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class RequestMainPageDtoEntry {
     private String name;
-    private String latinName
-            ;
+    private String latinNam;
     private RequestDtoImage image;
 }
