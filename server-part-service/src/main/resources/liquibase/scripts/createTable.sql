@@ -6,7 +6,6 @@ CREATE TABLE view (
     title VARCHAR(255) UNIQUE NOT NULL
 );
 
-
 -- changeset kodi:2
 CREATE TABLE image_model (
     id BIGSERIAL PRIMARY KEY,
@@ -16,7 +15,6 @@ CREATE TABLE image_model (
     content_type VARCHAR(255),
     data bytea
 );
-
 
 -- changeset kodi:3
 CREATE TABLE entry_model (
@@ -40,8 +38,3 @@ CREATE TABLE entry_model (
     CONSTRAINT fk_image FOREIGN KEY (image_id) REFERENCES image_model (id) ON DELETE CASCADE,
     CONSTRAINT fk_view FOREIGN KEY (view_id) REFERENCES view (id) ON DELETE CASCADE
 );
-
-
-
-
-

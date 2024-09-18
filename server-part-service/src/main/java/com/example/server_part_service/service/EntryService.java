@@ -19,6 +19,8 @@ public class EntryService {
 
     @Autowired
     private EntryRepository entryRepository;
+    @Autowired
+    private ImageService imageService;
 
     public EntryModel getModelById(long entryId) {
         return entryRepository.findById(entryId)
@@ -44,7 +46,9 @@ public class EntryService {
     }
 
     public EntryModel saveModel(EntryModel entryModel) {
-        return entryRepository.save(entryModel);
+        EntryModel save = entryRepository.save(entryModel);
+        save.setImageModel(imageService.saveImage(entryModel.getImageModel()));
+        return save;
     }
 
     public EntryModel updateModel(EntryModel entryModel) {
