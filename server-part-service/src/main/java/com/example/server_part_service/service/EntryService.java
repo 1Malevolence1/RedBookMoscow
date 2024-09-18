@@ -21,9 +21,9 @@ public class EntryService {
                         () -> new EntityNotFoundException("Image with id " + entryId + " not found"));
     }
 
-//    public RequestEntryDTO getDtoById(long id) {
-//        return converterModelToDto(getModelById(id));
-//    }
+    public ResponseEntryDTO getDtoById(long id) {
+        return converterModelToResponseDto(getModelById(id));
+    }
 
     public EntryModel saveModel(EntryModel entryModel) {
         return entryRepository.save(entryModel);
@@ -34,11 +34,11 @@ public class EntryService {
     }
 
     public void deleteEntry(EntryModel model) {
-
+        entryRepository.delete(model);
     }
 
     public void deleteEntry(Long entryId) {
-
+        entryRepository.deleteById(entryId);
     }
 
     public ResponseEntryDTO converterModelToResponseDto(EntryModel model) {
@@ -63,6 +63,7 @@ public class EntryService {
 
     public EntryModel converterDtoToModel(RequestEntryDTO dto) {
         return new EntryModel(
+                null,
                 dto.getName(),
                 dto.getLatinName(),
                 dto.getDivision(),
