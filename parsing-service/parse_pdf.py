@@ -24,17 +24,32 @@ def text_from_pdf(pdf_path: str) -> None:
     
     # Извлекаем страницы из PDF
     for page_num, page in tqdm(enumerate(extract_pages(pdf_path)), 'Pages', position=2):
+        
+        if page_num > 1:
+            break
+        
         pageObj = pdfReaded.pages[page_num]
         page_text, line_format = [], []
+        page_content = []
         
-        
-        # Находим все элементы
         page_elements = [(element.y1, element) for element in page._objs]
-        # Сортируем все элементы по порядку нахождения на странице
         page_elements.sort(key=lambda a: a[0], reverse=True)
         
-        print(page_elements)
+        # Итеративно обходим элементы, из которых состоит страница
+        for i, component in tqdm(enumerate(page_elements), 'Elements', position=3, leave=False):
+            # Положение верхнего края элемента в PDF, Элемент структуры страницы
+            pos, element = component[0], component[1] 
 
+            # Проверяем, является ли элемент текстовым
+            if isinstance(element, LTTextContainer):
+                line_text, format_per_line = _text_extraction(element=element)
+                page_text.append(line_text)
+                line_format.append(format_per_line)
+
+
+                print(line_text) #, format_per_line)
+            
+            
 
 def create_txt_files() -> None:
     pass
@@ -45,8 +60,23 @@ def _crop_image() -> None:
     pass
 
 
-def _text_extraction() -> None:
-    pass
+def _text_extraction(element) -> None:
+    line_text = element.get_text()
+    line_formats = []
+
+    for text_line in element:
+        if isinstance(text_line, LTTextContainer):
+            # Итеративно обходим каждый символ в строке текста
+            for character in text_line:
+                if isinstance(character, LTChar):
+                    # Добавляем к символу название шрифта
+                    line_formats.append(character.fontname)
+                    # Добавляем к символу размер шрифта
+                    line_formats.append(character.size)
+
+    # Формат может на будущее пригодиться
+    format_per_line = list(set(line_formats))    
+    return (line_text, format_per_line)
 
 
 def main() -> None:
