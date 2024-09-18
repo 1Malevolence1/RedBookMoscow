@@ -39,3 +39,33 @@
     "Authors": ""
 }
 ```
+
+```json
+{
+  "id": 3,
+  "name": "string",
+  "latinName": "string",
+  "division": "string",
+  "family": "string",
+  "status": "string",
+  "distribution": "string",
+  "inHabitat": "string",
+  "habitatFeatures": "string",
+  "mitigatingFactors": "string",
+  "protectionMeasuresTaken": "string",
+  "changesInStatusOfSpecies": "string",
+  "neededConservationActions": "string",
+  "sourcesOfInformation": "string",
+  "authors": "string",
+  "images": [
+    "image": {
+        "id": 1,
+        "name": "example_image",
+        "originalFileName": "image.png",
+        "size": 2048,
+        "contentType": "image/png",
+        "data": "iVBORw0KGgoAAAANSUhEUgAAAAUA"
+    }],
+  "view": "view"
+}
+```
