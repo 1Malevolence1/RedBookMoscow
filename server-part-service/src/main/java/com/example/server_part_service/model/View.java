@@ -23,4 +23,8 @@ public class View {
 
     @Column(name = "title", unique = true, nullable = false)
     private String title;
+
+    public View(Long id) {
+        this.id = id;
+    }
 }

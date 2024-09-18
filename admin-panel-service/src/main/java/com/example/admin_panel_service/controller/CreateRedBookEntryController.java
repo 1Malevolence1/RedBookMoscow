@@ -42,17 +42,15 @@ public class CreateRedBookEntryController {
     }
 
     @PostMapping()
-    public String createNewRedBookEntry(@RequestParam("file") MultipartFile image, RequestDtoRedBookEntry responseMainPageDtoEntry
+    public String createNewRedBookEntry(@RequestParam("file") MultipartFile image, RequestDtoRedBookEntry requestDtoRedBookEntry
                                        ) throws IOException {
 
       {
-
-
-            log.info("->>>>>>>>>>>>>>>> {}", responseMainPageDtoEntry);
+            log.info("{}", requestDtoRedBookEntry);
             RequestDtoImage requestDtoImage = ConvertImage.toImageEntity(image);
-            responseMainPageDtoEntry.setImage(requestDtoImage);
+          requestDtoRedBookEntry.setImage(requestDtoImage);
             log.info("{}", requestDtoImage);
-            redBookEntryService.save(responseMainPageDtoEntry);
+            redBookEntryService.save(requestDtoRedBookEntry);
             return "redirect:/api/admin/main"; // Перенаправление на главную страницу после успешного создания записи
         }
     }

@@ -259,20 +259,18 @@ footer {
                 <input type="file" id="file" name="file" accept="image/*" onchange="previewImage(event)" required>
                 <div id="image-preview" class="image-preview"></div>
             </div>
-
             <div class="input-group">
                 <label for="views">Вид:</label>
-                <select id="views" name="views">
-                    <option value="">Выберите поставщика</option>
-                    <option data-th-each="view: ${views}"
-                            data-th-value="${view.id}"
-                            data-th-text="${view.title}"></option>
+                <select id="views" name="view"> <!-- Измените name на "view" -->
+                    <option th:each="view : ${views}"
+                            th:value="${view.id}"
+                            th:text="${view.title}"></option>
                 </select>
             </div>
 
-        </div>
 
         <button type="submit" class="submit-button">Добавить</button>
+            </div>
     </form>
 </main>
 

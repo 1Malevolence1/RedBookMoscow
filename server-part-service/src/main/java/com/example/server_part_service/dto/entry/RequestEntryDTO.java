@@ -31,6 +31,6 @@ public class RequestEntryDTO {
     private String authors;
 
     private ImageDTO image;
-    private String view;// image dto in json format
+    private Long view;// image dto in json format
 
 }

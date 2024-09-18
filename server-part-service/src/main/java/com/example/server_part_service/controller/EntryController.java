@@ -23,11 +23,11 @@ public class EntryController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<ResponseEntryDTOFourFields>> getListEntryForMainPage(){
-        return ResponseEntity.ok().body(service.findAllPreview());
+    public ResponseEntity<List<ResponseEntryDTO>> getListEntryForMainPage(){
+        return ResponseEntity.ok().body(service.findAll());
     }
 
-    @GetMapping("/all-with-all-parametrs")
+    @GetMapping("/all-with-all")
     public ResponseEntity<List<ResponseEntryDTO>> getListEntryAllData(){
         return ResponseEntity.ok().body(service.findAll());
     }

@@ -209,18 +209,19 @@ footer {
 </section>
 
 
-    <main>
-        <section class="article-list">
-            <article th:each="animal: ${list}">
-                <img class="animals-img" th:src="${animal.data}">
-                <h2>
-                    <a th:href="@{/api/admin/entry/{entryId}(entryId=${animal.id})}" th:text="${animal.name}"></a>
-                </h2>
-                <p th:text="${animal.latinName}"></p>
-            </article>
-        </section>
-    </main>
-
+<main>
+    <section class="article-list">
+        <article th:each="animal: ${list}">
+            <a th:href="@{/api/admin/entry/{entryId}(entryId=${animal.id})}">
+                <img class="animals-img" th:src="${animal.data}" alt="Image of ${animal.name}">
+            </a>
+            <h2>
+                <a th:href="@{/api/admin/entry/{entryId}(entryId=${animal.id})}" th:text="${animal.name}"></a>
+            </h2>
+            <p th:text="${animal.latinName}"></p>
+        </article>
+    </section>
+</main>
 
 
 

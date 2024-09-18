@@ -104,8 +104,7 @@ public class EntryService {
                 dto.getSourcesOfInformation(),
                 dto.getAuthors(),
                 ImageService.convertDTOToImageModel(dto.getImage()),
-                viewService.save(new View(0L, dto.getView()))
-        );
+                new View(dto.getView()));
     }
 
     public static String getImageDataInBase64(ImageModel image) {
@@ -113,7 +112,7 @@ public class EntryService {
         return "data:" + image.getContentType() + ";base64," + java.util.Base64.getEncoder().encodeToString(image.getData());}
 
 
-    public List<ResponseEntryDTOFourFields> findAllPreview() {
+ /*   public List<ResponseEntryDTOFourFields> findAllPreview() {
         List<Object[]> fourFields1 = entryRepository.findFourFields();
         return fourFields1.stream()
                 .map(row -> {
@@ -121,9 +120,11 @@ public class EntryService {
                     dto.setId((Long) row[0]);
                     dto.setName((String) row[1]);
                     dto.setLatinName((String) row[2]);
-                    dto.setData((Long) row[3]); // Преобразование data, предполагается, что это long
+                    dto.setData(getImageDataInBase64((ImageModel) row[3])); // Преобразование data, предполагается, что это long
                     return dto;
                 })
                 .collect(Collectors.toList());
+
+                */
     }
-}
+

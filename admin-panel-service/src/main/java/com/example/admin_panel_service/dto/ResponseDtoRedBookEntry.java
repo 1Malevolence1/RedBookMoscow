@@ -29,6 +29,6 @@ public class ResponseDtoRedBookEntry {
     private String authors;
 
     private String data;
-    private Integer view;//data in base64
+    private String view;//data in base64
 
 }
