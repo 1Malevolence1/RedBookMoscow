@@ -1,6 +1,6 @@
 package com.example.server_part_service.controller;
 
-import com.example.server_part_service.dtoshki.ImageDTO;
+import com.example.server_part_service.dto.ImageDTO;
 import com.example.server_part_service.exception.EntityNotFoundException;
 import com.example.server_part_service.service.ImageService;
 import org.slf4j.Logger;

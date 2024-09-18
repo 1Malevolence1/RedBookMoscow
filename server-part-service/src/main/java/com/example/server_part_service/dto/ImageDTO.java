@@ -1,4 +1,4 @@
-package com.example.server_part_service.dtoshki;
+package com.example.server_part_service.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

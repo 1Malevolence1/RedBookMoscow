@@ -1,5 +1,6 @@
-package com.example.server_part_service.dtoshki;
+package com.example.server_part_service.dto.entry;
 
+import com.example.server_part_service.dto.ImageDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class EntryDTO {
+public class RequestEntryDTO {
     private String name;
     private String latinName;
     private String division;
@@ -25,5 +26,7 @@ public class EntryDTO {
 
     private String sourcesOfInformation;
     private String authors;
+
+    private ImageDTO imageDTO; // image dto in json format
 
 }

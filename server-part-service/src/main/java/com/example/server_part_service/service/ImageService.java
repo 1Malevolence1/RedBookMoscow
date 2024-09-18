@@ -1,6 +1,6 @@
 package com.example.server_part_service.service;
 
-import com.example.server_part_service.dtoshki.ImageDTO;
+import com.example.server_part_service.dto.ImageDTO;
 import com.example.server_part_service.exception.EntityNotFoundException;
 import com.example.server_part_service.model.ImageModel;
 import com.example.server_part_service.repository.ImageRepository;
