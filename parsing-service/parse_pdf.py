@@ -27,11 +27,11 @@ def text_from_pdf(pdf_path: str) -> None:
     text_per_page = {}
     current_key = None  # Текущий ключ (секция)
     current_text = []  # Буфер для накопления текста
-    
+    file = open('./data/tmp/test_txt.txt', 'a', encoding='utf-8')
     # Извлекаем страницы из PDF
     for page_num, page in tqdm(enumerate(extract_pages(pdf_path)), 'Pages', position=2):
         
-        if page_num > 0:
+        if page_num > 1:
             break
         
         pageObj = pdfReaded.pages[page_num]
@@ -51,31 +51,14 @@ def text_from_pdf(pdf_path: str) -> None:
                 line_text, format_per_line = _text_extraction(element=element)
                 # page_text.append(line_text)
                 # line_format.append(format_per_line)
-                name_key = line_text[line_text.find('\x1f') + 1: line_text.find('.')] \
-                                                                                .strip() \
-                                                                                .replace("-", '') \
-                                                                                .replace('\n', ' ') \
-                                                                                .replace('\t', ' ')
-                bold_check = any(["Bold" in str(format) for format in format_per_line]) 
-                italic_check = not any(["Italic" in str(format) for format in format_per_line])
-                upper_check = any([name.isupper() for name in name_key.split()])
-                if upper_check and bold_check:
-                    name_key = _get_valid_name_key(name_key, line_text)
-                    name_key = name_key.strip()
-                    if name_key != "Автор":
-                        name_key = name_key.replace('Отряд', "| Отряд").replace("Семейство", "| Семейство")
-                        name_key = name_key.split('|')
-                        name, latin_name = _split_ru_en_string(name_key[0].strip())
-                        division = name_key[1].strip()
-                        family = name_key[2].strip()
-                        
-                        print(name.strip(), latin_name.strip(), division, family, sep='\n')
-                    else:
-                        print(name_key)
-                else:
-                    if bold_check and italic_check:
-                        name_key = _get_valid_name_key(name_key, line_text)
-                        print(name_key)
+                # name_key = _get_name_key(line_text, format_per_line)
+                # if name_key:
+                    # print(name_key)
+                page_text.append(line_text)
+                
+        # file.write(''.join(page_text))
+        # file.write('='*100 + '\n')
+
 
 
 
@@ -84,9 +67,40 @@ def create_txt_files() -> None:
     pass
 
 
-
 def _crop_image() -> None:
     pass
+
+
+def _get_name_key(line_text, format_per_line):
+    name_key = line_text[line_text.find('\x1f') + 1: line_text.find('.')] \
+                                                            .strip() \
+                                                            .replace("-", '') \
+                                                            .replace('\n', ' ') \
+                                                            .replace('\t', ' ')
+    bold_check = any(["Bold" in str(format) for format in format_per_line]) 
+    italic_check = not any(["Italic" in str(format) for format in format_per_line])
+    upper_check = any([name.isupper() for name in name_key.split()])
+    if upper_check and bold_check:
+        name_key = _get_valid_name_key(name_key, line_text)
+        name_key = name_key.strip()
+        if name_key != "Автор" and name_key != 'Авторы':
+            name_key = name_key.replace('Отряд', "| Отряд").replace("Семейство", "| Семейство")
+            name_key = name_key.split('|')
+            try:
+                name, latin_name = _split_ru_en_string(name_key[0].strip())
+                division = name_key[1]
+                family = name_key[2]
+                return '\n'.join([name.strip(), latin_name.strip(), division.strip(), family.strip()])
+            except Exception as e:
+                return name_key.strip(), 'exception'
+            
+        else:
+            return name_key.strip()
+    else:
+        if bold_check and italic_check:
+            name_key = _get_valid_name_key(name_key, line_text)
+            return name_key.strip()
+    return None
 
 
 def _split_ru_en_string(text):
