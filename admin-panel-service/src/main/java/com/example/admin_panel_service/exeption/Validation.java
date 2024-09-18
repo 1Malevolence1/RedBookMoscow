@@ -1,9 +1,7 @@
-package com.example.admin_panel_service;
+package com.example.admin_panel_service.exeption;
 
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 
 @Getter

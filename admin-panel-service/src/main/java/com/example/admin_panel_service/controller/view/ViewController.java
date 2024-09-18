@@ -1,7 +1,7 @@
 package com.example.admin_panel_service.controller.view;
 
 
-import com.example.admin_panel_service.Validation;
+import com.example.admin_panel_service.exeption.Validation;
 import com.example.admin_panel_service.dto.view.RequestDtoView;
 import com.example.admin_panel_service.service.view.ViewService;
 import lombok.RequiredArgsConstructor;
