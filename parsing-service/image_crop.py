@@ -13,39 +13,48 @@ import PyPDF2
 def get_images_from_pdf(pdf_path: str) -> None:
     pdfFileObj = open(pdf_path, 'rb')
     pdfReaded = PyPDF2.PdfReader(pdfFileObj)
+    cnt_entity = -1
+    prev_page_num = -1
     
     # Извлекаем страницы из PDF
     for page_num, page in tqdm(enumerate(extract_pages(pdf_path)), 'Pages', position=2):
-        
-        if page_num > 0:
+        if page_num > 1:
             break
         
         pageObj = pdfReaded.pages[page_num]
-        
-        page_elements = [(element.y1, element) for element in page._objs]
-        page_elements.sort(key=lambda a: a[0], reverse=True)
+        page_elements = [(element.x1, element.y1, element) for element in page._objs]
+        page_elements.sort(key=lambda a: (a[1], a[0]), reverse=False)
         
         # Итеративно обходим элементы, из которых состоит страница
         for i, component in enumerate(page_elements): # tqdm(enumerate(page_elements), 'Elements', position=3, leave=False):
             # Положение верхнего края элемента в PDF, Элемент структуры страницы
-            _, element = component[0], component[1] 
+            _, _, element = component[0], component[1], component[2] 
 
+            if isinstance(element, LTTextContainer):
+                element_text = element.get_text()
+                if page_num != prev_page_num:
+                    cnt_entity += 1
+                    prev_page_num = page_num
+            
             if isinstance(element, LTFigure):
                 # Вырезаем изображение из PDF
                 cropped_image_path = _crop_image(element, pageObj)
                 # Нужно делать проверку, если текст вида еще не закончен, то page_num для сохранения f'./data/tmp/{page_num - 1}_{i}_{i}'
-                image_path = _convert_to_images(cropped_image_path, path_output_with_name=f'./data/tmp/{page_num}_{i}')
-                
-            
-            if isinstance(element, LTTextContainer):
-                element_text = element.get_text()
-                print(element_text[:20])
+                if os.path.exists(f'./data/tmp/{cnt_entity}_{i}'):
+                    new_path = f"./data/tmp/{cnt_entity}_{hash(f'{cnt_entity}_{i}')}"
+                else:
+                    new_path = f"./data/tmp/{cnt_entity}_{i}"
+                    
+                cropped_image_path = _convert_to_images(cropped_image_path, path_output_with_name=new_path)
+    pdfFileObj.close()
 
 
 def _split_ru_en_string(text):
     match = re.search(r'[A-Za-z]', text)
     if match:
         return text[: match.start()], text[match.start(): ]
+    else:
+        return None
 
 
 def _delete_unsuitable_images(input_folder, output_folder):

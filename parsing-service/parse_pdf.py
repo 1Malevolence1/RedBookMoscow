@@ -27,7 +27,6 @@ from deep_translator import GoogleTranslator
 from image_crop import get_images_from_pdf, _delete_unsuitable_images
 
 
-# def 
 
 
 def extract_text_from_image(image):
