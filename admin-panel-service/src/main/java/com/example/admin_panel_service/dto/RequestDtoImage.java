@@ -18,5 +18,5 @@ public class RequestDtoImage {
     private String originalFileName;
     private Long size;
     private String contentType;
-    private byte[] bytes;
+    private byte[] data;
 }

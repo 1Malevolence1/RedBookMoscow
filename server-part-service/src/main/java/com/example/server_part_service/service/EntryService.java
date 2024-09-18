@@ -6,10 +6,14 @@ import com.example.server_part_service.exception.EntityNotFoundException;
 import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.model.ImageModel;
 import com.example.server_part_service.repository.EntryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
+@Slf4j
 public class EntryService {
 
     @Autowired
@@ -21,6 +25,19 @@ public class EntryService {
                         () -> new EntityNotFoundException("Image with id " + entryId + " not found"));
     }
 
+    public void deleteAll(){
+         entryRepository.deleteAll();
+    }
+
+    public List<ResponseEntryDTO> findAll() {
+        List<EntryModel> entryModels = entryRepository.findAll();
+        List<ResponseEntryDTO> responseEntryDTOS = entryModels
+                .stream()
+                .map(this::converterModelToResponseDto) // Уберите круглые скобки
+                .toList(); // Преобразуем поток в список
+
+        return responseEntryDTOS; // Не забудьте вернуть список
+    }
     public ResponseEntryDTO getDtoById(long id) {
         return converterModelToResponseDto(getModelById(id));
     }
@@ -80,12 +97,13 @@ public class EntryService {
                 dto.getNeededConservationActions(),
                 dto.getSourcesOfInformation(),
                 dto.getAuthors(),
-                ImageService.convertDTOToImageModel(dto.getImageDTO())
+                ImageService.convertDTOToImageModel(dto.getImage())
 
         );
     }
 
-    public static String getImageDataInBase64(ImageModel image) {    // Конвертация массива байтов в строку Base64
+    public static String getImageDataInBase64(ImageModel image) {
+        log.info("{}", image);// Конвертация массива байтов в строку Base64
         return "data:" + image.getContentType() + ";base64," + java.util.Base64.getEncoder().encodeToString(image.getData());}
 
 

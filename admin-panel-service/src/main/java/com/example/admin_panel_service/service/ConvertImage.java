@@ -16,7 +16,7 @@ public final class ConvertImage {
         image.setOriginalFileName(file.getOriginalFilename());
         image.setSize(file.getSize());
         image.setContentType(file.getContentType());
-        image.setBytes(file.getBytes());
+        image.setData(file.getBytes());
 
         return image;
     }

@@ -4,11 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class ImageModel {
 
     @Id
@@ -18,6 +20,5 @@ public class ImageModel {
     private String originalFileName;
     private int size;
     private String contentType;
-    @Lob
     private byte[] data;
 }
