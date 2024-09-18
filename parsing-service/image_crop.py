@@ -13,7 +13,7 @@ import PyPDF2
 def get_images_from_pdf(pdf_path: str) -> None:
     pdfFileObj = open(pdf_path, 'rb')
     pdfReaded = PyPDF2.PdfReader(pdfFileObj)
-    cnt_entity = -1
+    cnt_entity = 0
     prev_page_num = -1
     
     # Извлекаем страницы из PDF
@@ -32,9 +32,10 @@ def get_images_from_pdf(pdf_path: str) -> None:
 
             if isinstance(element, LTTextContainer):
                 element_text = element.get_text()
-                if page_num != prev_page_num:
-                    cnt_entity += 1
-                    prev_page_num = page_num
+                if _split_ru_en_string(element_text[:50]):
+                    if page_num != prev_page_num:
+                        cnt_entity += 1
+                        prev_page_num = page_num
             
             if isinstance(element, LTFigure):
                 # Вырезаем изображение из PDF
