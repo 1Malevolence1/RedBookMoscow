@@ -14,12 +14,13 @@
   "neededConservationActions": "string",
   "sourcesOfInformation": "string",
   "authors": "string",
-  "imageDTO": {
+  "image": {
     "id": 1,
     "name": "example_image",
     "originalFileName": "image.png",
     "size": 2048,
     "contentType": "image/png",
     "data": "iVBORw0KGgoAAAANSUhEUgAAAAUA"
-  }
+  },
+  "view": "view"
 }

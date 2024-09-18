@@ -51,6 +51,11 @@ public class ViewServiceImpl implements ViewService {
     }
 
     @Override
+    public View save(View view) {
+        return viewRepository.save(view);
+    }
+
+    @Override
     @Transactional
     public void delete(Long id) {
        try {
