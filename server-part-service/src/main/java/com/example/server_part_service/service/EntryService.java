@@ -55,6 +55,7 @@ public class EntryService {
     }
 
     public EntryModel saveModel(EntryModel entryModel) {
+        log.info("we in entryService 58");
         return entryRepository.save(entryModel);
     }
 
@@ -71,6 +72,7 @@ public class EntryService {
     }
 
     public ResponseEntryDTO converterModelToResponseDto(EntryModel model) {
+        log.info("we in en service 75");
         return new ResponseEntryDTO(
                 model.getId(),
                 model.getName(),
@@ -95,6 +97,7 @@ public class EntryService {
     }
 
     public EntryModel converterDtoToModel(RequestEntryDTO dto) {
+        log.info("we in entryService 99");
         return new EntryModel(
                 dto.getId(),
                 dto.getName(),
@@ -111,12 +114,11 @@ public class EntryService {
                 dto.getNeededConservationActions(),
                 dto.getSourcesOfInformation(),
                 dto.getAuthors(),
-
-
                 dto.getData().stream()
                         .map(ImageService::convertDTOToImageModel)
                         .collect(Collectors.toList()),
-                viewService.save(new View(0L, dto.getView()))
+                viewService.saveIfNotExist(new View(1L, dto.getView(),null))
+//                viewService.save(new View(0L, dto.getView(),null))
         );
     }
 

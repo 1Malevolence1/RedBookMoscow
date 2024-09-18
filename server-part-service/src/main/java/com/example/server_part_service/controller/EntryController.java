@@ -43,6 +43,7 @@ public class EntryController {
             return new ResponseEntity<>(responseEntryDTO, HttpStatus.OK);
         } catch (Exception e) {
             log.info("\n--------------\nerror in post entry!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+            e.printStackTrace();
         }
         return ResponseEntity.ok(null);
     }

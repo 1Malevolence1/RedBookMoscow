@@ -39,7 +39,7 @@ public class EntryModel {
     private String sourcesOfInformation;
     private String authors;
 
-    @OneToMany(mappedBy = "entry_model", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "entryModel", cascade = CascadeType.ALL)
 //    @JoinColumn(name = "image_id")
     private List<ImageModel> data;
 
