@@ -84,8 +84,10 @@
                         <input type="text" id="authors" name="authors" required>
                     </div>
                     <div class="input-group">
-                        <label for="view">Вид:</label>
-                        <input type="text" id="view" name="view" required>
+                        <label for="views">Вид:</label>
+                        <select id="views" name="views">
+                            <option th:each="view: ${views}" th:value="${view.id}" th:text="${view.title}"></option>
+                        </select>
                     </div>
                 </div>
                 <!-- добавление картинки -->

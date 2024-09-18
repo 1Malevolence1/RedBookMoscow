@@ -118,15 +118,16 @@ main {
     height: 200px;
 }
 
-.article-list {
+#article-list {
     display: flex;
     flex-wrap: wrap; 
     gap: 1rem;
-    justify-content: center;
+    justify-content: left;
     /*max-width: 2000px;*/
+
 }
 
-article {
+.article {
     background: #fff;
     padding: 1rem;
     border-radius: 5px;
@@ -136,18 +137,19 @@ article {
     max-width: 340px; 
     text-align: center;
     transition: background 1s ease;
+    list-style-type: none
 }
 
-article:hover {
+.article:hover {
     background: rgb(0, 255, 149); 
 }
 
-article h2 a {
+.article h2 a {
     color: #004d00;
     text-decoration: none;
 }
 
-article h2 a:hover {
+.article h2 a:hover {
     text-decoration: underline;
 }
 
