@@ -21,4 +21,5 @@ public class ResponseDtoRedBookEntry {
     private String ChangesINinTheStatusOfTheSpecies;
     private String neededConservationcAtions;
     private String image;
+    private String view;
 }

@@ -21,5 +21,6 @@ public class RequestDtoRedBookEntry {
     private String ChangesINinTheStatusOfTheSpecies;
     private String neededConservationcAtions;
     private RequestDtoImage image;
+    private String view;
 
 }
