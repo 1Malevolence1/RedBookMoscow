@@ -20,21 +20,24 @@
     <a href="#" class="a-inbtn"><button class="edit-button">Редактировать запись</button></a>
     </section>
     <main>
-        <article class="article-content">
-            <h2 class="article-title">Заголовок статьи</h2>
-            <p class="article-meta">Автор: Иван Иванов | Дата: 18 сентября 2024</p>
-            <img src="example.jpg" alt="Пример изображения статьи" class="article-image">
+        <article class="article-content" th:each="animal: ${list}">
+            <h2 class="article-title" th:text="${animal.name}"></h2>
+            <p class="article-meta" th:text="${animal.latinName}"></p>
+            <img src="animal.data" alt="image" class="article-image">
             <section class="article-text">
-                <p>
-                    Это пример статьи, в которой описываются важные темы и события, 
-                    касающиеся охраны окружающей среды и экологии. 
-                    В этой статье обсуждаются редкие и исчезающие виды животных, 
-                    занесенные в Красную книгу. Текст статьи может содержать как 
-                    научные данные, так и популярные описания с яркими иллюстрациями.
-                </p>
-                <p>
-                    Помимо описания видов, также важна информация о факторах, угрожающих их существованию, и мерах, принимаемых для их защиты. Экологические вопросы становятся все более актуальными, и важно повышать осведомленность населения об этой проблеме.
-                </p>
+                <p th:text="${animal.division}"></p>
+                <p th:text="${animal.family}"></p>
+                <p th:text="${animal.view}"></p>
+                <p th:text="${animal.status}"></p>
+                <p th:text="${animal.distribution}"></p>
+                <p th:text="${animal.inHabitat}"></p>
+                <p th:text="${animal.habitatFeatures}"></p>
+                <p th:text="${animal.mitigatingFactors}"></p>
+                <p th:text="${animal.protectionMeasuresTaken}"></p>
+                <p th:text="${animal.changesInStatusOfSpecies}"></p>
+                <p th:text="${animal.neededConservationActions}"></p>
+                <p th:text="${animal.sourcesOfInformation}"></p>
+                <p th:text="${animal.authors}"></p>
             </section>
         </article>
     </main>

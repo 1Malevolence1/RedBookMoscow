@@ -15,3 +15,20 @@ function previewImage(event) {
                 reader.readAsDataURL(input.files[0]);
             }
         }
+  
+
+            document.getElementById('views').addEventListener('change', function() {
+            const selectedAnimal = this.options[this.selectedIndex].textContent;;  
+            const items = document.querySelectorAll('#article-list li');  
+        
+            items.forEach(function(item) {
+                const animalName = item.querySelector('p').textContent;  
+        
+               
+                if (selectedAnimal === 'Все' || animalName === selectedAnimal) {
+                    item.style.display = 'list-item';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });

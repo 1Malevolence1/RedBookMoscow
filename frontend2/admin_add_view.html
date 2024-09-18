@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Красная книга</title>
+    <link rel="stylesheet" href="css/add_style.css">
+</head>
+<body>
+    <header>
+        <h1>
+            <span class="highlight">Красная</span> 
+            книга
+        </h1>
+    </header>
+    <section id="menu">
+        <a class="a-inbtn" href="admin_index.html"><button class="back-button">Назад</button></a>
+    </section>
+
+    <main style="display: flex; justify-content: center; align-items: center; padding: 2rem;">
+        <section class="manage-content">
+            <div class="line">
+                <select id="views" name="views">
+                    <option th:each="view: ${views}" th:value="${view.id}" th:text="${view.title}"></option>
+                </select>
+                <button style="min-width: 100px; margin-left: 1rem;" class="submit-delete-button">Удалить</button>
+            </div>
+
+            <div class="line">
+                <input type="text" placeholder="Название вида" id="item-name">
+                <button style="min-width: 100px; margin-left: 1rem;" class="submit-add-button">Добавить</button>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Красная книга. Все права защищены. <a id="about" href="about.html">О нас.</a></p>
+    </footer>
+
+</body>
+</html>
