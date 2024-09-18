@@ -32,7 +32,7 @@ public class ImageController {
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ImageDTO create(@RequestBody ImageDTO imageDTO) {
-        log.info("{}",imageDTO.getData());
+        log.info("{}",imageDTO.getBytes());
         return imageDTO;
     }
 }

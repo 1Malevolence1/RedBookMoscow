@@ -36,16 +36,19 @@
             <option value="insects">Насекомые</option>
         </select>
 
-        <a href="admin_add.html" class="a-inbtn"><button class="add-button">Добавить запись</button></a>
+        <!-- Измененная ссылка для кнопки "Добавить запись" -->
+        <a href="#" th:href="@{/api/admin/entry/create}" class="a-inbtn">
+            <button class="add-button">Добавить запись</button>
+        </a>
     </div>
 
 </section>
 
 <main>
     <section class="article-list">
-        <!-- Используем th:each для перебора списка книг -->
+        <!-- Используем th:each для перебора списка записей -->
         <article th:each="entry : ${list}">
-            <img th:src="${entry.image}" alt="${entry.name}" class="animals-img">
+            <img th:src="${entry.data}" alt="${entry.name}" class="animals-img">
             <h2><a th:href="@{/api/red-book-entries/{id}(id=${entry.id})}" th:text="${entry.name}"></a></h2> <!-- Замените на правильный путь -->
             <p th:text="${entry.status}">Краткое описание состояния записи.</p> <!-- Добавьте описание состояния -->
         </article>

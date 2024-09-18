@@ -1,80 +1,70 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Красная книга</title>
-    <link rel="stylesheet" href="css/add_style.css">
+    <title>Добавить запись в Красную книгу</title>
+    <link rel="stylesheet" href="css/add_style.css"> <!-- Подключите ваш файл стилей -->
 </head>
 <body>
-    <header>
-        <h1>
-            <span class="highlight">Красная</span> 
-            книга
-        </h1>
 
-        <nav>
-            <ul>
-                <li><a href="#">О нас</a></li>
-                <li><a href="#">Контакты</a></li>
-            </ul>
-        </nav>
-    </header>
+<header>
+    <h1>
+        <span class="highlight">Красная</span> книга - Добавить запись
+    </h1>
 
-    <main>
-        <form action="#" method="post" class="add-article-form" enctype="multipart/form-data">
-            <div><a href="admin_index.html" class="a-inbtn"><button type="button" class="back-button">Назад</button></a></div>
+    <nav>
+        <ul>
+            <li><a href="/api/admin/main">Главная</a></li>
+            <li><a href="#">О нас</a></li>
+            <li><a href="#">Контакты</a></li>
+        </ul>
+    </nav>
+</header>
 
-            <div class="form-wrapper">
-                <div class="form-content">
-                    <!-- ввод данных -->
-                    <div class="input-group">
-                        <label for="title">Заголовок:</label>
-                        <input type="text" id="title" name="title" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="author">Автор:</label>
-                        <input type="text" id="author" name="author" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="date">Дата публикации:</label>
-                        <input type="date" id="date" name="date" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="category">Категория:</label>
-                        <select id="category" name="category" required>
-                            <option value="animals">Животные</option>
-                            <option value="plants">Растения</option>
-                            <option value="insects">Насекомые</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="content">Содержание:</label>
-                        <textarea id="content" name="content" rows="5" required></textarea>
-                    </div>
-                    <div class="input-group">
-                        <label for="tags">Теги:</label>
-                        <input type="text" id="tags" name="tags" required>
-                    </div>
+<main>
+    <form action="#" th:action="@{/api/admin/entry/create}" method="post" class="add-article-form" enctype="multipart/form-data" style="max-width: 600px; margin: auto;">
+        <div><a href="/api/admin/main" class="a-inbtn"><button type="button" class="back-button">Назад</button></a></div>
+
+        <div class="form-wrapper" style="border: 1px solid #ccc; padding: 20px; border-radius: 5px;">
+            <div class="form-content">
+
+                <!-- Проверка на наличие ошибок -->
+                <div th:if="${errors != null && #lists.isNotEmpty(errors)}" class="error-messages" style="color: red;">
+                    <ul>
+                        <li th:each="error : ${errors}" th:text="${error}"></li>
+                    </ul>
                 </div>
 
-                <!-- добавление картинки -->
-                <div class="image-upload">
-                    <label for="image">Изображение:</label>
-                    <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)" required>
-                    <div id="image-preview" class="image-preview"></div>
+                <!-- Поля для ввода -->
+                <div class="input-group" style="margin-bottom: 15px;">
+                    <label for="name">Название:</label>
+                    <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
                 </div>
+
+                <div class="input-group" style="margin-bottom: 15px;">
+                    <label for="latinName">Статус:</label>
+                    <input type="text" id="latinName" name="latinName" required style="width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ccc;">
+                </div>
+
+                <!-- Добавление изображения -->
+                <div class="input-group" style="margin-bottom: 15px;">
+                    <label for="file">Изображение:</label>
+                    <input type="file" id="file" name="file" accept="image/*" required style="padding-top: 8px;">
+                </div>
+
             </div>
+        </div>
 
-            <button type="submit" class="submit-button">Опубликовать</button>
-        </form>
-    </main>
-    
+        <!-- Кнопка отправки формы -->
+        <button type="submit" class="submit-button">Опубликовать</button>
 
-    <footer>
-        <p>&copy; 2024 Красная книга. Все права защищены.</p>
-    </footer>
+    </form>
+</main>
 
-    <script src="js/script.js"></script>
+<footer>
+    <p>&copy; 2024 Красная книга. Все права защищены.</p>
+</footer>
+
 </body>
 </html>

@@ -6,9 +6,13 @@ import com.example.server_part_service.exception.EntityNotFoundException;
 import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.model.ImageModel;
 import com.example.server_part_service.repository.EntryRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Slf4j
 @Service
 public class EntryService {
 
@@ -19,6 +23,17 @@ public class EntryService {
         return entryRepository.findById(entryId)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Image with id " + entryId + " not found"));
+    }
+
+
+    public List<ResponseEntryDTO> findAll() {
+        List<EntryModel> entryModels = entryRepository.findAll();
+        List<ResponseEntryDTO> responseEntryDTOS = entryModels.stream()
+                .map(this::converterModelToResponseDto) // Используем метод для конвертации
+                .toList(); // Преобразуем поток в список
+
+        log.info("{}", responseEntryDTOS);
+        return responseEntryDTOS;
     }
 
     public ResponseEntryDTO getDtoById(long id) {
@@ -56,7 +71,7 @@ public class EntryService {
                 model.getChangesInStatusOfSpecies(),
                 model.getNeededConservationActions(),
                 model.getSourcesOfInformation(),
-                model.getAuthors(), null
+                model.getAuthors(), getImageDataInBase64(model.getImageModel())
 
         );
     }
@@ -77,7 +92,7 @@ public class EntryService {
                 dto.getChangesInStatusOfSpecies(),
                 dto.getNeededConservationActions(),
                 dto.getSourcesOfInformation(),
-                dto.getAuthors(), null
+                dto.getAuthors(),null
         );
     }
 

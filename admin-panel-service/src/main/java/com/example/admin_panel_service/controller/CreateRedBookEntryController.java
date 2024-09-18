@@ -1,7 +1,11 @@
 package com.example.admin_panel_service.controller;
 
 
+import com.example.admin_panel_service.dto.RequestDtoImage;
 import com.example.admin_panel_service.dto.RequestDtoRedBookEntry;
+import com.example.admin_panel_service.dto.mainpage.RequestMainPageDtoEntry;
+import com.example.admin_panel_service.dto.mainpage.ResponseMainPageDtoEntry;
+import com.example.admin_panel_service.service.ConvertImage;
 import com.example.admin_panel_service.service.function.RedBookEntryCreationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 //@TODO обновить под под нужный
@@ -26,24 +32,24 @@ public class CreateRedBookEntryController {
     //@TODO обновить под под нужный
     @GetMapping()
     public String getPageCreateRedBookEntry(){
+
         return "admin_add";
     }
 
-    //@TODO обновить под под нужный
     @PostMapping()
-    public String createNewRedBookEntry(@Valid @ModelAttribute RequestDtoRedBookEntry createRedBookEntry, BindingResult bindingResult) throws BindException {
+    public String createNewRedBookEntry(@RequestParam("file") MultipartFile image, RequestMainPageDtoEntry responseMainPageDtoEntry
+                                        ) throws IOException {
 
-        if (bindingResult.hasErrors()) {
-            if (bindingResult instanceof BindException exception) {
-                throw exception;
-            } else {
-                throw new BindException(bindingResult);
-            }
-        } else {
-            redBookEntryService.save(createRedBookEntry);
-            return "...";
+      {
+            // Конвертируем MultipartFile в RequestDtoImage
+            RequestDtoImage requestDtoImage = ConvertImage.toImageEntity(image);
+            responseMainPageDtoEntry.setImage(requestDtoImage);
+            log.info("{}", requestDtoImage);
+            redBookEntryService.save(responseMainPageDtoEntry);
+            return "redirect:/api/admin/main"; // Перенаправление на главную страницу после успешного создания записи
         }
     }
+
 
 
     //@TODO обновить под под нужный

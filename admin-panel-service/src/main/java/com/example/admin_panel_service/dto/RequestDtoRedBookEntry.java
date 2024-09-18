@@ -20,5 +20,6 @@ public class RequestDtoRedBookEntry {
     private String ProtectionMeasuresTaken;
     private String ChangesINinTheStatusOfTheSpecies;
     private String neededConservationcAtions;
+    private RequestDtoImage image;
 
 }

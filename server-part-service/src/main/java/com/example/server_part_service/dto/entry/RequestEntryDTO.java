@@ -27,6 +27,6 @@ public class RequestEntryDTO {
     private String sourcesOfInformation;
     private String authors;
 
-    private ImageDTO imageDTO; // image dto in json format
+    private ImageDTO image; // image dto in json format
 
 }
