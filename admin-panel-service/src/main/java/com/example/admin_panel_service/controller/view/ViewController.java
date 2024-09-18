@@ -21,15 +21,14 @@ public class ViewController {
     @GetMapping()
     public String getPage(Model model){
         model.addAttribute("views" ,viewService.findAll());
-        return "....";
+        return "admin_add_view";
     }
 
 
     @PostMapping("create")
     public String saveNewView(RequestDtoView dto, Model model){
-
         viewService.save(dto);
-        return "...";
+        return "redirect://api/admin/view";
     }
 
     @PostMapping("/delete/{viewId:\\d+}")
