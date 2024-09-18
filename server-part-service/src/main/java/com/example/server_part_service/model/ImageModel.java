@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Image {
+public class ImageModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

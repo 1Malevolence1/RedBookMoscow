@@ -1,16 +1,17 @@
 package com.example.server_part_service.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@Table(schema = "book", name = "animal_obj")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AnimalObj {
+public class EntryModel {
     @NotNull
     private String name;
     @NotNull
@@ -30,5 +31,9 @@ public class AnimalObj {
 
     private String sourcesOfInformation;
     private String authors;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id")
+    private ImageModel imageModel;
 
 }

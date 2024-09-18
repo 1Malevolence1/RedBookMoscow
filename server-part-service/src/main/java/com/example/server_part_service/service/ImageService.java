@@ -2,7 +2,7 @@ package com.example.server_part_service.service;
 
 import com.example.server_part_service.dtoshki.ImageDTO;
 import com.example.server_part_service.exception.EntityNotFoundException;
-import com.example.server_part_service.model.Image;
+import com.example.server_part_service.model.ImageModel;
 import com.example.server_part_service.repository.ImageRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,22 +16,22 @@ public class ImageService {
     @Autowired
     private ImageRepository repository;
 
-    public Image saveImage(Image image) {
-        return repository.save(image);
+    public ImageModel saveImage(ImageModel imageModel) {
+        return repository.save(imageModel);
     }
 
-    public ImageDTO getDTO(Image image) {
+    public ImageDTO getDTO(ImageModel imageModel) {
         return new ImageDTO(
-                image.getId(),
-                image.getName(),
-                image.getOriginalFileName(),
-                image.getSize(),
-                image.getContentType(),
-                image.getData()
+                imageModel.getId(),
+                imageModel.getName(),
+                imageModel.getOriginalFileName(),
+                imageModel.getSize(),
+                imageModel.getContentType(),
+                imageModel.getData()
         );
     }
 
-    public Image getImage(long imageId) {
+    public ImageModel getImage(long imageId) {
         return repository.findById(imageId)
                 .orElseThrow(() -> new EntityNotFoundException("Image with id " + imageId + " not found"));
     }
