@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Красная книга</title>
+    <link rel="stylesheet" href="css/add_style.css">
+</head>
+<body>
+    <header>
+        <h1>
+            <span class="highlight">Красная</span> 
+            книга
+        </h1>
+    </header>
+    <section id="menu">
+        <a class="a-inbtn" href="admin_index.html"><button class="back-button">Назад</button></a>
+    </section>
+
+    <main>
+        <form action="#" method="post" class="add-article-form" enctype="multipart/form-data">
+            <div class="form-wrapper">
+
+                <div class="form-content">
+                    <!-- ввод данных -->
+                    <div class="input-group">
+                        <label for="name">Название:</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="latinName">Латинское название:</label>
+                        <input type="text" id="latinName" name="latinName" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="division">Отряд:</label>
+                        <input type="text" id="division" name="division" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="family">Семейство:</label>
+                        <input type="text" id="family" name="family" required>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="status">Статус:</label>
+                        <input type="text" id="status" name="status" rows="5" required></input>
+                    </div>
+                    <div class="input-group">
+                        <label for="distribution">Распространение:</label>
+                        <input type="text" id="distribution" name="distribution" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="inhabitat">Численность:</label>
+                        <input type="text" id="inhabitat" name="inhabitat" required>
+                    </div>
+                </div>
+                <div class="form-content">
+                    <div class="input-group">
+                        <label for="habitatFeatures">Особенности обитания:</label>
+                        <input type="text" id="habitatFeatures" name="habitatFeatures" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="mitigatingFactors">Лимитирующие факторы:</label>
+                        <input type="text" id="mitigatingFactors" name="mitigatingFactors" required>
+                    </div>
+                    <div>
+                        <label for="protectionMeasuresTaken">Принятые меры охраны:</label>
+                        <input type="text" id="protectionMeasuresTaken" name="protectionMeasuresTaken" required>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="changesInTheStatusOfTheSpecies">Изменение состояния вида:</label>
+                        <input type="text" id="changesInTheStatusOfTheSpecies" name="changesInTheStatusOfTheSpecies" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="neededConservationActions">Необходимые мероприятия по сохранению вида:</label>
+                        <input type="text" id="neededConservationActions" name="neededConservationActions" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="sourcesOfInformation">Источники информации:</label>
+                        <input type="text" id="sourcesOfInformation" name="sourcesOfInformation" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="authors">Авторы:</label>
+                        <input type="text" id="authors" name="authors" required>
+                    </div>
+                </div>
+                <!-- добавление картинки -->
+                <div class="image-upload">
+                    <label for="image">Изображение:</label>
+                    <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)" required>
+                    <div id="image-preview" class="image-preview"></div>
+                </div>
+                
+            </div>
+
+            <button type="submit" class="submit-button">Добавить</button>
+        </form>
+    </main>
+    
+
+    <footer>
+        <p>&copy; 2024 Красная книга. Все права защищены. <a id="about" href="about.html">О нас.</a></p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
