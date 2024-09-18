@@ -1,7 +1,7 @@
 -- liquibase formatted sql
 
 -- changeset kodi:1
-CREATE TABLE animal_obj (
+CREATE TABLE animal_obj(
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     latin_name VARCHAR(255) NOT NULL,
@@ -15,7 +15,7 @@ CREATE TABLE animal_obj (
     protection_measures_taken TEXT,
     changes_in_status_of_species TEXT,
     needed_conservation_actions TEXT,
-    sources_of_information TEXT
+    sources_of_information TEXT,
     authors TEXT
 );
 
