@@ -47,9 +47,9 @@ public class EntryController {
         ResponseEntryDTO responseEntryDTO = service.converterModelToResponseDto(service.updateModel(service.converterDtoToModel(dto)));
         return new ResponseEntity<>(responseEntryDTO, HttpStatus.valueOf(202));
     }
-    @DeleteMapping()
-    public ResponseEntity<Void> delete() {
-       service.deleteAll();
+    @DeleteMapping("/{entryId:\\d+}")
+    public ResponseEntity<Void> delete(@PathVariable(name = "entryId") Long id) {
+        service.deleteEntry(id);
         return new ResponseEntity<>(HttpStatus.valueOf(204));
     }
 }
