@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Красная книга</title>
+    <link rel="stylesheet" href="css/add_style.css">
+</head>
+<body>
+    <header>
+        <h1>
+            <span class="highlight">Красная</span> 
+            книга
+        </h1>
+
+        <nav>
+            <ul>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <form action="#" method="post" class="add-article-form" enctype="multipart/form-data">
+            <div><a href="admin_index.html" class="a-inbtn"><button type="button" class="back-button">Назад</button></a></div>
+
+            <div class="form-wrapper">
+                <div class="form-content">
+                    <!-- ввод данных -->
+                    <div class="input-group">
+                        <label for="title">Заголовок:</label>
+                        <input type="text" id="title" name="title" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="author">Автор:</label>
+                        <input type="text" id="author" name="author" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="date">Дата публикации:</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="category">Категория:</label>
+                        <select id="category" name="category" required>
+                            <option value="animals">Животные</option>
+                            <option value="plants">Растения</option>
+                            <option value="insects">Насекомые</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="content">Содержание:</label>
+                        <textarea id="content" name="content" rows="5" required></textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="tags">Теги:</label>
+                        <input type="text" id="tags" name="tags" required>
+                    </div>
+                </div>
+
+                <!-- добавление картинки -->
+                <div class="image-upload">
+                    <label for="image">Изображение:</label>
+                    <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)" required>
+                    <div id="image-preview" class="image-preview"></div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-button">Опубликовать</button>
+        </form>
+    </main>
+    
+
+    <footer>
+        <p>&copy; 2024 Красная книга. Все права защищены.</p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
