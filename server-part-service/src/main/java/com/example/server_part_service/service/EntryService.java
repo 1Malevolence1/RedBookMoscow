@@ -6,19 +6,14 @@ import com.example.server_part_service.exception.EntityNotFoundException;
 import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.model.ImageModel;
 import com.example.server_part_service.repository.EntryRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@Transactional
 public class EntryService {
 
     @Autowired
     private EntryRepository entryRepository;
-
-    @Autowired
-    private ImageService imageService;
 
     public EntryModel getModelById(long entryId) {
         return entryRepository.findById(entryId)
@@ -70,7 +65,7 @@ public class EntryService {
 
     public EntryModel converterDtoToModel(RequestEntryDTO dto) {
         return new EntryModel(
-                dto.getId(),
+                null,
                 dto.getName(),
                 dto.getLatinName(),
                 dto.getDivision(),

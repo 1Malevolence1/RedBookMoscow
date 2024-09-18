@@ -31,6 +31,7 @@ public class RedBookEntryManagementController{
     // @TODO - добавить названия html файла
     @GetMapping()
     public String getRedBookInfoPage(@ModelAttribute("entry") ResponseDtoRedBookEntry entry, Model model){
+
         model.addAttribute("entry", entry);
         return "...";
     }
@@ -38,11 +39,12 @@ public class RedBookEntryManagementController{
 
 
     // @TODO - добавить названия html файла
-    @DeleteMapping("delete")
+    @PostMapping("delete")
     public String deleteRedBook(@PathVariable(name = "entryId") Long id){
         redBookEntryDeleteAndFindService.deleteById(id);
         return "redirect:/...";
     }
+
 
 
     @ExceptionHandler(NoSuchElementException.class)

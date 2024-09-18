@@ -1,14 +1,14 @@
-package com.example.server_part_service.dto.entry;
+package com.example.admin_panel_service.dto.mainpage;
 
-import com.example.server_part_service.dto.ImageDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestEntryDTO {
+@Data
+public class ResponseMainPageDtoEntry {
     private Long id;
     private String name;
     private String latinName;
@@ -27,7 +27,5 @@ public class RequestEntryDTO {
 
     private String sourcesOfInformation;
     private String authors;
-
-    private ImageDTO image; // image dto in json format
-
+    private String data;
 }

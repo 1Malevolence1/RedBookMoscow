@@ -13,12 +13,13 @@ public class RequestDtoRedBookEntry {
     private String latinName;
     private String division;
     private String family;
-    private String Status;
+    private String status;
     private String distribution;
     private String inhabitat;
     private String mitigatingFactor;
     private String ProtectionMeasuresTaken;
     private String ChangesINinTheStatusOfTheSpecies;
     private String neededConservationcAtions;
+    private RequestDtoImage image;
 
 }

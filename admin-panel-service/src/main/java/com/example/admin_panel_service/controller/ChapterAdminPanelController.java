@@ -2,8 +2,10 @@ package com.example.admin_panel_service.controller;
 
 
 import com.example.admin_panel_service.dto.ResponseDtoRedBookEntry;
+import com.example.admin_panel_service.dto.mainpage.ResponseMainPageDtoEntry;
 import com.example.admin_panel_service.service.ChapterAdminPanelService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/api/admin/main")
 @RequiredArgsConstructor
+@Slf4j
 public class ChapterAdminPanelController {
 
 
@@ -24,11 +27,10 @@ public class ChapterAdminPanelController {
 
     @GetMapping()
     public String getMainPage(Model model){
-
-        List<ResponseDtoRedBookEntry> responseRedBookEntryList = redBookEntryRetrievalService.findAll();
-
+        List<ResponseMainPageDtoEntry> responseRedBookEntryList = redBookEntryRetrievalService.findAll();
+        log.info("{}", responseRedBookEntryList);
         model.addAttribute("list", responseRedBookEntryList);
-        return "";
+        return "admin_index";
     }
 
 
