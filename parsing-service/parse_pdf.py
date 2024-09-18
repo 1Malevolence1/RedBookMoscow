@@ -5,9 +5,12 @@ from tkinter.font import families
 from typing import Optional
 from tqdm.auto import tqdm
 from pprint import pprint
+from collections import defaultdict
 
 # Для извлечения текста из PDF
+import fitz
 import PyPDF2
+import pdfplumber
 
 # Для проверки типов в pdf
 from pdfminer.high_level import extract_pages, extract_text
@@ -16,18 +19,15 @@ from pdfminer.layout import LTTextContainer, LTChar, LTFigure, LTItemT
 # Для извлечения изображений из PDF
 from PIL import Image
 from pdf2image import convert_from_path
+import pytesseract
 
 from deep_translator import GoogleTranslator
 
 
-def text_from_pdf(pdf_path: str) -> None:
+def images_from_pdf(pdf_path: str) -> None:
     pdfFileObj = open(pdf_path, 'rb')
     pdfReaded = PyPDF2.PdfReader(pdfFileObj)
     
-    text_per_page = {}
-    current_key = None  # Текущий ключ (секция)
-    current_text = []  # Буфер для накопления текста
-    file = open('./data/tmp/test_txt.txt', 'a', encoding='utf-8')
     # Извлекаем страницы из PDF
     for page_num, page in tqdm(enumerate(extract_pages(pdf_path)), 'Pages', position=2):
         
@@ -55,20 +55,7 @@ def text_from_pdf(pdf_path: str) -> None:
                 # if name_key:
                     # print(name_key)
                 page_text.append(line_text)
-                
-        # file.write(''.join(page_text))
-        # file.write('='*100 + '\n')
 
-
-
-
-
-def create_txt_files() -> None:
-    pass
-
-
-def _crop_image() -> None:
-    pass
 
 
 def _get_name_key(line_text, format_per_line):
@@ -153,14 +140,34 @@ def _text_extraction(element) -> None:
     return (line_text, format_per_line)
 
 
+def extract_text_from_image(image):
+    """Извлекает текст из изображения с помощью Pytesseract."""
+    return pytesseract.image_to_string(image, lang='rus+eng')
+
+def save_text_to_file(text, output_file):
+    """Сохраняет извлеченный текст в файл."""
+    with open(output_file, 'w', encoding='utf-8') as f:
+        f.write(text)
+
+
+
 def main() -> None:
     path1 = '.\\data\\pdf\\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf'
     path2 = r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\pdf\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf'
     # На windows ошибка с тем, что путь он не видит
-    try:
-        text_from_pdf(pdf_path=path1)
-    except FileNotFoundError:
-        text_from_pdf(pdf_path=path2)
+    # try:
+        # text_from_pdf(pdf_path=path1)
+    # except FileNotFoundError:
+        # text_from_pdf(pdf_path=path2)
+    
+    images = convert_from_path(path1)
+    full_text = ""
+    
+    for i, image in enumerate(images):
+        text = extract_text_from_image(image)
+        full_text += text + '\n'
+
+    save_text_to_file(full_text, './data/tmp/test_txt2.txt')
 
 
 if __name__ == "__main__":
