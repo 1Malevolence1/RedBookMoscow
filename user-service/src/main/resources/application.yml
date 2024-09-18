@@ -1,0 +1,12 @@
+spring:
+    application:
+        name: user-service
+
+
+name:
+    server:
+        localhost:
+            ${env.LOCALHOST}
+
+server:
+    port: ${env.PORT}
