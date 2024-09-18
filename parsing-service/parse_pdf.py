@@ -1,4 +1,5 @@
 import os
+from re import X
 import time
 from typing import Optional
 from tqdm.auto import tqdm
@@ -15,7 +16,21 @@ from PIL import Image
 from pdf2image import convert_from_path
 
 
+def text_from_pdf(pdf_path: str) -> None:
+    pass
 
+
+def create_txt_files() -> None:
+    pass
+
+
+
+def _crop_image() -> None:
+    pass
+
+
+def _text_extraction() -> None:
+    pass
 
 
 def main() -> None:
