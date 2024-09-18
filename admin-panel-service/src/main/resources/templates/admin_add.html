@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -262,8 +262,11 @@ footer {
 
             <div class="input-group">
                 <label for="views">Вид:</label>
-                <select id="views"  th:each="view: ${views}">
-                    <option value="view.id" th:text="${view.title}">1вариант</option>
+                <select id="views" name="views">
+                    <option value="">Выберите поставщика</option>
+                    <option data-th-each="view: ${views}"
+                            data-th-value="${view.id}"
+                            data-th-text="${view.title}"></option>
                 </select>
             </div>
 
