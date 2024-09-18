@@ -14,7 +14,7 @@ CREATE TABLE image_model (
     original_file_name VARCHAR(255),
     size INTEGER,
     content_type VARCHAR(255),
-    data BYTEA
+    data bytea
 );
 
 
@@ -26,15 +26,15 @@ CREATE TABLE entry_model (
     division VARCHAR(255),
     family VARCHAR(255),
     status VARCHAR(255),
-    distribution TEXT,
-    in_habitat TEXT,
-    habitat_features TEXT,
-    mitigating_factors TEXT,
-    protection_measures_taken TEXT,
-    changes_in_status_of_species TEXT,
-    needed_conservation_actions TEXT,
-    sources_of_information TEXT,
-    authors TEXT,
+    distribution VARCHAR(255),
+    in_habitat VARCHAR(255),
+    habitat_features VARCHAR(255),
+    mitigating_factors VARCHAR(255),
+    protection_measures_taken VARCHAR(255),
+    changes_in_status_of_species VARCHAR(255),
+    needed_conservation_actions VARCHAR(255),
+    sources_of_information VARCHAR(255),
+    authors VARCHAR(255),
     image_id BIGINT,
     view_id BIGINT,
     CONSTRAINT fk_image FOREIGN KEY (image_id) REFERENCES image_model (id) ON DELETE CASCADE,
