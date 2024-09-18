@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestEntryDTO {
+    private Long id;
     private String name;
     private String latinName;
     private String division;

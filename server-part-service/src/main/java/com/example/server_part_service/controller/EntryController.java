@@ -21,7 +21,7 @@ public class EntryController {
         return new ResponseEntity<>(service.getDtoById(entryId), HttpStatus.valueOf(200));
     }
     @PostMapping
-    public ResponseEntity<ResponseEntryDTO> post(RequestEntryDTO dto) {
+    public ResponseEntity<ResponseEntryDTO> post(@RequestBody RequestEntryDTO dto) {
         ResponseEntryDTO responseEntryDTO = service.converterModelToResponseDto(service.saveModel(service.converterDtoToModel(dto)));
         return new ResponseEntity<>(responseEntryDTO, HttpStatus.valueOf(201));
     }

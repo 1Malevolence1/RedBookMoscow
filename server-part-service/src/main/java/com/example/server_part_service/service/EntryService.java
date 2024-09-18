@@ -6,14 +6,19 @@ import com.example.server_part_service.exception.EntityNotFoundException;
 import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.model.ImageModel;
 import com.example.server_part_service.repository.EntryRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@Transactional
 public class EntryService {
 
     @Autowired
     private EntryRepository entryRepository;
+
+    @Autowired
+    private ImageService imageService;
 
     public EntryModel getModelById(long entryId) {
         return entryRepository.findById(entryId)
@@ -43,6 +48,7 @@ public class EntryService {
 
     public ResponseEntryDTO converterModelToResponseDto(EntryModel model) {
         return new ResponseEntryDTO(
+                model.getId(),
                 model.getName(),
                 model.getLatinName(),
                 model.getDivision(),
@@ -56,14 +62,15 @@ public class EntryService {
                 model.getChangesInStatusOfSpecies(),
                 model.getNeededConservationActions(),
                 model.getSourcesOfInformation(),
-                model.getAuthors(), null
+                model.getAuthors(),
+                getImageDataInBase64(model.getImageModel())
 
         );
     }
 
     public EntryModel converterDtoToModel(RequestEntryDTO dto) {
         return new EntryModel(
-                null,
+                dto.getId(),
                 dto.getName(),
                 dto.getLatinName(),
                 dto.getDivision(),
@@ -77,7 +84,9 @@ public class EntryService {
                 dto.getChangesInStatusOfSpecies(),
                 dto.getNeededConservationActions(),
                 dto.getSourcesOfInformation(),
-                dto.getAuthors(), null
+                dto.getAuthors(),
+                ImageService.convertDTOToImageModel(dto.getImageDTO())
+
         );
     }
 
