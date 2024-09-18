@@ -13,3 +13,19 @@ services:
     volumes:
       - ./data:/var/lib/postgresql/data
 
+
+  server-part:
+    image: server-part
+    container_name: server-part
+    build:
+      dockerfile: Dockerfile
+    ports:
+      - 8008:8008
+    hostname: server-part
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/redBooooooook
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1234
+    depends_on:
+      postgres:
+        condition: service_started
