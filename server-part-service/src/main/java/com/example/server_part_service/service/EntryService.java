@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -110,7 +111,11 @@ public class EntryService {
                 dto.getNeededConservationActions(),
                 dto.getSourcesOfInformation(),
                 dto.getAuthors(),
-                ImageService.convertDTOToImageModel(dto.getImage()),
+
+
+                dto.getData().stream()
+                        .map(ImageService::convertDTOToImageModel)
+                        .collect(Collectors.toList()),
                 viewService.save(new View(0L, dto.getView()))
         );
     }
