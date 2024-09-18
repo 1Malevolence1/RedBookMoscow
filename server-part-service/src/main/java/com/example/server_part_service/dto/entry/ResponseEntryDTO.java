@@ -27,6 +27,7 @@ public class ResponseEntryDTO {
     private String sourcesOfInformation;
     private String authors;
 
-    private String data;//data in base64
+    private String data;
+    private String view;//data in base64
 
 }

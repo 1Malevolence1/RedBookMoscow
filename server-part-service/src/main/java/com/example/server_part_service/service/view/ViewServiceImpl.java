@@ -1,0 +1,62 @@
+package com.example.server_part_service.service.view;
+
+import com.example.server_part_service.convert.view.ConvertView;
+import com.example.server_part_service.dto.view.RequestDtoView;
+import com.example.server_part_service.dto.view.ResponseDtoView;
+import com.example.server_part_service.model.View;
+import com.example.server_part_service.repository.view.ViewRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
+import org.postgresql.util.PSQLException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+
+
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class ViewServiceImpl implements ViewService {
+
+    private final ViewRepository viewRepository;
+    private final ConvertView<RequestDtoView, ResponseDtoView, View> convertView;
+
+    @Override
+    public List<ResponseDtoView> finaAll() {
+        return viewRepository.findAll().stream().map(convertView::convertEntityInDto).toList();
+    }
+
+
+    @SneakyThrows
+    @Override
+    @Transactional
+    public void save(RequestDtoView dto)   {
+        try {
+            viewRepository.save(new View(null, dto.title()));
+        } catch (DataIntegrityViolationException e) {
+
+            if (e.getCause() instanceof PSQLException) {
+                PSQLException sqlException = (PSQLException) e.getCause();
+                if ("23505".equals(sqlException.getSQLState())) {
+                    throw new BadRequestException("Запись с таким заголовком уже существует: " + dto.title());
+                }
+            }
+            throw new BadRequestException("Ошибка при сохранении: " + e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public void delete(Long id) {
+       try {
+           viewRepository.deleteById(id);
+       } catch (NoSuchElementException exception){
+           throw new NoSuchElementException("Not find view with id %d");
+       }
+    }
+}

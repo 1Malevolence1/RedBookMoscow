@@ -40,4 +40,8 @@ public class EntryModel {
     @JoinColumn(name = "image_id")
     private ImageModel imageModel;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "view_id")
+    private View view;
+
 }

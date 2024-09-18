@@ -5,6 +5,7 @@ import com.example.server_part_service.dto.entry.ResponseEntryDTO;
 import com.example.server_part_service.exception.EntityNotFoundException;
 import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.model.ImageModel;
+import com.example.server_part_service.model.View;
 import com.example.server_part_service.repository.EntryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,8 +76,8 @@ public class EntryService {
                 model.getNeededConservationActions(),
                 model.getSourcesOfInformation(),
                 model.getAuthors(),
-                getImageDataInBase64(model.getImageModel())
-
+                getImageDataInBase64(model.getImageModel()),
+                model.getView().getTitle()
         );
     }
 
@@ -97,8 +98,8 @@ public class EntryService {
                 dto.getNeededConservationActions(),
                 dto.getSourcesOfInformation(),
                 dto.getAuthors(),
-                ImageService.convertDTOToImageModel(dto.getImage())
-
+                ImageService.convertDTOToImageModel(dto.getImage()),
+                new View(null, dto.getView())
         );
     }
 
