@@ -95,7 +95,7 @@ public class EntryService {
                 dto.getAuthors(),null
         );
     }
-
+ //  ImageService.convertDTOToImageModel(dto.getImageDTO())
     public static String getImageDataInBase64(ImageModel image) {    // Конвертация массива байтов в строку Base64
         return "data:" + image.getContentType() + ";base64," + java.util.Base64.getEncoder().encodeToString(image.getData());}
 
