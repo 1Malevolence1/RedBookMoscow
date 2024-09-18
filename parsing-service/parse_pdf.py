@@ -43,13 +43,20 @@ def text_from_pdf(pdf_path: str) -> None:
             # Проверяем, является ли элемент текстовым
             if isinstance(element, LTTextContainer):
                 line_text, format_per_line = _text_extraction(element=element)
-                page_text.append(line_text)
-                line_format.append(format_per_line)
+                # page_text.append(line_text)
+                # line_format.append(format_per_line)
+
+                # Добавляем текст в словарь
+                # text_per_page['Name'] = line_text
+                # print(text_per_page)
+                
+                if '\t\x1f' in line_text:
+                    name_key = line_text[line_text.find('\t\x1f') + 2: line_text.find('.')].strip()
+                    text_per_page[name_key] = line_text[line_text.find('\t\x1f') + 3:]
+
+            print(text_per_page)
 
 
-                print(line_text) #, format_per_line)
-            
-            
 
 def create_txt_files() -> None:
     pass
