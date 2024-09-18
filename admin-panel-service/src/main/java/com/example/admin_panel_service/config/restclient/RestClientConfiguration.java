@@ -1,4 +1,4 @@
-package com.example.config.restclient;
+package com.example.admin_panel_service.config.restclient;
 
 
 import org.springframework.beans.factory.annotation.Value;

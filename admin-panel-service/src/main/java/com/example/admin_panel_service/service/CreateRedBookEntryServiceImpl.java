@@ -1,5 +1,6 @@
 package com.example.admin_panel_service.service;
 
+import com.example.admin_panel_service.config.uri.PathUriController;
 import com.example.admin_panel_service.dto.RequestDtoRedBookEntry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,6 @@ public class CreateRedBookEntryServiceImpl implements
 
     @Override
     public void save(RequestDtoRedBookEntry entry) {
-            restClientDataBase.post().uri(com.example.config.uri.PathUriController.POST_RED_BOOL_ENTRY_DATA_BASE).contentType(MediaType.APPLICATION_JSON).body(entry).retrieve();
+            restClientDataBase.post().uri(PathUriController.POST_RED_BOOL_ENTRY_DATA_BASE).contentType(MediaType.APPLICATION_JSON).body(entry).retrieve();
     }
 }

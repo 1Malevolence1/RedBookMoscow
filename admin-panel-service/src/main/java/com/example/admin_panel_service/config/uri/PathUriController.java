@@ -1,4 +1,4 @@
-package com.example.config.uri;
+package com.example.admin_panel_service.config.uri;
 
 
 
