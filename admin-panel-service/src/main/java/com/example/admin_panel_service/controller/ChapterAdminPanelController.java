@@ -23,7 +23,6 @@ public class ChapterAdminPanelController {
     private final ChapterAdminPanelService redBookEntryRetrievalService;
 
 
-
     //@TODO подмуть как над dto чтобы получать одним запрос данные для фильтра и всех redBookEntry
 
     @GetMapping()

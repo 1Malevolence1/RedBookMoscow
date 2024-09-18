@@ -9,6 +9,7 @@ public final class PathUriController {
     public static String GET_RED_BOOL_ENTRY_DATA_BASE = "/api/server-part/entry/%d";
     public static String DEL_RED_BOOL_ENTRY_DATA_BASE = "/api/server-part/entry/%d";
     public static String POST_RED_BOOL_ENTRY_DATA_BASE = "/api/server-part/entry";
+    public static String PUT_RED_BOOL_ENTRY_DATA_BASE = "/api/server-part/entry/%d";
 
     // Запросы для View
 

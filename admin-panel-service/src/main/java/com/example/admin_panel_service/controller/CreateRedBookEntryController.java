@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.List;
 
-//@TODO обновить под под нужный
+
 @Controller
 @RequestMapping("/api/admin/entry/create")
 @RequiredArgsConstructor

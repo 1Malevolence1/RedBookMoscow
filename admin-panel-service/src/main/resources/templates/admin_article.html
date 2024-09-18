@@ -147,7 +147,9 @@ footer {
 
     <a class="a-inbtn" href="/api/admin/main"><button class="back-button">Назад</button></a>
 
-    <a href="#" class="a-inbtn"><button class="edit-button">Редактировать запись</button></a>
+    <a th:href="@{/api/admin/entry/update/{entryId}(entryId=${entry.id})}" class="a-inbtn">
+        <button class="edit-button">Редактировать запись</button>
+    </a>
 </section>
 <main>
     <article class="article-content">
