@@ -3,20 +3,16 @@ package com.example.admin_panel_service.controller;
 
 import com.example.admin_panel_service.dto.RequestDtoImage;
 import com.example.admin_panel_service.dto.RequestDtoRedBookEntry;
-import com.example.admin_panel_service.dto.mainpage.RequestMainPageDtoEntry;
-import com.example.admin_panel_service.dto.mainpage.ResponseMainPageDtoEntry;
 import com.example.admin_panel_service.dto.view.ResponseDtoView;
 import com.example.admin_panel_service.service.ConvertImage;
 import com.example.admin_panel_service.service.function.RedBookEntryCreationService;
 import com.example.admin_panel_service.service.view.ViewService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

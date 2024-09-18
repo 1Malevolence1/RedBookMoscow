@@ -28,5 +28,5 @@ public class ResponseMainPageDtoEntry {
         private String sourcesOfInformation;
         private String authors;
         private String data;
-        private String veiv;
+        private String view;
 }

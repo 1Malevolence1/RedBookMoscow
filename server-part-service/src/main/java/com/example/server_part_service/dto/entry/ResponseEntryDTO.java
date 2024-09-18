@@ -28,6 +28,6 @@ public class ResponseEntryDTO {
     private String authors;
 
     private String data;
-    private String view;//data in base64
+    private String veiv;//data in base64
 
 }

@@ -42,7 +42,7 @@ public class EntryController {
         ResponseEntryDTO responseEntryDTO = service.converterModelToResponseDto(service.saveModel(service.converterDtoToModel(dto)));
         return new ResponseEntity<>(responseEntryDTO, HttpStatus.valueOf(201));
     }
-    @PutMapping("{entryId:\\d+}}")
+    @PutMapping("{entryId:\\d+}")
     public ResponseEntity<ResponseEntryDTO> put(@RequestBody RequestEntryDTO dto) {
         ResponseEntryDTO responseEntryDTO = service.converterModelToResponseDto(service.updateModel(service.converterDtoToModel(dto)));
         return new ResponseEntity<>(responseEntryDTO, HttpStatus.valueOf(202));

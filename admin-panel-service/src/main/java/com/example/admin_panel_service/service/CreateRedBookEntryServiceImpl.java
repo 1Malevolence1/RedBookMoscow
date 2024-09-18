@@ -2,8 +2,6 @@ package com.example.admin_panel_service.service;
 
 import com.example.admin_panel_service.config.uri.PathUriController;
 import com.example.admin_panel_service.dto.RequestDtoRedBookEntry;
-import com.example.admin_panel_service.dto.mainpage.RequestMainPageDtoEntry;
-import com.example.admin_panel_service.dto.mainpage.ResponseMainPageDtoEntry;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
