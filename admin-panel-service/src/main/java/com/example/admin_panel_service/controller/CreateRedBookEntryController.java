@@ -2,7 +2,6 @@ package com.example.admin_panel_service.controller;
 
 
 import com.example.admin_panel_service.dto.RequestDtoRedBookEntry;
-import com.example.admin_panel_service.dto.RequesterCreateRedBookEntry;
 import com.example.admin_panel_service.service.function.RedBookEntryCreationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
