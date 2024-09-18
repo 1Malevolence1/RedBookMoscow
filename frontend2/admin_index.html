@@ -16,13 +16,13 @@
 
     <section id="menu">
         <form action="#" method="get" class="search-form">
-            <input type="text" placeholder="Поиск по статьям..." name="search" class="search-input">
-            <button type="submit" class="search-button">Найти</button>
+            <input type="text" placeholder="Поиск по статьям..." class="search-input" id="searchInput">
+            <!--<button type="submit" class="search-button" id="searchButton">Найти</button>-->
         </form>
 
         <div class="filter-options">
             <label for="views">Виды:</label>
-            <select id="views" name="views">
+            <select id="views">
                 <option>Все</option>
                 <option th:each="view: ${views}" th:value="${view.id}" th:text="${view.title}"></option>
             </select>
@@ -34,15 +34,13 @@
     </section>
 
     <main>
-        <ul id="article-list" >
-
+        <ul id="article-list">
             <li class="article" th:each="animal: ${list}">
                 <img class="animals-img" src="animal.data">
-                <h2><a href="admin_article.html" th:text="${animal.name}">1</a></h2>
+                <h2><a href="admin_article.html" th:text="${animal.name}">Зебра</a></h2>
                 <p class="views" th:text="${animal.view}">1</p>
                 <p th:text="${animal.latinName}">1</p>
             </li>
-
         </ul>
     </main>
 

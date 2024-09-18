@@ -17,7 +17,7 @@ function previewImage(event) {
         }
   
 
-            document.getElementById('views').addEventListener('change', function() {
+        document.getElementById('views').addEventListener('change', function() {
             const selectedAnimal = this.options[this.selectedIndex].textContent;;  
             const items = document.querySelectorAll('#article-list li');  
         
@@ -32,3 +32,20 @@ function previewImage(event) {
                 }
             });
         });
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchText = this.value.toLowerCase();  // Получаем введенный текст и преобразуем его в нижний регистр
+            const items = document.querySelectorAll('#article-list li');  // Получаем все элементы списка
+        
+            items.forEach(function(item) {
+                const animalName = item.querySelector('h2').textContent.toLowerCase();  // Текст параграфа в нижнем регистре
+        
+                // Если текст параграфа содержит введенный текст, показываем элемент
+                if (animalName.includes(searchText)) {
+                    item.style.display = 'block';  // Показываем элемент
+                } else {
+                    item.style.display = 'none';  // Скрываем элемент
+                }
+            });
+        });
+        
