@@ -9,16 +9,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class ResponseDtoRedBookEntry {
+    private Long id;
     private String name;
     private String latinName;
     private String division;
     private String family;
-    private String Status;
+
+    private String status;
     private String distribution;
-    private String inhabitat;
-    private String mitigatingFactor;
-    private String ProtectionMeasuresTaken;
-    private String ChangesINinTheStatusOfTheSpecies;
-    private String neededConservationcAtions;
-    private String image;
+    private String inHabitat;
+    private String habitatFeatures;
+
+    private String mitigatingFactors;
+    private String protectionMeasuresTaken;
+    private String changesInStatusOfSpecies;
+    private String neededConservationActions;
+
+    private String sourcesOfInformation;
+    private String authors;
+
+    private String data;
+    private Integer view;//data in base64
+
 }

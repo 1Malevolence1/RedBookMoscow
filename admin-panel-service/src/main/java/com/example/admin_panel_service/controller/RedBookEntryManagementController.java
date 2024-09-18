@@ -2,15 +2,19 @@ package com.example.admin_panel_service.controller;
 
 
 import com.example.admin_panel_service.dto.ResponseDtoRedBookEntry;
+import com.example.admin_panel_service.dto.view.ResponseDtoView;
 import com.example.admin_panel_service.service.RedBookEntryManagementService;
+import com.example.admin_panel_service.service.view.ViewService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Controller
@@ -20,6 +24,7 @@ import java.util.NoSuchElementException;
 public class RedBookEntryManagementController{
 
     private final RedBookEntryManagementService redBookEntryDeleteAndFindService;
+
 
     @ModelAttribute("entry")
     public ResponseDtoRedBookEntry responseRedBookEntry(@PathVariable(name = "entryId") Long id){
@@ -31,9 +36,9 @@ public class RedBookEntryManagementController{
     // @TODO - добавить названия html файла
     @GetMapping()
     public String getRedBookInfoPage(@ModelAttribute("entry") ResponseDtoRedBookEntry entry, Model model){
-
+        log.info("->>>>>>>>>>>>>>{}", entry);
         model.addAttribute("entry", entry);
-        return "...";
+        return "admin_article";
     }
 
 
@@ -42,7 +47,7 @@ public class RedBookEntryManagementController{
     @PostMapping("delete")
     public String deleteRedBook(@PathVariable(name = "entryId") Long id){
         redBookEntryDeleteAndFindService.deleteById(id);
-        return "redirect:/...";
+        return "redirect:/api/admin/main";
     }
 
 

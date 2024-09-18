@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Красная книга</title>
-    <style>
-
-        body {
+body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -27,7 +19,7 @@ header {
 }
 
 .highlight:hover {
-    color: rgb(173, 0, 0);
+    color: rgb(173, 0, 0); 
 }
 
 #about {
@@ -128,9 +120,9 @@ main {
 
 .article-list {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; 
     gap: 1rem;
-    justify-content: left;
+    justify-content: center;
     /*max-width: 2000px;*/
 }
 
@@ -141,13 +133,13 @@ article {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     flex: 1 1 calc(25% - 1rem);
     min-width: 300px;
-    max-width: 340px;
+    max-width: 340px; 
     text-align: center;
     transition: background 1s ease;
 }
 
 article:hover {
-    background: rgb(0, 255, 149);
+    background: rgb(0, 255, 149); 
 }
 
 article h2 a {
@@ -176,57 +168,3 @@ footer {
     bottom: 0;
     /*width: 100%;*/
 }
-
-
-    </style>
-</head>
-<body>
-<header>
-    <h1>
-        <span class="highlight">Красная</span>
-        книга
-    </h1>
-</header>
-
-<section id="menu">
-    <form action="#" method="get" class="search-form">
-        <input type="text" placeholder="Поиск по статьям..." name="search" class="search-input">
-        <button type="submit" class="search-button">Найти</button>
-    </form>
-
-    <div class="filter-options">
-        <label for="category">Категория:</label>
-        <select id="category" name="category">
-            <option value="all">Все категории</option>
-            <option value="animals">Животные</option>
-            <option value="plants">Растения</option>
-            <option value="insects">Насекомые</option>
-        </select>
-
-        <a href="/api/admin/entry/create" class="a-inbtn"><button class="add-button">Добавить запись</button></a>
-    </div>
-
-</section>
-
-
-    <main>
-        <section class="article-list">
-            <article th:each="animal: ${list}">
-                <img class="animals-img" th:src="${animal.data}">
-                <h2>
-                    <a th:href="@{/api/admin/entry/{entryId}(entryId=${animal.id})}" th:text="${animal.name}"></a>
-                </h2>
-                <p th:text="${animal.latinName}"></p>
-            </article>
-        </section>
-    </main>
-
-
-
-
-
-<footer>
-    <p>&copy; 2024 Красная книга. Все права защищены. <a id="about" href="about.html">О нас.</a></p>
-</footer>
-</body>
-</html>

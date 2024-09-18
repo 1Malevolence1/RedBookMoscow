@@ -12,7 +12,7 @@ public class ResponseEntryDTO {
     private String name;
     private String latinName;
     private String division;
-    private String Family;
+    private String family;
 
     private String status;
     private String distribution;

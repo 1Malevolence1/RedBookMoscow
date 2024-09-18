@@ -90,6 +90,11 @@
                     <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)" required>
                     <div id="image-preview" class="image-preview"></div>
                 </div>
+
+                <div class="input-group">
+                    <label for="view">Вид:</label>
+                    <input type="text" id="view" name="view" required>
+                </div>
                 
             </div>
 
@@ -102,6 +107,26 @@
         <p>&copy; 2024 Красная книга. Все права защищены. <a id="about" href="about.html">О нас.</a></p>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script>
+
+        function previewImage(event) {
+            const input = event.target;
+            const preview = document.getElementById('image-preview');
+            preview.innerHTML = ''; // Очистить предыдущие превью
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '100%';
+                    img.style.maxHeight = '100%';
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    </script>
 </body>
 </html>

@@ -5,8 +5,10 @@ import com.example.admin_panel_service.dto.RequestDtoImage;
 import com.example.admin_panel_service.dto.RequestDtoRedBookEntry;
 import com.example.admin_panel_service.dto.mainpage.RequestMainPageDtoEntry;
 import com.example.admin_panel_service.dto.mainpage.ResponseMainPageDtoEntry;
+import com.example.admin_panel_service.dto.view.ResponseDtoView;
 import com.example.admin_panel_service.service.ConvertImage;
 import com.example.admin_panel_service.service.function.RedBookEntryCreationService;
+import com.example.admin_panel_service.service.view.ViewService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,20 +30,25 @@ import java.util.List;
 @Slf4j
 public class CreateRedBookEntryController {
     public final RedBookEntryCreationService redBookEntryService;
+    private final ViewService viewService;
 
     //@TODO обновить под под нужный
     @GetMapping()
-    public String getPageCreateRedBookEntry(){
-
+    public String getPageCreateRedBookEntry(Model model){
+        List<ResponseDtoView> responseDtoViewList = viewService.findAll();
+        log.info("Список {}", responseDtoViewList);
+        model.addAttribute("views", responseDtoViewList);
         return "admin_add";
     }
 
     @PostMapping()
-    public String createNewRedBookEntry(@RequestParam("file") MultipartFile image, RequestMainPageDtoEntry responseMainPageDtoEntry
-                                        ) throws IOException {
+    public String createNewRedBookEntry(@RequestParam("file") MultipartFile image, RequestDtoRedBookEntry responseMainPageDtoEntry
+                                       ) throws IOException {
 
       {
-            // Конвертируем MultipartFile в RequestDtoImage
+
+
+            log.info("->>>>>>>>>>>>>>>> {}", responseMainPageDtoEntry);
             RequestDtoImage requestDtoImage = ConvertImage.toImageEntity(image);
             responseMainPageDtoEntry.setImage(requestDtoImage);
             log.info("{}", requestDtoImage);

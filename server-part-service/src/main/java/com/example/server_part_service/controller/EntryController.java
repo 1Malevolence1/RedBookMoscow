@@ -38,7 +38,7 @@ public class EntryController {
     }
     @PostMapping
     public ResponseEntity<ResponseEntryDTO> post(@RequestBody RequestEntryDTO dto) {
-        log.info("СМОТРИ СЮДА ->>>>>>>>>>>>>>>>>{}", dto.getImage());
+        log.info("СМОТРИ СЮДА ->>>>>>>>>>>>>>>>>{}", dto);
         ResponseEntryDTO responseEntryDTO = service.converterModelToResponseDto(service.saveModel(service.converterDtoToModel(dto)));
         return new ResponseEntity<>(responseEntryDTO, HttpStatus.valueOf(201));
     }

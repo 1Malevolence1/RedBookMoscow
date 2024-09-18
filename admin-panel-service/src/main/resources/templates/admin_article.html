@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Красная книга</title>
+    <link rel="stylesheet" href="css/article_style.css">
+</head>
+<body>
+<header>
+    <h1>
+        <span class="highlight">Красная</span>
+        книга
+    </h1>
+</header>
+<section id="menu">
+
+    <a class="a-inbtn" href="admin_index.html"><button class="back-button">Назад</button></a>
+
+    <a href="#" class="a-inbtn"><button class="edit-button">Редактировать запись</button></a>
+</section>
+<main>
+    <article class="article-content">
+        <h2 class="article-title" th:text="${entry.name}"></h2>
+        <p class="article-meta" th:text="${entry.latinName}"></p>
+        <img src="entry.data" alt="image" class="article-image">
+        <section class="article-text">
+            <p th:text="${entry.division}"></p>
+            <p th:text="${entry.family}"></p>
+            <p th:text="${entry.view}"></p>
+            <p th:text="${entry.status}"></p>
+            <p th:text="${entry.distribution}"></p>
+            <p th:text="${entry.inHabitat}"></p>
+            <p th:text="${entry.habitatFeatures}"></p>
+            <p th:text="${entry.mitigatingFactors}"></p>
+            <p th:text="${entry.protectionMeasuresTaken}"></p>
+            <p th:text="${entry.changesInStatusOfSpecies}"></p>
+            <p th:text="${entry.neededConservationActions}"></p>
+            <p th:text="${entry.sourcesOfInformation}"></p>
+            <p th:text="${entry.authors}"></p>
+        </section>
+    </article>
+</main>
+<footer>
+    <p>&copy; 2024 Красная книга. Все права защищены. <a id="about" href="about.html">О нас.</a></p>
+</footer>
+</body>
+</html>
