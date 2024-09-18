@@ -13,7 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.awt.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,19 +33,22 @@ public class EntryService {
                         () -> new EntityNotFoundException("Image with id " + entryId + " not found"));
     }
 
-    public void deleteAll(){
-         entryRepository.deleteAll();
+    public void deleteAll() {
+        entryRepository.deleteAll();
     }
 
     public List<ResponseEntryDTO> findAll() {
-        List<EntryModel> entryModels = entryRepository.findAll();
-        List<ResponseEntryDTO> responseEntryDTOS = entryModels
-                .stream()
-                .map(this::converterModelToResponseDto) // Уберите круглые скобки
-                .toList(); // Преобразуем поток в список
-
-        return responseEntryDTOS; // Не забудьте вернуть список
+        try {
+            List<EntryModel> entryModels = entryRepository.findAll();
+            return entryModels
+                    .stream()
+                    .map(this::converterModelToResponseDto)
+                    .toList();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
+
     public ResponseEntryDTO getDtoById(long id) {
         return converterModelToResponseDto(getModelById(id));
     }
@@ -84,7 +86,9 @@ public class EntryService {
                 model.getNeededConservationActions(),
                 model.getSourcesOfInformation(),
                 model.getAuthors(),
-                getImageDataInBase64(model.getImageModel()),
+                model.getData().stream()
+                        .map(this::getImageDataInBase64)
+                        .collect(Collectors.toList()),
                 model.getView().getTitle()
         );
     }
@@ -111,9 +115,10 @@ public class EntryService {
         );
     }
 
-    public static String getImageDataInBase64(ImageModel image) {
+    public String getImageDataInBase64(ImageModel image) {
         log.info("{}", image);// Конвертация массива байтов в строку Base64
-        return "data:" + image.getContentType() + ";base64," + java.util.Base64.getEncoder().encodeToString(image.getData());}
+        return "data:" + image.getContentType() + ";base64," + java.util.Base64.getEncoder().encodeToString(image.getData());
+    }
 
 
     public List<ResponseEntryDTOFourFields> findAllPreview() {

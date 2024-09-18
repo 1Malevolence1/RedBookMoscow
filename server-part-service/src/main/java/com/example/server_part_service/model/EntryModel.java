@@ -1,10 +1,13 @@
 package com.example.server_part_service.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Table(name = "entry_model")
@@ -36,9 +39,9 @@ public class EntryModel {
     private String sourcesOfInformation;
     private String authors;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id")
-    private ImageModel imageModel;
+    @OneToMany(mappedBy = "entry_model", cascade = CascadeType.ALL)
+//    @JoinColumn(name = "image_id")
+    private List<ImageModel> data;
 
     @ManyToOne()
     @JoinColumn(name = "view_id")

@@ -21,4 +21,7 @@ public class ImageModel {
     private int size;
     private String contentType;
     private byte[] data;
+    @ManyToOne
+    @JoinColumn(name = "entry_model_id")
+    private EntryModel entryModel;
 }
