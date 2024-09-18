@@ -2,6 +2,7 @@ package com.example.server_part_service.controller;
 
 import com.example.server_part_service.dto.entry.RequestEntryDTO;
 import com.example.server_part_service.dto.entry.ResponseEntryDTO;
+import com.example.server_part_service.dto.entry.ResponseEntryDTOFourFields;
 import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.service.EntryService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,12 @@ public class EntryController {
 
 
     @GetMapping("/all")
-    public ResponseEntity<List<ResponseEntryDTO>> getListEntryForMainPage(){
+    public ResponseEntity<List<ResponseEntryDTOFourFields>> getListEntryForMainPage(){
+        return ResponseEntity.ok().body(service.findAllPreview());
+    }
+
+    @GetMapping("/all-with-all-parametrs")
+    public ResponseEntity<List<ResponseEntryDTO>> getListEntryAllData(){
         return ResponseEntity.ok().body(service.findAll());
     }
 

@@ -2,16 +2,19 @@ package com.example.server_part_service.service;
 
 import com.example.server_part_service.dto.entry.RequestEntryDTO;
 import com.example.server_part_service.dto.entry.ResponseEntryDTO;
+import com.example.server_part_service.dto.entry.ResponseEntryDTOFourFields;
 import com.example.server_part_service.exception.EntityNotFoundException;
 import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.model.ImageModel;
 import com.example.server_part_service.model.View;
 import com.example.server_part_service.repository.EntryRepository;
+import com.example.server_part_service.service.view.ViewService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -19,6 +22,8 @@ public class EntryService {
 
     @Autowired
     private EntryRepository entryRepository;
+    @Autowired
+    private ViewService viewService;
 
     public EntryModel getModelById(long entryId) {
         return entryRepository.findById(entryId)
@@ -83,7 +88,7 @@ public class EntryService {
 
     public EntryModel converterDtoToModel(RequestEntryDTO dto) {
         return new EntryModel(
-                null,
+                dto.getId(),
                 dto.getName(),
                 dto.getLatinName(),
                 dto.getDivision(),
@@ -99,7 +104,7 @@ public class EntryService {
                 dto.getSourcesOfInformation(),
                 dto.getAuthors(),
                 ImageService.convertDTOToImageModel(dto.getImage()),
-                new View(null, dto.getView())
+                viewService.save(new View(0L, dto.getView()))
         );
     }
 
@@ -108,4 +113,17 @@ public class EntryService {
         return "data:" + image.getContentType() + ";base64," + java.util.Base64.getEncoder().encodeToString(image.getData());}
 
 
+    public List<ResponseEntryDTOFourFields> findAllPreview() {
+        List<Object[]> fourFields1 = entryRepository.findFourFields();
+        return fourFields1.stream()
+                .map(row -> {
+                    ResponseEntryDTOFourFields dto = new ResponseEntryDTOFourFields();
+                    dto.setId((Long) row[0]);
+                    dto.setName((String) row[1]);
+                    dto.setLatinName((String) row[2]);
+                    dto.setData((Long) row[3]); // Преобразование data, предполагается, что это long
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
 }
