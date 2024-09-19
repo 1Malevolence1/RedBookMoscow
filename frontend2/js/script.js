@@ -17,7 +17,7 @@ function previewImage(event) {
         }
   
 
-            document.getElementById('views').addEventListener('change', function() {
+        document.getElementById('views').addEventListener('change', function() {
             const selectedAnimal = this.options[this.selectedIndex].textContent;;  
             const items = document.querySelectorAll('#article-list li');  
         
@@ -32,3 +32,19 @@ function previewImage(event) {
                 }
             });
         });
+
+        document.getElementById('searchInput').addEventListener('input', function() {
+            const searchText = this.value.toLowerCase();
+            const items = document.querySelectorAll('#article-list li');
+        
+            items.forEach(function(item) {
+                const animalName = item.querySelector('h2').textContent.toLowerCase();
+        
+                if (animalName.includes(searchText)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+        

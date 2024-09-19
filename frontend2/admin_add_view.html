@@ -19,17 +19,28 @@
 
     <main style="display: flex; justify-content: center; align-items: center; padding: 2rem;">
         <section class="manage-content">
+            <form data-th-action="" method="post">
             <div class="line">
+
                 <select id="views" name="views">
                     <option th:each="view: ${views}" th:value="${view.id}" th:text="${view.title}"></option>
                 </select>
                 <button style="min-width: 100px; margin-left: 1rem;" class="submit-delete-button">Удалить</button>
-            </div>
 
-            <div class="line">
-                <input type="text" placeholder="Название вида" id="item-name">
-                <button style="min-width: 100px; margin-left: 1rem;" class="submit-add-button">Добавить</button>
+                
             </div>
+            </form>
+
+
+            <form data-th-action="" method="post">
+            <div class="line">
+
+                    <input type="text" placeholder="Название вида" id="item-name" th:value="">
+                    <button style="min-width: 100px; margin-left: 1rem;" class="submit-add-button" type="submit">Добавить</button>
+                    
+                
+            </div>
+            </form>
         </section>
 
     </main>
