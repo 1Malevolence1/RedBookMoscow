@@ -6,7 +6,7 @@ spring:
 name:
     server:
         localhost:
-            ${env.LOCALHOST}
+            http://localhost:8008
 
 server:
-    port: ${env.PORT}
+    port: 8085

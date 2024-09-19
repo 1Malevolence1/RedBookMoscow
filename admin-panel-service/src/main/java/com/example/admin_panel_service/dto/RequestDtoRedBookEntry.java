@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -28,7 +30,7 @@ public class RequestDtoRedBookEntry {
     private String sourcesOfInformation;
     private String authors;
 
-    private RequestDtoImage image;
+    private List<RequestDtoImage> data;
     private Long view;//data in base64
 
 }

@@ -5,135 +5,118 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Красная книга</title>
     <style>
-
         body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
 
-header {
-    background-color: #004d00;
-    color: #fff;
-    padding: 1rem;
-    text-align: center;
-    font-size: 1.5rem;
+        header {
+            background-color: #004d00;
+            color: #fff;
+            padding: 2rem; /* Увеличен отступ */
+            text-align: center;
+            font-size: 2rem; /* Увеличен размер шрифта */
+        }
 
-}
+        .highlight {
+            color: rgb(255, 255, 255);
+            transition: color 0.5s ease-in-out;
+        }
 
-.highlight {
-    color: rgb(255, 255, 255);
-    transition: color 1s ease-in-out;
-}
+        .highlight:hover {
+            color: rgb(173, 0, 0);
+        }
 
-.highlight:hover {
-    color: rgb(173, 0, 0);
-}
+        #about {
+            color: #fff;
+            text-decoration: none;
+            cursor: pointer;
+            text-decoration: underline;
+        }
 
-#about {
-    color: #fff;
-    text-decoration: none;
-    cursor: pointer;
-    text-decoration: underline;
-}
+        #about:hover {
+            text-decoration: none;
+        }
 
-#about:hover {
-    text-decoration: none;
-}
+        main {
+            padding: 2rem; /* Увеличен отступ */
+            display: flex;
+            justify-content: center;
+        }
 
-main {
-    flex: 1;
-    padding: 2rem;
-    display: flex;
-    justify-content: center;
-}
+        #menu {
+            background-color: #e0e0e0;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
+        .back-button, .edit-button {
+            padding: 1rem 2rem; /* Увеличены размеры кнопок */
+            font-size: 1.2rem; /* Увеличен размер шрифта */
+            background-color: #004d00;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* Добавлен эффект перехода */
+        }
 
-#menu {
-    background-color: #e0e0e0;
-    padding: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
+        .back-button:hover, .edit-button:hover {
+            background-color: #003300; /* Цвет при наведении */
+        }
 
-.back-button {
-    align-self: flex-start;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: #004d00;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+        .article-content {
+            max-width: 900px; /* Увеличена ширина статьи */
+            background-color: #fff;
+            padding: 3rem; /* Увеличен внутренний отступ */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Увеличена тень */
+            border-radius: 15px; /* Увеличен радиус скругления */
+            margin-bottom: 2rem; /* Отступ снизу */
+        }
 
-.back-button:hover {
-    background-color: #003300;
-}
+        .article-title {
+            font-size: 2.5rem; /* Увеличен размер заголовка */
+            color: #004d00;
+            margin-bottom: 1.5rem; /* Увеличен отступ снизу заголовка */
+        }
 
-.edit-button:hover {
-    background-color: #003300;
-}
+        .article-meta {
+            font-size: 1.1rem; /* Увеличен размер шрифта метаданных */
+            color: #666;
+            margin-bottom: 2rem; /* Увеличен отступ снизу метаданных */
+        }
 
-.edit-button {
-    align-self: flex-start;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    background-color: #004d00;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
+        .article-image {
+            width: 100%;
+            height: auto;
+            border-radius: 15px; /* Скругление изображений */
+            margin-bottom: 2rem; /* Отступ снизу изображений */
+        }
 
-.article-content {
-    max-width: 800px;
-    background-color: #fff;
-    padding: 2rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-}
+        .article-text p {
+            font-size: 1.1rem; /* Увеличен размер текста */
+            line-height: 1.8; /* Увеличена высота строки */
+            margin-bottom: 1.5rem; /* Отступ снизу абзацев */
+            color: #333;
+        }
 
-.article-title {
-    font-size: 2rem;
-    color: #004d00;
-    margin-bottom: 1rem;
-}
+        .field-title {
+            font-weight: bold; /* Выделение заголовков полей */
+            color: #004d00; /* Цвет заголовков полей */
+        }
 
-.article-meta {
-    font-size: 0.9rem;
-    color: #666;
-    margin-bottom: 1.5rem;
-}
-
-.article-image {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 1.5rem;
-}
-
-.article-text p {
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 1rem;
-    color: #333;
-}
-
-footer {
-    background-color: #004d00;
-    color: #fff;
-    text-align: center;
-    padding: 1rem;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
+        footer {
+            background-color: #004d00;
+            color: #fff;
+            text-align: center;
+            padding: 1.5rem; /* Увеличен отступ футера */
+        }
     </style>
 </head>
 <body>
@@ -144,7 +127,6 @@ footer {
     </h1>
 </header>
 <section id="menu">
-
     <a class="a-inbtn" href="/api/admin/main"><button class="back-button">Назад</button></a>
 
     <a th:href="@{/api/admin/entry/update/{entryId}(entryId=${entry.id})}" class="a-inbtn">
@@ -155,31 +137,38 @@ footer {
     <article class="article-content">
         <h2 class="article-title" th:text="${entry.name}"></h2>
         <p class="article-meta" th:text="${entry.latinName}"></p>
-        <img th:src="${entry.data}"  class="article-image">
+
+        <!-- Цикл для отображения изображений -->
+        <div th:each="image : ${entry.data}">
+            <img th:src="${image}" class="article-image" alt="Изображение">
+        </div>
+
         <section class="article-text">
-            <p th:text="${entry.division}"></p>
-            <p th:text="${entry.family}"></p>
-            <p th:text="${entry.view}"></p>
-            <p th:text="${entry.status}"></p>
-            <p th:text="${entry.distribution}"></p>
-            <p th:text="${entry.inHabitat}"></p>
-            <p th:text="${entry.habitatFeatures}"></p>
-            <p th:text="${entry.mitigatingFactors}"></p>
-            <p th:text="${entry.protectionMeasuresTaken}"></p>
-            <p th:text="${entry.changesInStatusOfSpecies}"></p>
-            <p th:text="${entry.neededConservationActions}"></p>
-            <p th:text="${entry.sourcesOfInformation}"></p>
-            <p th:text="${entry.authors}"></p>
+            <p><span class="field-title">Отдел:</span> <span th:text="${entry.division}"></span></p>
+            <p><span class="field-title">Семейство:</span> <span th:text="${entry.family}"></span></p>
+            <p><span class="field-title">Вид:</span> <span th:text="${entry.view}"></span></p>
+            <p><span class="field-title">Статус:</span> <span th:text="${entry.status}"></span></p>
+            <p><span class="field-title">Распространение:</span> <span th:text="${entry.distribution}"></span></p>
+            <p><span class="field-title">Среда обитания:</span> <span th:text="${entry.inHabitat}"></span></p>
+            <p><span class="field-title">Особенности среды обитания:</span> <span th:text="${entry.habitatFeatures}"></span></p>
+            <p><span class="field-title">Смягчающие факторы:</span> <span th:text="${entry.mitigatingFactors}"></span></p>
+            <p><span class="field-title">Принятые меры защиты:</span> <span th:text="${entry.protectionMeasuresTaken}"></span></p>
+            <p><span class="field-title">Изменения в статусе вида:</span> <span th:text="${entry.changesInStatusOfSpecies}"></span></p>
+            <p><span class="field-title">Необходимые меры по охране:</span> <span th:text="${entry.neededConservationActions}"></span></p>
+            <p><span class="field-title">Источники информации:</span> <span th:text="${entry.sourcesOfInformation}"></span></p>
+            <p><span class="field-title">Авторы:</span> <span th:text="${entry.authors}"></span></p>
         </section>
     </article>
 
-    <form th:action="@{/api/admin/entry/{entryId}/delete(entryId=${entry.id})}" method="post" style="margin-top: 1rem;">
+    <!-- Форма удаления записи -->
+    <form th:action="@{/api/admin/entry/{entryId}/delete(entryId=${entry.id})}" method="post" style="margin-top: 2rem;">
         <button type="submit" class="edit-button">Удалить запись</button>
     </form>
 
 </main>
 <footer>
-    <p>&copy; 2024 Красная книга. Все права защищены. <a id="about" href="about.html">О нас.</a></p>
+    <p>&copy; 2024 Красная книга. Все права защищены.
+        <a id="about" href="about.html">О нас.</a></p>
 </footer>
 </body>
 </html>

@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Красная книга</title>
     <style>
+
 
         body {
     font-family: Arial, sans-serif;
@@ -126,15 +127,16 @@ main {
     height: 200px;
 }
 
-.article-list {
+#article-list {
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: left;
     /*max-width: 2000px;*/
+
 }
 
-article {
+.article {
     background: #fff;
     padding: 1rem;
     border-radius: 5px;
@@ -144,18 +146,19 @@ article {
     max-width: 340px;
     text-align: center;
     transition: background 1s ease;
+    list-style-type: none
 }
 
-article:hover {
+.article:hover {
     background: rgb(0, 255, 149);
 }
 
-article h2 a {
+.article h2 a {
     color: #004d00;
     text-decoration: none;
 }
 
-article h2 a:hover {
+.article h2 a:hover {
     text-decoration: underline;
 }
 
@@ -177,7 +180,6 @@ footer {
     /*width: 100%;*/
 }
 
-
     </style>
 </head>
 <body>
@@ -190,13 +192,13 @@ footer {
 
 <section id="menu">
     <form action="#" method="get" class="search-form">
-        <input type="text" placeholder="Поиск по статьям..." name="search" class="search-input">
-        <button type="submit" class="search-button">Найти</button>
+        <input type="text" placeholder="Поиск по статьям..." class="search-input" id="searchInput">
+        <!--<button type="submit" class="search-button" id="searchButton">Найти</button>-->
     </form>
 
     <div class="filter-options">
         <label for="views">Виды:</label>
-        <select id="views" name="views">
+        <select id="views">
             <option>Все</option>
             <option th:each="view: ${views}" th:value="${view.id}" th:text="${view.title}"></option>
         </select>
@@ -208,17 +210,14 @@ footer {
 </section>
 
 <main>
-    <section class="article-list">
-        <article th:each="animal: ${list}">
-            <a th:href="@{/api/admin/entry/{entryId}(entryId=${animal.id})}">
-                <img class="animals-img" th:src="${animal.data}" alt="Image of ${animal.name}">
-            </a>
-            <h2>
-                <a th:href="@{/api/admin/entry/{entryId}(entryId=${animal.id})}" th:text="${animal.name}"></a>
-            </h2>
-            <p th:text="${animal.latinName}"></p>
-        </article>
-    </section>
+    <ul id="article-list">
+        <li class="article" th:each="animal: ${list}">
+            <img class="animals-img" th:src="${animal.data}">
+            <h2><a href="admin_article.html" th:text="${animal.name}">Зебра</a></h2>
+            <p class="views" th:text="${animal.view}">1</p>
+            <p th:text="${animal.latinName}">1</p>
+        </li>
+    </ul>
 </main>
 
 
@@ -229,20 +228,35 @@ footer {
 <script>
 
     document.getElementById('views').addEventListener('change', function() {
-const selectedAnimal = this.options[this.selectedIndex].textContent;;
-const items = document.querySelectorAll('#article-list li');
+         const selectedAnimal = this.options[this.selectedIndex].textContent;;
+         const items = document.querySelectorAll('#article-list li');
 
-items.forEach(function(item) {
-    const animalName = item.querySelector('p').textContent;
+         items.forEach(function(item) {
+             const animalName = item.querySelector('p').textContent;
 
 
-    if (selectedAnimal === 'Все' || animalName === selectedAnimal) {
-        item.style.display = 'list-item';
-    } else {
-        item.style.display = 'none';
-    }
-});
+             if (selectedAnimal === 'Все' || animalName === selectedAnimal) {
+                 item.style.display = 'list-item';
+             } else {
+                 item.style.display = 'none';
+             }
+         });
+     });
 
+     document.getElementById('searchInput').addEventListener('input', function() {
+         const searchText = this.value.toLowerCase();
+         const items = document.querySelectorAll('#article-list li');
+
+         items.forEach(function(item) {
+             const animalName = item.querySelector('h2').textContent.toLowerCase();
+
+             if (animalName.includes(searchText)) {
+                 item.style.display = 'block';
+             } else {
+                 item.style.display = 'none';
+             }
+         });
+     });
 
 </script>
 </body>

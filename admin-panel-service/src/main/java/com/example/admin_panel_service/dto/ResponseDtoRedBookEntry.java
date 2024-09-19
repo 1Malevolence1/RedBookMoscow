@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -28,7 +30,7 @@ public class ResponseDtoRedBookEntry {
     private String sourcesOfInformation;
     private String authors;
 
-    private String data;
+    private List<String> data;
     private String view;//data in base64
 
 }

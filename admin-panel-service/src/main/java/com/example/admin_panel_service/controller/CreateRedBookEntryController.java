@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -44,7 +45,7 @@ public class CreateRedBookEntryController {
       {
             log.info("{}", requestDtoRedBookEntry);
             RequestDtoImage requestDtoImage = ConvertImage.toImageEntity(image);
-          requestDtoRedBookEntry.setImage(requestDtoImage);
+          requestDtoRedBookEntry.setData(Collections.singletonList(requestDtoImage));
             log.info("{}", requestDtoImage);
             redBookEntryService.save(requestDtoRedBookEntry);
             return "redirect:/api/admin/main"; // Перенаправление на главную страницу после успешного создания записи
