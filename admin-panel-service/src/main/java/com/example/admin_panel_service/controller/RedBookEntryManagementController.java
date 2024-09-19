@@ -28,9 +28,15 @@ public class RedBookEntryManagementController{
 
     @ModelAttribute("entry")
     public ResponseDtoRedBookEntry responseRedBookEntry(@PathVariable(name = "entryId") Long id){
-        return redBookEntryDeleteAndFindService
+        ResponseDtoRedBookEntry responseDtoRedBookEntry = redBookEntryDeleteAndFindService
                 .findById(id).orElseThrow(() -> new NoSuchElementException("Entry not found with id %d".formatted(id)));
+
+        log.info("000000000000000000{}", responseDtoRedBookEntry);
+        log.info(".....{}", responseDtoRedBookEntry.getData().size());
+        return responseDtoRedBookEntry;
     }
+
+
 
 
     // @TODO - добавить названия html файла

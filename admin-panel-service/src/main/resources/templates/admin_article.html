@@ -5,118 +5,187 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Красная книга</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+        html, body {
+         font-family: Arial, sans-serif;
+         margin: 0;
+         padding: 0;
+         background-color: #f4f4f4;
+         height: 100%;
+         display: flex;
+         flex-direction: column;
+     }
 
-        header {
-            background-color: #004d00;
-            color: #fff;
-            padding: 2rem; /* Увеличен отступ */
-            text-align: center;
-            font-size: 2rem; /* Увеличен размер шрифта */
-        }
+     header {
+         background-color: #004d00;
+         color: #fff;
+         padding: 1rem;
+         text-align: center;
+         font-size: 1.5rem;
 
-        .highlight {
-            color: rgb(255, 255, 255);
-            transition: color 0.5s ease-in-out;
-        }
+     }
 
-        .highlight:hover {
-            color: rgb(173, 0, 0);
-        }
+     .highlight {
+         color: rgb(255, 255, 255);
+         transition: color 1s ease-in-out;
+     }
 
-        #about {
-            color: #fff;
-            text-decoration: none;
-            cursor: pointer;
-            text-decoration: underline;
-        }
+     .highlight:hover {
+         color: rgb(173, 0, 0);
+     }
 
-        #about:hover {
-            text-decoration: none;
-        }
+     #about {
+         color: #fff;
+         text-decoration: none;
+         cursor: pointer;
+         text-decoration: underline;
+     }
 
-        main {
-            padding: 2rem; /* Увеличен отступ */
-            display: flex;
-            justify-content: center;
-        }
+     #about:hover {
+         text-decoration: none;
+     }
 
-        #menu {
-            background-color: #e0e0e0;
-            padding: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
+     main {
+         flex: 1;
+         padding: 2rem;
+         display: flex;
+         justify-content: center;
+     }
 
-        .back-button, .edit-button {
-            padding: 1rem 2rem; /* Увеличены размеры кнопок */
-            font-size: 1.2rem; /* Увеличен размер шрифта */
-            background-color: #004d00;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease; /* Добавлен эффект перехода */
-        }
 
-        .back-button:hover, .edit-button:hover {
-            background-color: #003300; /* Цвет при наведении */
-        }
+     #menu {
+         background-color: #e0e0e0;
+         padding: 1rem;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         flex-wrap: wrap;
+         gap: 1rem;
+     }
 
-        .article-content {
-            max-width: 900px; /* Увеличена ширина статьи */
-            background-color: #fff;
-            padding: 3rem; /* Увеличен внутренний отступ */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Увеличена тень */
-            border-radius: 15px; /* Увеличен радиус скругления */
-            margin-bottom: 2rem; /* Отступ снизу */
-        }
+     .back-button {
+         align-self: flex-start;
+         padding: 0.5rem 1rem;
+         font-size: 1rem;
+         background-color: #004d00;
+         color: white;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+     }
 
-        .article-title {
-            font-size: 2.5rem; /* Увеличен размер заголовка */
-            color: #004d00;
-            margin-bottom: 1.5rem; /* Увеличен отступ снизу заголовка */
-        }
+     .back-button:hover {
+         background-color: #003300;
+     }
 
-        .article-meta {
-            font-size: 1.1rem; /* Увеличен размер шрифта метаданных */
-            color: #666;
-            margin-bottom: 2rem; /* Увеличен отступ снизу метаданных */
-        }
+     .edit-button:hover {
+         background-color: #003300;
+     }
 
-        .article-image {
-            width: 100%;
-            height: auto;
-            border-radius: 15px; /* Скругление изображений */
-            margin-bottom: 2rem; /* Отступ снизу изображений */
-        }
+     .edit-button {
+         align-self: flex-start;
+         padding: 0.5rem 1rem;
+         font-size: 1rem;
+         background-color: #004d00;
+         color: white;
+         border: none;
+         border-radius: 5px;
+         cursor: pointer;
+     }
 
-        .article-text p {
-            font-size: 1.1rem; /* Увеличен размер текста */
-            line-height: 1.8; /* Увеличена высота строки */
-            margin-bottom: 1.5rem; /* Отступ снизу абзацев */
-            color: #333;
-        }
+     .article-content {
+         min-width: 80%;
+         max-width: 80%;
+         background-color: #fff;
+         padding: 2rem;
+         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+         border-radius: 10px;
+     }
 
-        .field-title {
-            font-weight: bold; /* Выделение заголовков полей */
-            color: #004d00; /* Цвет заголовков полей */
-        }
+     .article-title {
+         font-size: 2rem;
+         color: #004d00;
+         margin-bottom: 1rem;
+     }
 
-        footer {
-            background-color: #004d00;
-            color: #fff;
-            text-align: center;
-            padding: 1.5rem; /* Увеличен отступ футера */
-        }
+     .article-meta {
+         font-size: 0.9rem;
+         color: #666;
+         margin-bottom: 1.5rem;
+     }
+
+     .article-image {
+         width: 50%;
+         height: auto;
+         border-radius: 10px;
+         margin-bottom: 2rem;
+     }
+
+
+     /**/
+     .image-slider {
+         position: relative;
+         display: inline-block;
+         width: 500px;
+         text-align: center;
+     }
+
+     .image-slider img {
+         width: 100%;
+         display: block;
+     }
+
+     .slider-btn {
+         position: absolute;
+         top: 50%;
+         transform: translateY(-50%);
+         background-color: rgba(0, 0, 0, 0.5);
+         color: white;
+         border: none;
+         padding: 10px 20px;
+         cursor: pointer;
+         font-size: 24px;
+         transition: background-color 0.3s ease;
+         z-index: 10;
+     }
+
+     .slider-btn.prev {
+         left: 10px;
+     }
+
+     .slider-btn.next {
+         right: 10px;
+     }
+
+     .slider-btn:hover {
+         background-color: rgba(0, 0, 0, 0.7);
+     }
+
+     .slider-btn {
+         border-radius: 50%;
+         width: 50px;
+         height: 50px;
+         padding: 0;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+     }
+     /**/
+
+     .article-text p {
+         font-size: 1rem;
+         line-height: 1.6;
+         margin-bottom: 1rem;
+         color: #333;
+     }
+
+     footer {
+         background-color: #004d00;
+         color: #fff;
+         text-align: center;
+         padding: 1rem;
+         /*width: 100%;*/
+         padding: 10px;
+     }
     </style>
 </head>
 <body>
@@ -139,9 +208,9 @@
         <p class="article-meta" th:text="${entry.latinName}"></p>
 
         <!-- Цикл для отображения изображений -->
-        <div th:each="image : ${entry.data}">
-            <img th:src="${image}" class="article-image" alt="Изображение">
-        </div>
+
+            <img th:src="${entry.data[0]}" class="article-image" alt="Изображение">
+
 
         <section class="article-text">
             <p><span class="field-title">Отдел:</span> <span th:text="${entry.division}"></span></p>

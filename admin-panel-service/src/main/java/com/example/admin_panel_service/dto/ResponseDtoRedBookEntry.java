@@ -4,12 +4,14 @@ package com.example.admin_panel_service.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@ToString
 public class ResponseDtoRedBookEntry {
     private Long id;
     private String name;
@@ -31,6 +33,6 @@ public class ResponseDtoRedBookEntry {
     private String authors;
 
     private List<String> data;
-    private String view;//data in base64
+    private String view;// data in base64
 
 }
