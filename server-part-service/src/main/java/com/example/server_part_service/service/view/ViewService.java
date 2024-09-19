@@ -17,5 +17,6 @@ public interface ViewService {
     View save(View view);
 
     void delete(Long id);
-    
+
+    View saveIfNotExist(View view);
 }

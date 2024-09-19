@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class ConvertViewImpl implements ConvertView <RequestDtoView, ResponseDtoView, View> {
     @Override
     public View convertDtoInEntity(RequestDtoView requestDtoView) {
-        return new View(null, requestDtoView.title());
+        return new View(0L, requestDtoView.title(),null);
          }
 
     @Override

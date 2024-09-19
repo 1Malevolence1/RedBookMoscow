@@ -2,15 +2,12 @@ package com.example.server_part_service.controller;
 
 import com.example.server_part_service.dto.entry.RequestEntryDTO;
 import com.example.server_part_service.dto.entry.ResponseEntryDTO;
-import com.example.server_part_service.dto.entry.ResponseEntryDTOFourFields;
-import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.service.EntryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController

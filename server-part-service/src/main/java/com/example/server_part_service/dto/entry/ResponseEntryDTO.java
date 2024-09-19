@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +29,7 @@ public class ResponseEntryDTO {
     private String sourcesOfInformation;
     private String authors;
 
-    private String data;
-    private String veiv;//data in base64
+    private List<String> data;
+    private String view;//data in base64
 
 }

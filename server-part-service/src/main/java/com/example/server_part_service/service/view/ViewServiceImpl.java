@@ -3,6 +3,7 @@ package com.example.server_part_service.service.view;
 import com.example.server_part_service.convert.view.ConvertView;
 import com.example.server_part_service.dto.view.RequestDtoView;
 import com.example.server_part_service.dto.view.ResponseDtoView;
+import com.example.server_part_service.exception.EntityNotFoundException;
 import com.example.server_part_service.model.View;
 import com.example.server_part_service.repository.view.ViewRepository;
 import jakarta.transaction.Transactional;
@@ -31,13 +32,15 @@ public class ViewServiceImpl implements ViewService {
         return viewRepository.findAll().stream().map(convertView::convertEntityInDto).toList();
     }
 
-
     @SneakyThrows
     @Override
     @Transactional
     public void save(RequestDtoView dto)   {
         try {
-            viewRepository.save(new View(null, dto.title()));
+            View view = new View();
+            view.setId(0L);
+            view.setTitle(dto.title());
+            viewRepository.save(view);
         } catch (DataIntegrityViolationException e) {
 
             if (e.getCause() instanceof PSQLException) {
@@ -63,5 +66,15 @@ public class ViewServiceImpl implements ViewService {
        } catch (NoSuchElementException exception){
            throw new NoSuchElementException("Not find view with id %d");
        }
+    }
+
+    @Override
+    public View saveIfNotExist(View view) {
+        boolean ifExist = viewRepository.existsByTitle(view.getTitle());
+        log.info("\nexist = {}",ifExist);
+        if (ifExist) {
+            return viewRepository.findByTitle(view.getTitle()).orElseThrow(() -> new EntityNotFoundException("exception in find view"));
+        }
+        return viewRepository.save(view);
     }
 }

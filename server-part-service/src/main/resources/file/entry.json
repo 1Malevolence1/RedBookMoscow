@@ -14,13 +14,21 @@
   "neededConservationActions": "string",
   "sourcesOfInformation": "string",
   "authors": "string",
-  "image": {
-    "id": 1,
+  "data": [{
+    "id": 3,
     "name": "example_image",
     "originalFileName": "image.png",
     "size": 2048,
     "contentType": "image/png",
     "data": "iVBORw0KGgoAAAANSUhEUgAAAAUA"
   },
+    {
+      "id": 2,
+      "name": "example_image",
+      "originalFileName": "image.png",
+      "size": 2048,
+      "contentType": "image/png",
+      "data": "iVBORw0KGgoAAAANSUhEUgAAAAUA"
+    }],
   "view": "view"
 }

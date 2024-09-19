@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Entity
 @Table(name = "view")
 @AllArgsConstructor
@@ -15,16 +17,13 @@ import lombok.ToString;
 @Data
 @ToString
 public class View {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(name = "title", unique = true, nullable = false)
     private String title;
 
-    public View(Long id) {
-        this.id = id;
-    }
+    @OneToMany(mappedBy = "view")
+    private List<EntryModel> entryModels;
 }
