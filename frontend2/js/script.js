@@ -34,17 +34,16 @@ function previewImage(event) {
         });
 
         document.getElementById('searchInput').addEventListener('input', function() {
-            const searchText = this.value.toLowerCase();  // Получаем введенный текст и преобразуем его в нижний регистр
-            const items = document.querySelectorAll('#article-list li');  // Получаем все элементы списка
+            const searchText = this.value.toLowerCase();
+            const items = document.querySelectorAll('#article-list li');
         
             items.forEach(function(item) {
-                const animalName = item.querySelector('h2').textContent.toLowerCase();  // Текст параграфа в нижнем регистре
+                const animalName = item.querySelector('h2').textContent.toLowerCase();
         
-                // Если текст параграфа содержит введенный текст, показываем элемент
                 if (animalName.includes(searchText)) {
-                    item.style.display = 'block';  // Показываем элемент
+                    item.style.display = 'block';
                 } else {
-                    item.style.display = 'none';  // Скрываем элемент
+                    item.style.display = 'none';
                 }
             });
         });
