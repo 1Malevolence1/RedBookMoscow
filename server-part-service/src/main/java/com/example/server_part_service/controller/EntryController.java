@@ -2,6 +2,7 @@ package com.example.server_part_service.controller;
 
 import com.example.server_part_service.dto.entry.RequestEntryDTO;
 import com.example.server_part_service.dto.entry.ResponseEntryDTO;
+import com.example.server_part_service.dto.entry.ResponseEntryDTOFourFields;
 import com.example.server_part_service.service.EntryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,17 @@ public class EntryController {
     private EntryService service;
 
 
+
     @GetMapping("/all")
-    public ResponseEntity<List<ResponseEntryDTO>> getListEntryForMainPage(){
+    public ResponseEntity<List<ResponseEntryDTOFourFields>> getListEntryForMainPage() {
+        return ResponseEntity.ok().body(service.findAllPreview());
+    }
+
+    @GetMapping("/all-with-all-params")
+    public ResponseEntity<List<ResponseEntryDTO>> getListEntryAllData() {
         return ResponseEntity.ok().body(service.findAll());
     }
 
-    @GetMapping("/all-with-all")
-    public ResponseEntity<List<ResponseEntryDTO>> getListEntryAllData(){
-        return ResponseEntity.ok().body(service.findAll());
-    }
 
     @GetMapping("/{entryId:\\d+}")
     public ResponseEntity<ResponseEntryDTO> get(@PathVariable(name = "entryId") Long entryId) {
