@@ -2,6 +2,7 @@ package com.example.user_service.controller;
 
 
 import com.example.user_service.dto.ResponseDtoRedBookEntry;
+import com.example.user_service.dto.ResponseMainPageDtoEntry;
 import com.example.user_service.service.MainPageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,7 @@ public class MainPgeController {
 
     @GetMapping()
     public String getMainPage(Model model){
-        List<ResponseDtoRedBookEntry>  list = mainPageService.findAll();
+        List<ResponseMainPageDtoEntry>  list = mainPageService.findAll();
         model.addAttribute("entry", list);
         model.addAttribute("views", mainPageService.finaAllView());
         return "user_index";

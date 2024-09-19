@@ -200,7 +200,7 @@ footer {
         <label for="views">Виды:</label>
         <select id="views">
             <option>Все</option>
-            <option th:each="view: ${views}" th:value="${view.id}" th:text="${view.title}"></option>
+            <option th:each="view: ${views}" th:text="${view.title}"></option>
         </select>
 
         <a href="/api/admin/entry/create" class="a-inbtn"><button class="add-button">Добавить запись</button></a>
@@ -213,7 +213,7 @@ footer {
     <ul id="article-list">
         <li class="article" th:each="animal: ${list}">
             <img class="animals-img" th:src="${animal.data}">
-            <h2><a href="admin_article.html" th:text="${animal.name}">Зебра</a></h2>
+            <h2><a th:href="@{/api/admin/entry/{entryId}(entryId=${animal.id})}" th:text="${animal.name}" >Зебра</a></h2>
             <p class="views" th:text="${animal.view}">1</p>
             <p th:text="${animal.latinName}">1</p>
         </li>

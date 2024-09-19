@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,14 +41,19 @@ public class CreateRedBookEntryController {
     }
 
     @PostMapping()
-    public String createNewRedBookEntry(@RequestParam("file") MultipartFile image, RequestDtoRedBookEntry requestDtoRedBookEntry
+    public String createNewRedBookEntry(@RequestParam("fileOne") MultipartFile imageOne,
+            @RequestParam("fileTwo") MultipartFile imageTwo, RequestDtoRedBookEntry requestDtoRedBookEntry
                                        ) throws IOException {
 
       {
             log.info("{}", requestDtoRedBookEntry);
-            RequestDtoImage requestDtoImage = ConvertImage.toImageEntity(image);
-          requestDtoRedBookEntry.setData(Collections.singletonList(requestDtoImage));
-            log.info("{}", requestDtoImage);
+          List<RequestDtoImage> requestDtoImages = new ArrayList<>();
+          requestDtoImages.add(ConvertImage.toImageEntity(imageOne));
+          requestDtoImages.add(ConvertImage.toImageEntity(imageTwo));
+
+          // Перебираем каждое изображение и конвертируем его в RequestDtoImage
+            requestDtoRedBookEntry.setData(requestDtoImages);
+            log.info("{}", requestDtoImages);
             redBookEntryService.save(requestDtoRedBookEntry);
             return "redirect:/api/admin/main"; // Перенаправление на главную страницу после успешного создания записи
         }

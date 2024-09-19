@@ -6,7 +6,7 @@ spring:
 name:
     server:
         localhost:
-            http://localhost:8008
+            http://localhost:8009
 
 server:
-    port: 8085
+    port: 8086
