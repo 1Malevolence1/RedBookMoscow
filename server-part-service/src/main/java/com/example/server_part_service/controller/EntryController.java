@@ -6,14 +6,12 @@ import com.example.server_part_service.dto.entry.ResponseEntryDTOFourFields;
 import com.example.server_part_service.exception.AlreadyExistException;
 import com.example.server_part_service.exception.DeleteEntryException;
 import com.example.server_part_service.exception.EntryNotFoundException;
-import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.service.EntryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -29,7 +27,7 @@ public class EntryController {
         return ResponseEntity.ok().body(service.findAllPreview());
     }
 
-    @GetMapping("/all-with-all-parametrs")
+    @GetMapping("/all-with-all-params")
     public ResponseEntity<List<ResponseEntryDTO>> getListEntryAllData() {
         return ResponseEntity.ok().body(service.findAll());
     }
