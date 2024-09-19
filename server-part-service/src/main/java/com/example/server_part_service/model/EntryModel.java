@@ -40,7 +40,6 @@ public class EntryModel {
     private String authors;
 
     @OneToMany(mappedBy = "entryModel", cascade = CascadeType.ALL)
-//    @JoinColumn(name = "image_id")
     private List<ImageModel> data;
 
     @ManyToOne()

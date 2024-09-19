@@ -41,14 +41,16 @@ public class EntryController {
             log.info("СМОТРИ СЮДА ->>>>>>>>>>>>>>>>>{}", dto);
             ResponseEntryDTO responseEntryDTO = service.converterModelToResponseDto(service.saveModel(service.converterDtoToModel(dto)));
             return new ResponseEntity<>(responseEntryDTO, HttpStatus.OK);
+        } catch (RuntimeException e) {
+            log.warn("\njust exist!!!");
         } catch (Exception e) {
-            log.info("\n--------------\nerror in post entry!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
+            log.warn("\n--------------\nerror in post entry!!!!!!!!!!!!!!!!!!!!!!!!!!\n");
             e.printStackTrace();
         }
         return ResponseEntity.ok(null);
     }
     @PutMapping
-    public ResponseEntity<ResponseEntryDTO> put( RequestEntryDTO dto) {
+    public ResponseEntity<ResponseEntryDTO> put(@RequestBody RequestEntryDTO dto) {
         ResponseEntryDTO responseEntryDTO = service.converterModelToResponseDto(service.updateModel(service.converterDtoToModel(dto)));
         return new ResponseEntity<>(responseEntryDTO, HttpStatus.valueOf(200));
     }

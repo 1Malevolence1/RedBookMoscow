@@ -56,7 +56,14 @@ public class EntryService {
 
     public EntryModel saveModel(EntryModel entryModel) {
         log.info("we in entryService 58");
+        if (ifExistById(entryModel.getId())) {
+            throw new RuntimeException("just exist");
+        }
         return entryRepository.save(entryModel);
+    }
+
+    private boolean ifExistById(Long id) {
+        return entryRepository.existsById(id);
     }
 
     public EntryModel updateModel(EntryModel entryModel) {
