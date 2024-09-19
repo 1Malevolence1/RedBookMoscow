@@ -15,33 +15,80 @@
     </header>
     <section id="menu">
 
-    <a class="a-inbtn" href="user_index.html"><button class="back-button">Назад</button></a>
+    <a class="a-inbtn" href="admin_index.html"><button class="back-button">Назад</button></a>
 
     </section>
     <main>
         <article class="article-content" th:each="animal: ${list}">
-            <h2 class="article-title" th:text="${animal.name}"></h2>
-            <p class="article-meta" th:text="${animal.latinName}"></p>
-            <img src="animal.data" alt="image" class="article-image">
+            <h2 class="article-title" th:text="${animal.name}">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui deleniti quia laboriosam nesciunt mollitia! Non, nostrum quia recusandae quo sapiente atque nemo, aspernatur esse illo beatae, deleniti eum rerum voluptatibus.</h2>
+            <p class="article-meta" th:text="${animal.latinName}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente error est odit non praesentium! Eius optio autem ipsum debitis voluptatibus odio voluptate labore enim odit, id cum excepturi expedita beatae.</p>
+            
+            <div class="image-slider">
+                <!-- Первая картинка отображается сразу -->
+                <button id="prevBtn" class="slider-btn prev">&lt;</button>
+                <img id="sliderImage" th:src="${animal.data[0]}" alt="Изображение[0]" width="500px">
+                <button id="nextBtn" class="slider-btn next">&gt;</button>
+            </div>
+            <!--<img src="animal.data" alt="image" class="article-image">-->
+
             <section class="article-text">
-                <p th:text="${animal.division}"></p>
-                <p th:text="${animal.family}"></p>
-                <p th:text="${animal.view}"></p>
-                <p th:text="${animal.status}"></p>
-                <p th:text="${animal.distribution}"></p>
-                <p th:text="${animal.inHabitat}"></p>
-                <p th:text="${animal.habitatFeatures}"></p>
-                <p th:text="${animal.mitigatingFactors}"></p>
-                <p th:text="${animal.protectionMeasuresTaken}"></p>
-                <p th:text="${animal.changesInStatusOfSpecies}"></p>
-                <p th:text="${animal.neededConservationActions}"></p>
-                <p th:text="${animal.sourcesOfInformation}"></p>
-                <p th:text="${animal.authors}"></p>
+                <p th:text="${animal.division}">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur harum necessitatibus optio mollitia 
+                    doloremque dolore et neque est cupiditate quibusdam aliquid facilis laborum, pariatur omnis quo repellendus soluta. Maxime, cum!</p>
+                <p th:text="${animal.family}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore debitis ad repellendus laborum, hic ab quaerat eaque doloremque ipsam nostrum sequi recusandae placeat expedita suscipit excepturi, quibusdam obcaecati atque dolor.</p>
+                <p th:text="${animal.view}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste nobis odio nisi delectus, facere laboriosam odit animi hic rem inventore aliquam culpa, totam cupiditate. Dolorum dignissimos nemo debitis esse distinctio?</p>
+                <p th:text="${animal.status}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod a et molestias! Alias voluptatem iusto cumque, doloremque atque corporis nam tempore placeat quis quibusdam nemo numquam iste nulla. Cupiditate, itaque!</p>
+                <p th:text="${animal.distribution}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat veniam tenetur eius, hic officiis aut magnam deleniti labore. Voluptas explicabo voluptatibus repellat eius, expedita molestias vel reiciendis dolorum. Repudiandae, accusamus!</p>
+                <p th:text="${animal.inHabitat}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente illo nulla itaque, culpa hic perferendis exercitationem odit reiciendis deserunt obcaecati autem quod blanditiis est dicta eaque quia quibusdam ratione veritatis.</p>
+                <p th:text="${animal.habitatFeatures}">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum, nesciunt incidunt. Ab, reprehenderit, id similique exercitationem incidunt laudantium velit autem quod, consequatur ducimus deleniti suscipit. Maxime consequatur sint quae velit?</p>
+                <p th:text="${animal.mitigatingFactors}">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magnam dolore voluptatibus eos assumenda quam, sunt doloremque ipsam nihil odit excepturi aut fugiat perferendis placeat officiis voluptate autem corrupti porro provident?</p>
+                <p th:text="${animal.protectionMeasuresTaken}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit eius minima quisquam tempore cum, illum velit nam veniam doloribus rerum porro! Quae voluptas iure repellat voluptatem porro reprehenderit hic perspiciatis.</p>
+                <p th:text="${animal.changesInStatusOfSpecies}">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorem, amet. Aliquam unde porro distinctio velit maxime obcaecati sunt asperiores voluptate sed accusantium assumenda animi inventore incidunt, voluptates itaque doloribus architecto.</p>
+                <p th:text="${animal.neededConservationActions}">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Inventore qui voluptatibus quibusdam labore tempore! Excepturi nihil cumque, optio velit quidem tempore expedita fugiat vitae maiores inventore, incidunt veritatis iste quo?</p>
+                <p th:text="${animal.sourcesOfInformation}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti qui quod voluptate itaque a repudiandae alias architecto repellendus illo beatae, facere asperiores accusamus, hic necessitatibus at dolor laborum quo inventore!</p>
+                <p th:text="${animal.authors}">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat nobis culpa, minus doloribus fugit quasi totam quam exercitationem ipsum perspiciatis dolorem dolore consectetur, officia assumenda quo eaque atque quidem! Cumque.</p>
             </section>
         </article>
     </main>
     <footer>
         <p>&copy; 2024 Красная книга. Все права защищены. <a id="about" href="about.html">О нас.</a></p>
     </footer>
+
+    <script th:inline="javascript">
+            const images = /*[[${animal.data}]]*/ [];
+
+            let currentIndex = 0;
+            const sliderImage = document.getElementById('sliderImage');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            function updateImage() {
+                sliderImage.src = images[currentIndex];
+            }
+            
+            function checkButtons() {
+            if (images.length <= 1) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
+            }
+            }
+ 
+            prevBtn.addEventListener('click', function() {
+                if (images.length > 1) {
+                    currentIndex = (currentIndex === 0) ? images.length - 1 : currentIndex - 1;
+                    updateImage();
+                }
+            });
+
+            nextBtn.addEventListener('click', function() {
+                if (images.length > 1) {
+                    currentIndex = (currentIndex === images.length - 1) ? 0 : currentIndex + 1;
+                    updateImage();
+                }
+            });
+            checkButtons();
+    </script>
 </body>
 </html>

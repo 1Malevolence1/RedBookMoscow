@@ -34,8 +34,8 @@
     <main>
         <ul id="article-list">
             <li class="article" th:each="animal: ${list}">
-                <img class="animals-img" src="animal.data">
-                <h2><a href="user_article.html" th:text="${animal.name}">Зебра</a></h2>
+                <a href="/api/admin/entry/update/{entryId:\\d+}" style="text-decoration: none;"><img class="animals-img" src="animal.data"></a>
+                <h2><a href="/api/admin/entry/update/{entryId:\\d+}" th:text="${animal.name}">Зебра</a></h2>
                 <p class="views" th:text="${animal.view}">1</p>
                 <p th:text="${animal.latinName}">1</p>
             </li>

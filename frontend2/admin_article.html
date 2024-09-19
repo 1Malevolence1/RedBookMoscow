@@ -28,6 +28,7 @@
                 <!-- Первая картинка отображается сразу -->
                 <button id="prevBtn" class="slider-btn prev">&lt;</button>
                 <img id="sliderImage" th:src="${animal.data[0]}" alt="Изображение[0]" width="500px">
+                <!--<img id="sliderImage" src="img/img_animal1.png" alt="Изображение[0]" width="500px">-->
                 <button id="nextBtn" class="slider-btn next">&gt;</button>
             </div>
             <!--<img src="animal.data" alt="image" class="article-image">-->
@@ -54,9 +55,10 @@
         <p>&copy; 2024 Красная книга. Все права защищены. <a id="about" href="about.html">О нас.</a></p>
     </footer>
 
-    <script>
+    <script th:inline="javascript">
             const images = /*[[${animal.data}]]*/ [];
 
+            //const images = ["img/img_animal1.png", "img/img_animal2.png", "img/img_animal3.png", "img/img_animal4.png"];
             let currentIndex = 0;
             const sliderImage = document.getElementById('sliderImage');
             const prevBtn = document.getElementById('prevBtn');
