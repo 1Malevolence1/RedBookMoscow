@@ -18,9 +18,6 @@ def get_images_from_pdf(pdf_path: str) -> None:
     
     # Извлекаем страницы из PDF
     for page_num, page in tqdm(enumerate(extract_pages(pdf_path)), 'Pages', position=2):
-        if page_num > 1:
-            break
-        
         pageObj = pdfReaded.pages[page_num]
         page_elements = [(element.x1, element.y1, element) for element in page._objs]
         page_elements.sort(key=lambda a: (a[1], a[0]), reverse=False)
@@ -48,6 +45,7 @@ def get_images_from_pdf(pdf_path: str) -> None:
                     
                 cropped_image_path = _convert_to_images(cropped_image_path, path_output_with_name=new_path)
     pdfFileObj.close()
+    return cnt_entity
 
 
 def _split_ru_en_string(text):

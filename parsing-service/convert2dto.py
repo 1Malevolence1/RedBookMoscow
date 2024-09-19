@@ -1,35 +1,23 @@
 import re
+import base64
 from pprint import pprint
 
 
-# def convert2dto(txt_path):
-#     result = {
-#         "text": "",
-#         "images": [
-#                     "image": {
-#                             "id": 1,
-#                             "name": "example_image",
-#                             "originalFileName": "image.png",
-#                             "size": 2048,
-#                             "contentType": "image/png",
-#                             "data": "iVBORw0KGgoAAAANSUhEUgAAAAUA"
-#                              }
-#                     ],
-#     "view": "view"
-    
-#     }
-    
-#     return result
+def get_one_png2json(image_path):
+    with open(image_path, 'rb') as file:
+        image_data = file.read()
+        encoded_image = base64.b64encode(image_data).decode('utf-8')
 
+        image_dict = {
+            "id": 0,
+            "name": image_path.split('/')[-1].replace('.png', ''),
+            "originalFileName": "image.png",
+            "size": len(image_data),
+            "contentType": "image/png",
+            "data": encoded_image
+        }
 
-# def _get_translation_by_partial_key(input_key: str, translations: dict) -> str:
-#     pattern = re.compile(re.escape(input_key), re.IGNORECASE)
-
-#     for key in translations:
-#         if pattern.search(key):
-#             return translations[key]
-
-#     return None
+        return image_dict
 
 
 def create_fields(txt_path):
@@ -75,7 +63,7 @@ def create_fields(txt_path):
                         "family": lines[i + 2].strip() if i + 2 < len(lines) else ''
                     }
                     continue
-            
+
             found_key = False
             for key in translations.keys():
                 if key in line:
@@ -88,16 +76,15 @@ def create_fields(txt_path):
                     # Добавляем в значение всё, что идет после ключа
                     current_value = [line.strip()]
                     break    
-            
+
             if not found_key:
                 if current_key is not None:
                     current_value.append(line)
-        
+
         if current_key is not None:
             result[current_key] = ' '.join(current_value).strip().replace('\n', ' ')
-    
 
-    pprint(results)
+    return results
 
 
 def _is_english(text):

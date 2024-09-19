@@ -1,6 +1,6 @@
-import imaplib
 import os
 import re
+import glob
 import time
 from tkinter.font import families
 from typing import Optional
@@ -25,9 +25,35 @@ import pytesseract
 from deep_translator import GoogleTranslator
 
 from image_crop import get_images_from_pdf, _delete_unsuitable_images
+from convert2dto import create_fields, get_one_png2json
 
 
-
+def parse_one_pdf_to_json(pdf_path: str) -> list:
+    json_to_sql = []
+    path1 = '.\\data\\pdf\\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf'
+    path2 = r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\pdf\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf'
+    
+    # save_text_to_file(path2, path2.replace('/pdf', '/txt').replace('.pdf', '.txt'))
+    cnt_entity = get_images_from_pdf(pdf_path=pdf_path)
+    cnt_entity = get_images_from_pdf(pdf_path=path2)
+    
+    _delete_unsuitable_images(input_folder='./data/tmp', output_folder='./data/tmp')
+    jsons_base = create_fields(txt_path='./data/tmp/9_kkm_bespozvonochnie-4chast.txt')
+    
+    print(len(jsons_base, cnt_entity))
+    for i, json_base in enumerate(jsons_base):
+        directory = "/parsing-service/data/tmp"
+        file_pattern = os.path.join(directory, f"{i}_*.png")
+        matching_files = glob.glob(file_pattern)
+        
+        images = {"images": []}
+        for file in matching_files:
+            images['images'].append(get_one_png2json(file))
+        
+        json_base.update(images)
+        json_to_sql.append(json_base)
+    
+    return json_to_sql
 
 def extract_text_from_image(image):
     """Извлекает текст из изображения с помощью Pytesseract."""
@@ -47,20 +73,8 @@ def save_text_to_file(input_file, output_file):
 
 
 def main() -> None:
-    path1 = '.\\data\\pdf\\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf'
-    path2 = r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\pdf\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf'
-    # На windows ошибка с тем, что путь он не видит
-    # try:
-        # text_from_pdf(pdf_path=path1)
-    # except FileNotFoundError:
-        # text_from_pdf(pdf_path=path2)
-    
-    
-    # save_text_to_file(path2, path2.replace('/pdf', '/txt').replace('.pdf', '.txt'))
-    get_images_from_pdf(pdf_path=path2)
-    _delete_unsuitable_images(input_folder='./data/tmp', output_folder='./data/tmp')
+    json_to_sql = parse_one_pdf_to_json(r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\pdf\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf')
 
-    
 
 
 if __name__ == "__main__":
