@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@ToString
+
 public class View {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +26,12 @@ public class View {
 
     @OneToMany(mappedBy = "view")
     private List<EntryModel> entryModels;
+
+    @Override
+    public String toString() {
+        return "View{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                '}';
+    }
 }
