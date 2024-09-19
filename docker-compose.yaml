@@ -1,0 +1,42 @@
+services:
+
+  postgres:
+    image: postgres:16
+    hostname: postgres
+    container_name: postgres
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=redBooooooook
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+  server-part:
+    image: server-part
+    container_name: server-part
+    build:
+      dockerfile: server-part-service/Dockerfile
+    ports:
+      - 8008:8008
+    hostname: server-part
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/redBooooooook
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1234
+    depends_on:
+      postgres:
+        condition: service_started
+
+  admin-panel:
+    image: admin-panel
+    container_name: admin-panel
+    build:
+      dockerfile: admin-panel-service/Dockerfile
+    ports:
+      - 8085:8085
+    hostname: admin-panel
+    depends_on:
+      postgres:
+        condition: service_started
