@@ -55,6 +55,8 @@ def create_fields(txt_path) -> list[dict[str, str]]:
 
             if _is_english(line):
                 results.append(result)
+                if len(results) > 3:
+                    return results
                 if i >= 2:
                     result = {
                         "name": lines[i - 2].strip(),  # Предполагаем, что имя находится за две строки

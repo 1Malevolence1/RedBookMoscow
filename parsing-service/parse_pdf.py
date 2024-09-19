@@ -63,9 +63,35 @@ def save_text_to_file(input_file: str, output_file: str) -> None:
 
 
 def main() -> None:
-    json_to_sql = parse_one_pdf_to_json(pdf_path = r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\pdf\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf')
+    pdf_path = './data/pdf/9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf'
+    txt_path = './data/txt/9_kkm_bespozvonochnie-4chast.txt'
+    json_to_sql = []
     json.dumps(json_to_sql, indent=4, ensure_ascii=False)
 
+    cnt_entity = get_images_from_pdf(pdf_path=pdf_path)
+    
+    _delete_unsuitable_images(input_folder='./data/img', output_folder='./data/img')
+    jsons_base = create_fields(txt_path=txt_path)
+    
+    
+    print(len(jsons_base), cnt_entity)
+    for i, json_base in enumerate(jsons_base):
+        directory = "./data/img"
+        file_pattern = os.path.join(directory, f"{i}_*.png")
+        matching_files = glob.glob(file_pattern)
+        
+        images = {"images": []}
+        for file in matching_files:
+            images['images'].append(get_one_png2json(file))
+        
+        json_base.update(images)
+        json_base.update({"view": "Безпозвоночные"})
+        
+        json_to_sql.append(json_base)
+        print(json_base)
+    
+    with open('result.json', 'w') as file:
+        json.dump(json_to_sql, file, indent=4, ensure_ascii=False)
 
 if __name__ == "__main__":
     start_time = time.monotonic()
