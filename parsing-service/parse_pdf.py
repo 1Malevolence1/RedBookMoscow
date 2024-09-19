@@ -90,7 +90,7 @@ def main() -> None:
         json_to_sql.append(json_base)
         print(json_base)
     
-    with open('result.json', 'w') as file:
+    with open('./data/result.json', 'w') as file:
         json.dump(json_to_sql, file, indent=4, ensure_ascii=False)
 
 if __name__ == "__main__":
