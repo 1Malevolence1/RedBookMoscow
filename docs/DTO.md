@@ -66,6 +66,7 @@
         "contentType": "image/png",
         "data": "iVBORw0KGgoAAAANSUhEUgAAAAUA"
     }],
-  "view": "view"
+  "view": "view",
+  "image_sign": "string"
 }
 ```
