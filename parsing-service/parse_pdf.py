@@ -2,7 +2,7 @@ import os
 import re
 import glob
 import time
-from tkinter.font import families
+import json
 from typing import Optional
 from tqdm.auto import tqdm
 from pprint import pprint
@@ -30,12 +30,10 @@ from convert2dto import create_fields, get_one_png2json
 
 def parse_one_pdf_to_json(pdf_path: str) -> list:
     json_to_sql = []
-    path1 = '.\\data\\pdf\\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf'
-    path2 = r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\pdf\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf'
     
-    # save_text_to_file(path2, path2.replace('/pdf', '/txt').replace('.pdf', '.txt'))
+    
+    save_text_to_file(pdf_path, pdf_path.replace('/pdf', '/txt').replace('.pdf', '.txt'))
     cnt_entity = get_images_from_pdf(pdf_path=pdf_path)
-    cnt_entity = get_images_from_pdf(pdf_path=path2)
     
     _delete_unsuitable_images(input_folder='./data/tmp', output_folder='./data/tmp')
     jsons_base = create_fields(txt_path='./data/tmp/9_kkm_bespozvonochnie-4chast.txt')
@@ -55,9 +53,11 @@ def parse_one_pdf_to_json(pdf_path: str) -> list:
     
     return json_to_sql
 
+
 def extract_text_from_image(image):
     """Извлекает текст из изображения с помощью Pytesseract."""
     return pytesseract.image_to_string(image, lang='rus+eng')
+
 
 def save_text_to_file(input_file, output_file):
     images = convert_from_path(input_file)
@@ -73,8 +73,8 @@ def save_text_to_file(input_file, output_file):
 
 
 def main() -> None:
-    json_to_sql = parse_one_pdf_to_json(r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\pdf\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf')
-
+    json_to_sql = parse_one_pdf_to_json(path2 = r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\pdf\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf')
+    json.dumps(json_to_sql, indent=4, ensure_ascii=False)
 
 
 if __name__ == "__main__":
