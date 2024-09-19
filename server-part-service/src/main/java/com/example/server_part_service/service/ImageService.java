@@ -2,6 +2,7 @@ package com.example.server_part_service.service;
 
 import com.example.server_part_service.dto.ImageDTO;
 import com.example.server_part_service.exception.EntityNotFoundException;
+import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.model.ImageModel;
 import com.example.server_part_service.repository.ImageRepository;
 import jakarta.transaction.Transactional;
@@ -9,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -77,4 +80,7 @@ public class ImageService {
     }
 
 
+    public List<ImageModel> findImagesByEntry(EntryModel model) {
+        return repository.findAllByEntryModel(model);
+    }
 }

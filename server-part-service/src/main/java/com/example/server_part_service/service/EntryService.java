@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,13 +34,17 @@ public class EntryService {
 
     public EntryModel getModelById(long entryId) {
         Optional<EntryModel> byId = entryRepository.findById(entryId);
-        return byId
-                .orElseThrow(
-                        () -> new EntityNotFoundException("Image with id " + entryId + " not found"));
+        List<ImageModel> images = imageService.findImagesByEntry(byId.get());
+        EntryModel entryModel = byId.get();
+        entryModel.setData(images);
+        return entryModel;
+//        return byId
+//                .orElseThrow(
+//                        () -> new EntityNotFoundException("Image with id " + entryId + " not found"));
     }
 
-    public void deleteAll(){
-         entryRepository.deleteAll();
+    public void deleteAll() {
+        entryRepository.deleteAll();
     }
 
     public List<ResponseEntryDTO> findAll() {
