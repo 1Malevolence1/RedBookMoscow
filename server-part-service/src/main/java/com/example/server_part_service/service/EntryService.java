@@ -33,9 +33,11 @@ public class EntryService {
     private ImageService imageService;
 
     public EntryModel getModelById(long entryId) {
-        Optional<EntryModel> byId = entryRepository.findById(entryId);
-        List<ImageModel> images = imageService.findImagesByEntry(byId.get());
-        EntryModel entryModel = byId.get();
+        log.info("============> id = {}", entryId);
+        EntryModel byId = entryRepository.findById(entryId).get();
+        List<ImageModel> images = entryRepository.findImagesByEntryId(entryId);
+        log.info("images = {}",images);
+        EntryModel entryModel = byId;
         entryModel.setData(images);
         return entryModel;
 //        return byId
@@ -60,7 +62,8 @@ public class EntryService {
     }
 
     public ResponseEntryDTO getDtoById(long id) {
-        return converterModelToResponseDto(getModelById(id));
+        EntryModel modelById = getModelById(id);
+        return converterModelToResponseDto(modelById);
     }
 
     public EntryModel saveModel(EntryModel entryModel) {
@@ -157,7 +160,7 @@ public class EntryService {
                     dto.setId((Long) row[0]);
                     dto.setName((String) row[1]);
                     dto.setLatinName((String) row[2]);
-                    dto.setData(getImageDataInBase64(imageService.findById((Long) row[3]))); // Преобразование data, предполагается, что это long
+//                    dto.setData(getImageDataInBase64(imageService.findById((Long) row[3]))); // Преобразование data, предполагается, что это long
                     dto.setView(viewService.findById((long)row[4]).orElseThrow(() -> new EntityNotFoundException("exception in")).getTitle());
                     return dto;
                 })

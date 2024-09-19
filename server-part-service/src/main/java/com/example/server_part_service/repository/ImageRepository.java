@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ImageRepository extends JpaRepository<ImageModel, Long> {
-    List<ImageModel> findAllByEntryModel(EntryModel model);
+    List<ImageModel> findByEntryModel(EntryModel model);
     //optional
 }
