@@ -12,4 +12,5 @@ public class ResponseEntryDTOFourFields {
     private String name;
     private String latinName;
     private String data;
+    private String view;
 }

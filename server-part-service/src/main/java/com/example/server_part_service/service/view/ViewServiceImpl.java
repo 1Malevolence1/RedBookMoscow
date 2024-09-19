@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 
 @Service
@@ -76,5 +77,10 @@ public class ViewServiceImpl implements ViewService {
             return viewRepository.findByTitle(view.getTitle()).orElseThrow(() -> new EntityNotFoundException("exception in find view"));
         }
         return viewRepository.save(view);
+    }
+
+    @Override
+    public Optional<View> findById(long l) {
+        return viewRepository.findById(l);
     }
 }

@@ -152,6 +152,7 @@ public class EntryService {
                     dto.setName((String) row[1]);
                     dto.setLatinName((String) row[2]);
                     dto.setData(getImageDataInBase64(imageService.findById((Long) row[3]))); // Преобразование data, предполагается, что это long
+                    dto.setView(viewService.findById((long)row[4]).orElseThrow(() -> new EntityNotFoundException("exception in")).getTitle());
                     return dto;
                 })
                 .collect(Collectors.toList());

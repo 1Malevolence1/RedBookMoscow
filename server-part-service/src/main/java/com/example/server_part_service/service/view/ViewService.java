@@ -6,7 +6,9 @@ import com.example.server_part_service.dto.view.ResponseDtoView;
 import com.example.server_part_service.model.View;
 import org.apache.coyote.BadRequestException;
 
+import javax.swing.*;
 import java.util.List;
+import java.util.Optional;
 
 public interface ViewService {
     
@@ -19,4 +21,6 @@ public interface ViewService {
     void delete(Long id);
 
     View saveIfNotExist(View view);
+
+    Optional<View> findById(long l);
 }
