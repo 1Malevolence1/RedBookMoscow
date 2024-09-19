@@ -44,7 +44,7 @@ public class CreateRedBookEntryController {
       {
             log.info("{}", requestDtoRedBookEntry);
             RequestDtoImage requestDtoImage = ConvertImage.toImageEntity(image);
-          requestDtoRedBookEntry.setImage(requestDtoImage);
+          requestDtoRedBookEntry.setData(requestDtoImage);
             log.info("{}", requestDtoImage);
             redBookEntryService.save(requestDtoRedBookEntry);
             return "redirect:/api/admin/main"; // Перенаправление на главную страницу после успешного создания записи
