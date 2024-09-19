@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
+@Table(name = "image_models")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,9 +20,10 @@ public class ImageModel {
     private String name;
     private String originalFileName;
     private int size;
+    @ManyToOne
+    @JoinColumn(name = "entryModel_id")
+    private EntryModel entryModel;
+
     private String contentType;
     private byte[] data;
-    @ManyToOne
-    @JoinColumn(name = "entry_model_id")
-    private EntryModel entryModel;
 }
