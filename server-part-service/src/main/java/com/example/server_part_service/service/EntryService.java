@@ -35,7 +35,7 @@ public class EntryService {
     public EntryModel getModelById(long entryId) {
         log.info("============> id = {}", entryId);
         EntryModel byId = entryRepository.findById(entryId).get();
-        List<ImageModel> images = entryRepository.findImagesByEntryId(entryId);
+        List<ImageModel> images = imageService.findImagesByEntry(byId);
         log.info("images = {}",images);
         EntryModel entryModel = byId;
         entryModel.setData(images);
@@ -71,7 +71,13 @@ public class EntryService {
         if (existById(entryModel.getId())) {
             throw new AlreadyExistException("already exist");
         }
-        return entryRepository.save(entryModel);
+        List<ImageModel> data = entryModel.getData();
+        EntryModel save = entryRepository.save(entryModel);
+        for (ImageModel datum : data) {
+            datum.setEntryModel(save);
+            imageService.saveImage(datum);
+        }
+        return save;
     }
 
     private boolean existById(Long id) {

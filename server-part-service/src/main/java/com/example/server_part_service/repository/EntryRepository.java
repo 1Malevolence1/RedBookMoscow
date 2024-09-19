@@ -13,6 +13,6 @@ public interface EntryRepository extends JpaRepository<EntryModel, Long> {
     @Query(value = "SELECT e.id, e.name, e.latin_name, e.view_id FROM entry_model e", nativeQuery = true)
     List<Object[]> findFourFields();
 
-    @Query(value = "SELECT e.data FROM entry_model e WHERE e.id = :entryId", nativeQuery = true)
-    List<ImageModel> findImagesByEntryId(@Param("entryId") Long entryId);
+//    @Query(value = "SELECT e.data FROM entry_model e WHERE e.id = :entryId", nativeQuery = true)
+//    List<ImageModel> findImagesByEntryId(@Param("entryId") Long entryId);
 }
