@@ -146,7 +146,8 @@ public class EntryService {
                 dto.getData().stream()
                         .map(ImageService::convertDTOToImageModel)
                         .collect(Collectors.toList()),
-                viewService.saveIfNotExist(new View(1L, dto.getView(),null))
+                viewService.findById(Long.parseLong(dto.getView())).get()
+//                viewService.saveIfNotExist(new View(1L, dto.getView(), null))
 //                viewService.save(new View(0L, dto.getView(),null))
         );
     }

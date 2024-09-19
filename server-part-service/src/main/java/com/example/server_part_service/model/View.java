@@ -24,7 +24,7 @@ public class View {
     @Column(name = "title", unique = true, nullable = false)
     private String title;
 
-    @OneToMany(mappedBy = "view")
+    @OneToMany(mappedBy = "view", cascade = CascadeType.REMOVE)
     private List<EntryModel> entryModels;
 
     @Override

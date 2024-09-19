@@ -19,8 +19,6 @@ public class EntryController {
     @Autowired
     private EntryService service;
 
-
-
     @GetMapping("/all")
     public ResponseEntity<List<ResponseEntryDTOFourFields>> getListEntryForMainPage() {
         return ResponseEntity.ok().body(service.findAllPreview());
@@ -30,7 +28,6 @@ public class EntryController {
     public ResponseEntity<List<ResponseEntryDTO>> getListEntryAllData() {
         return ResponseEntity.ok().body(service.findAll());
     }
-
 
     @GetMapping("/{entryId:\\d+}")
     public ResponseEntity<ResponseEntryDTO> get(@PathVariable(name = "entryId") Long entryId) {

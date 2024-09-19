@@ -30,7 +30,9 @@ public class ViewServiceImpl implements ViewService {
 
     @Override
     public List<ResponseDtoView> finaAll() {
-        return viewRepository.findAll().stream().map(convertView::convertEntityInDto).toList();
+        return viewRepository.findAll().stream()
+                .map(convertView::convertEntityInDto)
+                .toList();
     }
 
     @SneakyThrows
@@ -71,12 +73,13 @@ public class ViewServiceImpl implements ViewService {
 
     @Override
     public View saveIfNotExist(View view) {
-        boolean ifExist = viewRepository.existsByTitle(view.getTitle());
+        boolean ifExist = viewRepository.existsById(Long.parseLong(view.getTitle()));
         log.info("\nexist = {}",ifExist);
         if (ifExist) {
-            return viewRepository.findByTitle(view.getTitle()).orElseThrow(() -> new EntityNotFoundException("exception in find view"));
+//            return viewRepository.findByTitle(view.getTitle()).orElseThrow(() -> new EntityNotFoundException("exception in find view"));
+//            return viewRepository.save(view);
         }
-        return viewRepository.save(view);
+        return null;
     }
 
     @Override
