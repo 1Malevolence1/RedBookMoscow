@@ -26,4 +26,9 @@ public class View {
 
     @OneToMany(mappedBy = "view")
     private List<EntryModel> entryModels;
+
+
+    public View(Long id) {
+        this.id = id;
+    }
 }

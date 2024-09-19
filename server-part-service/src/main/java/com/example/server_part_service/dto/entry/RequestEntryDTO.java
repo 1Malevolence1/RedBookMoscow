@@ -32,7 +32,7 @@ public class RequestEntryDTO {
     private String sourcesOfInformation;
     private String authors;
 
-    private List<ImageDTO> data;
-    private String view;// image dto in json format
+    private ImageDTO data;
+    private Long view;// image dto in json format
 
 }

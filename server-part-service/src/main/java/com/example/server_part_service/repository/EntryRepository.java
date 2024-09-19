@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface EntryRepository extends JpaRepository<EntryModel, Long> {
 
-    @Query(value = "SELECT e.id, e.name, e.latin_name, e.image_id, e.view_id FROM entry_model e", nativeQuery = true)
-    List<Object[]> findFourFields();
+  //  @Query(value = "SELECT e.id, e.name, e.latin_name, e.image_id, e.view_id FROM entry_model e", nativeQuery = true)
+   // List<Object[]> findFourFields();
 
 }

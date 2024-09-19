@@ -39,8 +39,10 @@ public class EntryModel {
     private String sourcesOfInformation;
     private String authors;
 
-    @OneToMany(mappedBy = "entryModel", cascade = CascadeType.ALL)
-    private List<ImageModel> data;
+
+    @OneToOne(cascade = CascadeType.ALL) // Изменено на ALL для автоматического обновления
+    @JoinColumn(name = "image_id")
+    private ImageModel data;
 
     @ManyToOne()
     @JoinColumn(name = "view_id")

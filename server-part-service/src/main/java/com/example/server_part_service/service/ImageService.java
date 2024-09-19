@@ -81,6 +81,7 @@ public class ImageService {
 
 
     public List<ImageModel> findImagesByEntry(EntryModel model) {
-        return repository.findAllByEntryModel(model);
+      //  return repository.findAllByEntryModel(model);
+        return null;
     }
 }

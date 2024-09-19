@@ -28,7 +28,7 @@ public class RequestDtoRedBookEntry {
     private String sourcesOfInformation;
     private String authors;
 
-    private RequestDtoImage image;
+    private RequestDtoImage data;
     private Long view;//data in base64
 
 }
