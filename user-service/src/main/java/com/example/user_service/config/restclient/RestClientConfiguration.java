@@ -15,6 +15,6 @@ public class RestClientConfiguration {
 
     @Bean
     public RestClient restClient(){
-        return RestClient.create();
+        return RestClient.create(localhost);
     }
 }

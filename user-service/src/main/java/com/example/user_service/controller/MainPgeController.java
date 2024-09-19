@@ -26,6 +26,7 @@ public class MainPgeController {
     public String getMainPage(Model model){
         List<ResponseDtoRedBookEntry>  list = mainPageService.findAll();
         model.addAttribute("entry", list);
+        model.addAttribute("views", mainPageService.finaAllView());
         return "user_index";
     }
 
