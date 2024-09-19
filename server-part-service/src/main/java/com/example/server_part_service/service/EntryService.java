@@ -16,7 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,9 +33,14 @@ public class EntryService {
     private ImageService imageService;
 
     public EntryModel getModelById(long entryId) {
-        return entryRepository.findById(entryId)
-                .orElseThrow(
-                        () -> new EntityNotFoundException("Image with id " + entryId + " not found"));
+        Optional<EntryModel> byId = entryRepository.findById(entryId);
+        List<ImageModel> images = imageService.findImagesByEntry(byId.get());
+        EntryModel entryModel = byId.get();
+        entryModel.setData(images);
+        return entryModel;
+//        return byId
+//                .orElseThrow(
+//                        () -> new EntityNotFoundException("Image with id " + entryId + " not found"));
     }
 
     public void deleteAll() {
@@ -141,7 +148,6 @@ public class EntryService {
         log.info("{}", image);// Конвертация массива байтов в строку Base64
         return "data:" + image.getContentType() + ";base64," + java.util.Base64.getEncoder().encodeToString(image.getData());
     }
-
 
     public List<ResponseEntryDTOFourFields> findAllPreview() {
         List<Object[]> fourFields1 = entryRepository.findFourFields();
