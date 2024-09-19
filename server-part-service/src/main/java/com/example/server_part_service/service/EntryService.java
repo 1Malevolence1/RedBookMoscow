@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,7 +32,8 @@ public class EntryService {
     private ImageService imageService;
 
     public EntryModel getModelById(long entryId) {
-        return entryRepository.findById(entryId)
+        Optional<EntryModel> byId = entryRepository.findById(entryId);
+        return byId
                 .orElseThrow(
                         () -> new EntityNotFoundException("Image with id " + entryId + " not found"));
     }
