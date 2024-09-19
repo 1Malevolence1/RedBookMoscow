@@ -1,15 +1,15 @@
 import re
 import base64
-from pprint import pprint
+from typing import Any
 
 
-def get_one_png2json(image_path):
+def get_one_png2json(image_path: str, id_value: int = 0) -> dict[str, Any]:
     with open(image_path, 'rb') as file:
         image_data = file.read()
         encoded_image = base64.b64encode(image_data).decode('utf-8')
 
         image_dict = {
-            "id": 0,
+            "id": id_value,
             "name": image_path.split('/')[-1].replace('.png', ''),
             "originalFileName": "image.png",
             "size": len(image_data),
@@ -20,7 +20,7 @@ def get_one_png2json(image_path):
         return image_dict
 
 
-def create_fields(txt_path):
+def create_fields(txt_path) -> list[dict[str, str]]:
     translations = {
         "Имя": "name",
         "Латинское имя": "latinName",
@@ -87,20 +87,22 @@ def create_fields(txt_path):
     return results
 
 
-def _is_english(text):
+def _is_english(text: str) -> bool:
     pattern = r'^[A-Z][a-z]+(\s[a-z]+)?(\s\([A-Za-z\s,&]+[0-9]{4}\))?$'
     if re.fullmatch(pattern, text):
         return not text.isdigit() and len(text.split()) >= 2
     return False
 
-def main():
-    path_run = './data/tmp/9_kkm_bespozvonochnie-4chast.txt'
-    path_debug = r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\tmp\9_kkm_bespozvonochnie-4chast.txt'
+
+def main() -> None:
+    # path_run = './data/tmp/9_kkm_bespozvonochnie-4chast.txt'
+    # path_debug = r'.\data\tmp\9_kkm_bespozvonochnie-4chast.txt'
     
-    try:
-        create_fields(path_run)
-    except FileNotFoundError:
-        create_fields(path_debug)
+    # try:
+    #     create_fields(path_run)
+    # except FileNotFoundError:
+    #     create_fields(path_debug)
+    pass
 
 
 if __name__ == "__main__":

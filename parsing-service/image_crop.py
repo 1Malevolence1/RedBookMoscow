@@ -48,7 +48,7 @@ def get_images_from_pdf(pdf_path: str) -> None:
     return cnt_entity
 
 
-def _split_ru_en_string(text):
+def _split_ru_en_string(text: str) -> tuple[str, str] | None:
     match = re.search(r'[A-Za-z]', text)
     if match:
         return text[: match.start()], text[match.start(): ]
@@ -56,7 +56,7 @@ def _split_ru_en_string(text):
         return None
 
 
-def _delete_unsuitable_images(input_folder, output_folder):
+def _delete_unsuitable_images(input_folder: str, output_folder: str) -> None:
     if not os.path.exists(output_folder):
         os.makedirs(output_folder)
 
@@ -72,7 +72,7 @@ def _delete_unsuitable_images(input_folder, output_folder):
                     os.remove(image_path)
 
 
-def _is_many_white(image_path):
+def _is_many_white(image_path: str) -> bool:
     img = Image.open(image_path)
     img = img.convert('RGB')
 
@@ -88,18 +88,18 @@ def _is_many_white(image_path):
     return white_pixel_count / (width * height) > 0.8
 
 
-def _is_horizontal(image, max_width_to_height_ratio=3):
+def _is_horizontal(image: Image, max_width_to_height_ratio=3) -> bool:
     """Проверяет, является ли изображение слишком горизонтальным."""
     width, height = image.size
     return width / height > max_width_to_height_ratio
 
 
-def _has_text(image):
+def _has_text(image: str) -> bool:
     return bool(pytesseract.image_to_string(image).strip())
 
 
 # Функция для вырезания элементов изображений из PDF
-def _crop_image(element, pageObj, path_output_with_name: str ='./data/tmp/cropped_image'):
+def _crop_image(element, pageObj, path_output_with_name: str ='./data/tmp/cropped_image') -> str:
     # Получаем координаты для вырезания изображения из PDF
     [image_left, image_top, image_right, image_bottom] = [element.x0,element.y0,element.x1,element.y1] 
     # Обрезаем страницу по координатам (left, bottom, right, top)

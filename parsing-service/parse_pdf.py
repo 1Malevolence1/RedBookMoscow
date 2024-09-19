@@ -1,46 +1,32 @@
 import os
-import re
 import glob
 import time
 import json
 from typing import Optional
 from tqdm.auto import tqdm
-from pprint import pprint
-from collections import defaultdict
-
-# Для извлечения текста из PDF
-import fitz
-import PyPDF2
-import pdfplumber
-
-# Для проверки типов в pdf
-from pdfminer.high_level import extract_pages, extract_text
-from pdfminer.layout import LTTextContainer, LTChar, LTFigure, LTItemT
 
 # Для извлечения изображений из PDF
 from PIL import Image
 from pdf2image import convert_from_path
 import pytesseract
 
-from deep_translator import GoogleTranslator
-
 from image_crop import get_images_from_pdf, _delete_unsuitable_images
 from convert2dto import create_fields, get_one_png2json
 
 
-def parse_one_pdf_to_json(pdf_path: str) -> list:
+def parse_one_pdf_to_json(pdf_path: str, view: str) -> list[dict[str, Optional[str]]]:
     json_to_sql = []
     
-    
-    save_text_to_file(pdf_path, pdf_path.replace('/pdf', '/txt').replace('.pdf', '.txt'))
+    txt_path = save_text_to_file(pdf_path, pdf_path.replace('/pdf', '/txt').replace('.pdf', '.txt'))
     cnt_entity = get_images_from_pdf(pdf_path=pdf_path)
     
-    _delete_unsuitable_images(input_folder='./data/tmp', output_folder='./data/tmp')
-    jsons_base = create_fields(txt_path='./data/tmp/9_kkm_bespozvonochnie-4chast.txt')
+    _delete_unsuitable_images(input_folder='./data/img', output_folder='./data/img')
+    jsons_base = create_fields(txt_path=txt_path)
+    
     
     print(len(jsons_base, cnt_entity))
     for i, json_base in enumerate(jsons_base):
-        directory = "/parsing-service/data/tmp"
+        directory = "./data/img"
         file_pattern = os.path.join(directory, f"{i}_*.png")
         matching_files = glob.glob(file_pattern)
         
@@ -49,17 +35,19 @@ def parse_one_pdf_to_json(pdf_path: str) -> list:
             images['images'].append(get_one_png2json(file))
         
         json_base.update(images)
+        json_base.update({"view": view})
+        
         json_to_sql.append(json_base)
     
     return json_to_sql
 
 
-def extract_text_from_image(image):
+def extract_text_from_image(image: Image) -> str:
     """Извлекает текст из изображения с помощью Pytesseract."""
     return pytesseract.image_to_string(image, lang='rus+eng')
 
 
-def save_text_to_file(input_file, output_file):
+def save_text_to_file(input_file: str, output_file: str) -> None:
     images = convert_from_path(input_file)
     full_text = ""
     
@@ -70,14 +58,16 @@ def save_text_to_file(input_file, output_file):
     """Сохраняет извлеченный текст в файл."""
     with open(output_file, 'w', encoding='utf-8') as f:
         f.write(full_text)
+    
+    return output_file
 
 
 def main() -> None:
-    json_to_sql = parse_one_pdf_to_json(path2 = r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\pdf\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf')
+    json_to_sql = parse_one_pdf_to_json(pdf_path = r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\pdf\9)KKM-2022Razdel5Bespozvonochnie-4chasts426-484.pdf')
     json.dumps(json_to_sql, indent=4, ensure_ascii=False)
 
 
 if __name__ == "__main__":
     start_time = time.monotonic()
     main()
-    print(f"Work time: {time.monotonic() - start_time}")
+    print(f"\n\nWork time: {time.monotonic() - start_time}")
