@@ -3,7 +3,10 @@ package com.example.server_part_service.service;
 import com.example.server_part_service.dto.entry.RequestEntryDTO;
 import com.example.server_part_service.dto.entry.ResponseEntryDTO;
 import com.example.server_part_service.dto.entry.ResponseEntryDTOFourFields;
+import com.example.server_part_service.exception.AlreadyExistException;
+import com.example.server_part_service.exception.DeleteEntryException;
 import com.example.server_part_service.exception.EntityNotFoundException;
+import com.example.server_part_service.exception.EntryNotFoundException;
 import com.example.server_part_service.model.EntryModel;
 import com.example.server_part_service.model.ImageModel;
 import com.example.server_part_service.model.View;
@@ -13,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,18 +58,21 @@ public class EntryService {
 
     public EntryModel saveModel(EntryModel entryModel) {
         log.info("we in entryService 58");
-        if (ifExistById(entryModel.getId())) {
-            throw new RuntimeException("just exist");
+        if (existById(entryModel.getId())) {
+            throw new AlreadyExistException("already exist");
         }
         return entryRepository.save(entryModel);
     }
 
-    private boolean ifExistById(Long id) {
+    private boolean existById(Long id) {
         return entryRepository.existsById(id);
     }
 
     public EntryModel updateModel(EntryModel entryModel) {
-        return entryRepository.save(entryModel);
+        if (existById(entryModel.getId())) {
+            return entryRepository.save(entryModel);
+        }
+        throw new EntryNotFoundException("error in update. reason not found");
     }
 
     public void deleteEntry(EntryModel model) {
@@ -75,7 +80,10 @@ public class EntryService {
     }
 
     public void deleteEntry(Long entryId) {
-        entryRepository.deleteById(entryId);
+        if (existById(entryId)) {
+            entryRepository.deleteById(entryId);
+        }
+        throw new DeleteEntryException("deleted error. reason: element not exist");
     }
 
     public ResponseEntryDTO converterModelToResponseDto(EntryModel model) {
