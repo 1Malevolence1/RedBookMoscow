@@ -46,9 +46,11 @@ def create_fields(txt_path):
         "Принятые меры охраны": "protectionMeasuresTaken",
         "Изменение состояния вида": "changesInStatusOfSpecies",
         "Необходимые мероприятия по сохранению вида": "neededConservationActions",
+        "Необходимые мероприятия по восстановлению вида": "neededConservationActions",
         "Источники информации": "sourcesOfInformation",
         "Автор": "authors",
-        "Авторы": "authors"
+        "Авторы": "authors",
+        "Фото": "image_sign"
     }
     
     results = []
@@ -64,34 +66,36 @@ def create_fields(txt_path):
             line = line.strip()
 
             if _is_english(line):
-                print(line)
-                # Если это латинское имя, и мы нашли достаточное количество строк выше
+                results.append(result)
                 if i >= 2:
                     result = {
-                        "Имя": lines[i - 2].strip(),  # Предполагаем, что имя находится за две строки
-                        "Латинское имя": line,
-                        "Отряд": lines[i + 1].strip() if i + 1 < len(lines) else '',
-                        "Семейство": lines[i + 2].strip() if i + 2 < len(lines) else ''
+                        "name": lines[i - 2].strip(),  # Предполагаем, что имя находится за две строки
+                        "latinName": line,
+                        "division": lines[i + 1].strip() if i + 1 < len(lines) else '',
+                        "family": lines[i + 2].strip() if i + 2 < len(lines) else ''
                     }
-
+                    continue
+            
+            found_key = False
             for key in translations.keys():
                 if key in line:
+                    found_key = True
                     if current_key is not None:
+                        # Завершаем предыдущий ключ: объединяем все строки в одно значение
                         result[current_key] = ' '.join(current_value).strip().replace('\n', ' ')
-                        current_value = []
-
+                    # Устанавливаем новый текущий ключ
                     current_key = translations[key]
-                    current_value = [line.replace(key, '').strip()]
-                    break
+                    # Добавляем в значение всё, что идет после ключа
+                    current_value = [line.strip()]
+                    break    
             
-            else:
+            if not found_key:
                 if current_key is not None:
                     current_value.append(line)
         
         if current_key is not None:
             result[current_key] = ' '.join(current_value).strip().replace('\n', ' ')
-
-        results.append(result)
+    
 
     pprint(results)
 
@@ -103,7 +107,13 @@ def _is_english(text):
     return False
 
 def main():
-    create_fields('./data/tmp/9_kkm_bespozvonochnie-4chast.txt')
+    path_run = './data/tmp/9_kkm_bespozvonochnie-4chast.txt'
+    path_debug = r'C:\Users\whatt\Projects\WORK\RedBookMoscow\parsing-service\data\tmp\9_kkm_bespozvonochnie-4chast.txt'
+    
+    try:
+        create_fields(path_run)
+    except FileNotFoundError:
+        create_fields(path_debug)
 
 
 if __name__ == "__main__":
