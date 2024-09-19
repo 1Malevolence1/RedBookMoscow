@@ -68,9 +68,7 @@ public class EntryService {
 
     public EntryModel saveModel(EntryModel entryModel) {
         log.info("we in entryService 58");
-        if (existById(entryModel.getId())) {
-            throw new AlreadyExistException("already exist");
-        }
+
         List<ImageModel> data = entryModel.getData();
         EntryModel save = entryRepository.save(entryModel);
         for (ImageModel datum : data) {
@@ -160,14 +158,16 @@ public class EntryService {
 
     public List<ResponseEntryDTOFourFields> findAllPreview() {
         List<Object[]> fourFields1 = entryRepository.findFourFields();
+
         return fourFields1.stream()
                 .map(row -> {
                     ResponseEntryDTOFourFields dto = new ResponseEntryDTOFourFields();
                     dto.setId((Long) row[0]);
                     dto.setName((String) row[1]);
                     dto.setLatinName((String) row[2]);
+                    imageService.findImagesByEntry(getModelById(dto.getId()));
 //                    dto.setData(getImageDataInBase64(imageService.findById((Long) row[3]))); // Преобразование data, предполагается, что это long
-                    dto.setView(viewService.findById((long)row[4]).orElseThrow(() -> new EntityNotFoundException("exception in")).getTitle());
+                    dto.setView(viewService.findById((long)row[3]).orElseThrow(() -> new EntityNotFoundException("exception in")).getTitle());
                     return dto;
                 })
                 .collect(Collectors.toList());
