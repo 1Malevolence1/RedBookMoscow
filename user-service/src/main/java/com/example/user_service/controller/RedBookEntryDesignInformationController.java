@@ -28,7 +28,7 @@ public class RedBookEntryDesignInformationController {
                                       Model model){
 
         model.addAttribute("entry", responseDtoRedBookEntry);
-        return "...";
+        return "user_article";
     }
 
 

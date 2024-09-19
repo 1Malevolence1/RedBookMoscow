@@ -21,7 +21,7 @@ public class RedBookEntryDesignInformationServiceImpl implements RedBookEntryDes
     public Optional<ResponseDtoRedBookEntry> findById(Long id) {
         try {
             return Optional.ofNullable(restClient.get()
-                    .uri(PathUriController.GET__RED_BOK_ENTRY_DATA_BASE)
+                    .uri(PathUriController.GET_RED_BOOL_ENTRY_DATA_BASE.formatted(id))
                     .retrieve()
                     .body(ResponseDtoRedBookEntry.class));
         } catch (HttpClientErrorException.NotFound exception) {

@@ -1,38 +1,144 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Красная книга</title>
-    <link rel="stylesheet" href="css/add_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        header {
+            background-color: #004d00;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .highlight {
+            color: rgb(255, 255, 255);
+            transition: color 1s ease-in-out;
+        }
+
+        .highlight:hover {
+            color: rgb(173, 0, 0);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px; /* Отступ сверху для таблицы */
+        }
+
+        th, td {
+            padding: 12px; /* Отступы для ячеек */
+            text-align: left; /* Выравнивание текста по левому краю */
+            border-bottom: 1px solid #ddd; /* Разделитель между строками */
+        }
+
+        th {
+            background-color: #f2f2f2; /* Цвет фона заголовков */
+            color: #333; /* Цвет текста заголовков */
+            font-size: 16px; /* Размер шрифта заголовков */
+            font-weight: bold; /* Жирный текст заголовков */
+            text-transform: uppercase; /* Верхний регистр для заголовков */
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f8f8; /* Цвет фона для четных строк */
+        }
+
+        .add-button {
+            display: inline-block;
+            margin-top: 20px;
+            margin-right: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Цвет кнопки "Добавить" */
+            color: white;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-button:hover {
+            background-color: #45a049; /* Цвет кнопки при наведении */
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            background-color: #007BFF; /* Цвет для кнопки "Назад" */
+            color: white;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            background-color: #0056b3; /* Цвет при наведении */
+        }
+    </style>
 </head>
 <body>
+
 <header>
     <h1>
         <span class="highlight">Красная</span>
         книга
     </h1>
 </header>
-<section id="menu">
-    <a class="a-inbtn" href="admin_index.html"><button class="back-button">Назад</button></a>
-</section>
 
-<main style="display: flex; justify-content: center; align-items: center; padding: 2rem;">
-    <section class="manage-content">
-        <div class="line">
-            <select id="views" name="views">
-                <option th:each="view: ${views}" th:value="${view.id}" th:text="${view.title}"></option>
-            </select>
-            <a href=""><button style="min-width: 100px; margin-left: 1rem;" class="submit-delete-button">Удалить</button></a>
-        </div>
+<div class="container">
+    <h2>Управление видами</h2>
 
-        <div class="line">
-            <input type="text" placeholder="Название вида" id="item-name">
-            <a href=""><button style="min-width: 100px; margin-left: 1rem;" class="submit-add-button">Добавить</button></a>
-        </div>
-    </section>
+    <div th:if="${views.isEmpty()}">
+        <p>Видов нет</p>
+    </div>
 
-</main>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Тип</th>
+            <th>Удалить</th>
+        </tr>
+        <tr th:each="view : ${views}">
+            <td th:text="${view.id}">ID</td>
+            <td th:text="${view.title}">Тип</td>
+            <td>
+                <form data-th-action="@{/api/admin/view/delete}" method="post">
+                    <input type="hidden" name="viewId" th:value="${view.id}" />
+                    <button type="submit" class="add-button">Удалить</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+
+
+    <div class="line">
+        <form th:action="@{/api/admin/view/create}" method="post" style="display:inline;">
+            <input type="text" placeholder="Название вида" name="title" required/>
+            <button type="submit" class="add-button">Добавить вид</button>
+        </form>
+    </div>
+
+    <button onclick="window.location.href='@{/admin_index.html}'" class="back-button">Назад</button>
+
+</div>
 
 <footer>
     <p>&copy; 2024 Красная книга. Все права защищены. <a id="about" href="about.html">О нас.</a></p>

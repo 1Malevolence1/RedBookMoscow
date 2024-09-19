@@ -36,7 +36,7 @@ public class ViewManagerRestController {
 
 
     @DeleteMapping("/delete/{viewId:\\d+}")
-    public ResponseEntity<Validation> deleteView(@PathVariable(name = "view") Long id) {
+    public ResponseEntity<Validation> deleteView(@PathVariable(name = "viewId") Long id) {
         viewService.delete(id);
         return ResponseEntity.ok().build();
     }

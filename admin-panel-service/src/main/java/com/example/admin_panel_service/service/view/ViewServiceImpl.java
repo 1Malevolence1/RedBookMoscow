@@ -6,6 +6,7 @@ import com.example.admin_panel_service.dto.view.RequestDtoView;
 import com.example.admin_panel_service.dto.view.ResponseDtoView;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ViewServiceImpl implements ViewService {
     private final RestClient restClient;
 
@@ -31,7 +33,8 @@ public class ViewServiceImpl implements ViewService {
 
     @Override
     public void delete(Long id){
-        restClient.delete().uri(PathUriController.DEL_VIEW_DATA_BASE).retrieve();
+        log.info("{}", PathUriController.DEL_VIEW_DATA_BASE.formatted(id));
+        restClient.delete().uri(PathUriController.DEL_VIEW_DATA_BASE.formatted(id)).retrieve();
     }
 
     @SneakyThrows

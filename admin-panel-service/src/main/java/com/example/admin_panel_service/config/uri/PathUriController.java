@@ -14,6 +14,6 @@ public final class PathUriController {
     // Запросы для View
 
     public static String GET_LIST_VIEW_DATA_BASE = "/api/server-part/view";
-    public static String DEL_VIEW_DATA_BASE = "/api/server-part/view/*d";
+    public static String DEL_VIEW_DATA_BASE = "/api/server-part/view/delete/%d";
     public static String POST_VIEW_DATA_BASE = "/api/server-part/view";
 }
